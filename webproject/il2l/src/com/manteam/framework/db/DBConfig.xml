@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DBConfig>
+	<DBDriver>mysql</DBDriver>
+	<username>appuser</username>
+	<password>appuser</password>
+	<schema>syllabus</schema>
+	<host>localhost</host>
+	<port>3306</port>
+</DBConfig>
