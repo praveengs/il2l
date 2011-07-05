@@ -1,0 +1,17 @@
+select 'Dropping table EXAM_QUESTIONS';
+DROP TABLE EXAM_QUESTIONS;
+
+select 'Dropping table SYB_KEYWORD_SUBMODULE_MAP';
+DROP TABLE SYB_KEYWORD_SUBMODULE_MAP;
+
+select 'Dropping table SYB_KEYWORD';
+DROP TABLE SYB_KEYWORD;
+
+select 'Droppin table SYB_SUBMODULE';
+DROP TABLE SYB_SUBMODULE;
+
+select 'Dropping table SYB_MODULE';
+DROP TABLE SYB_MODULE;
+
+select 'Dropping table SYB_SUBJECT';
+DROP TABLE SYB_SUBJECT;
