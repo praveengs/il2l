@@ -38,6 +38,7 @@ public class TrainingSql extends AbstractSql {
 			resultSet = preparedStatement.executeQuery();
 
 			subjectVOs = getSubjectVOs(resultSet);
+			//System.out.println(subjectVOs);
 		} finally {
 			close(resultSet, preparedStatement);
 		}
@@ -92,9 +93,9 @@ public class TrainingSql extends AbstractSql {
 						subjectVOs = new ArrayList<SubjectVO>(2);
 					}
 					subjectVOs.add(subjectVO);
-					subjectVO.setSubjectName(curSubject);
+					subjectVO.setSubjectName(curSubject);					
 					subjectVO.setSubjectId(resultSet
-						.getInt(TrainingQueryConstants.IDSYB_SUBJECT));
+							.getInt(TrainingQueryConstants.IDSYB_SUBJECT));
 				}
 				if (moduleMap == null) {
 					moduleMap = new HashMap<String, ModuleVO>(2);
@@ -116,6 +117,7 @@ public class TrainingSql extends AbstractSql {
 						subjectVO.setModules(moduleVOs);
 					}
 					moduleVOs.add(moduleVO);
+					moduleMap.put(curModuleName, moduleVO);
 				} 
 				/*if (!curModuleName.equals(prevModuleName)) {
 					moduleVO = new ModuleVO();
