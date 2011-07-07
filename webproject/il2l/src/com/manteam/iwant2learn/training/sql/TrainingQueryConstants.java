@@ -8,6 +8,8 @@ public abstract class TrainingQueryConstants {
 	public static final String MODULE_NAME = "MODULE_NAME";
 	public static final String SUBMODULE_NAME = "SUBMODULE_NAME";
 	public static final String SUBMODULE_DESC = "SUBMODULE_DESC";
+	public static final String IDSYB_SUBJECT = "IDSYB_SUBJECT";
+	public static final String SYB_SUB_MODULE_ID = "SYB_SUB_MODULE_ID";
 
 	/**
 	 * Questions table column names
@@ -27,5 +29,7 @@ public abstract class TrainingQueryConstants {
 	public static final String UNITS = "UNITS";
 	public static final String FORMULAE = "FORMULAE";
 	public static final String DATA = "DATA";
+	public static final String SYB_SUB_SUBMODULE_ID = "SYB_SUB_SUBMODULE_ID";
+	
 
 }

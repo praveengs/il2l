@@ -10,6 +10,9 @@ public class SubjectVO implements Serializable {
 	 */
 	private static final long serialVersionUID = 5595765900211939870L;
 
+
+	private int subjectId;
+	
 	private String subjectName;
 
 	private Collection<ModuleVO> modules;
@@ -44,9 +47,21 @@ public class SubjectVO implements Serializable {
 		this.modules = modules;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @return the subjectId
+	 */
+	public int getSubjectId() {
+		return subjectId;
+	}
+
+	/**
+	 * @param subjectId the subjectId to set
+	 */
+	public void setSubjectId(int subjectId) {
+		this.subjectId = subjectId;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -54,14 +69,13 @@ public class SubjectVO implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
+		result = prime * result + subjectId;
 		result = prime * result
 				+ ((subjectName == null) ? 0 : subjectName.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -83,6 +97,9 @@ public class SubjectVO implements Serializable {
 		} else if (!modules.equals(other.modules)) {
 			return false;
 		}
+		if (subjectId != other.subjectId) {
+			return false;
+		}
 		if (subjectName == null) {
 			if (other.subjectName != null) {
 				return false;
@@ -93,20 +110,22 @@ public class SubjectVO implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SubjectVO [subjectName=");
+		builder.append("SubjectVO [subjectId=");
+		builder.append(subjectId);
+		builder.append(", subjectName=");
 		builder.append(subjectName);
 		builder.append(", modules=");
 		builder.append(modules);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 }

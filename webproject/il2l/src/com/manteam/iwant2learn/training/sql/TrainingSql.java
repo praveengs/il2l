@@ -72,12 +72,15 @@ public class TrainingSql extends AbstractSql {
 			throws SQLException {
 		Collection<SubjectVO> subjectVOs = null;
 		Collection<ModuleVO> moduleVOs = null;
+		HashMap<String, ModuleVO> moduleMap = null;
+		HashMap<Integer, String> idSubmoduleMap = null;
+		//HashMap<String, ModuleVO> moduleMap = null;
 		Collection<String> subModules = null;
 		SubjectVO subjectVO = null;
 		ModuleVO moduleVO = null;
 		String prevSubject = null;
 		String curSubject = null;
-		String prevModuleName = null;
+		String subModuleName = null;
 		String curModuleName = null;
 		if (resultSet.next()) {
 			do {
@@ -90,10 +93,31 @@ public class TrainingSql extends AbstractSql {
 					}
 					subjectVOs.add(subjectVO);
 					subjectVO.setSubjectName(curSubject);
+					subjectVO.setSubjectId(resultSet
+						.getInt(TrainingQueryConstants.IDSYB_SUBJECT));
+				}
+				if (moduleMap == null) {
+					moduleMap = new HashMap<String, ModuleVO>(2);
 				}
 				curModuleName = resultSet
 						.getString(TrainingQueryConstants.MODULE_NAME);
-				if (!curModuleName.equals(prevModuleName)) {
+				moduleVO = moduleMap.get(curModuleName);
+				if (moduleVO == null) {
+					moduleVO = new ModuleVO();
+					subModules = new ArrayList<String>(2);
+					idSubmoduleMap = new HashMap<Integer, String>(2);
+					moduleVO.setSubmodules(subModules);
+					moduleVO.setIdSubModuleMap(idSubmoduleMap);
+					moduleVO.setModuleName(curModuleName);
+					moduleVO.setModuleId( resultSet
+						.getInt(TrainingQueryConstants.SYB_SUB_MODULE_ID));
+					if (moduleVOs == null) {
+						moduleVOs = new ArrayList<ModuleVO>(2);
+						subjectVO.setModules(moduleVOs);
+					}
+					moduleVOs.add(moduleVO);
+				} 
+				/*if (!curModuleName.equals(prevModuleName)) {
 					moduleVO = new ModuleVO();
 					moduleVO.setModuleName(curModuleName);
 					moduleVOs = subjectVO.getModules();
@@ -102,16 +126,22 @@ public class TrainingSql extends AbstractSql {
 						subjectVO.setModules(moduleVOs);
 					}
 					moduleVOs.add(moduleVO);
-				}
-				subModules = moduleVO.getSubmodules();
+				}*/
+				subModuleName = resultSet
+						.getString(TrainingQueryConstants.SUBMODULE_NAME);
+				moduleVO.getSubmodules().add(subModuleName);
+				moduleVO.getIdSubModuleMap().put(resultSet
+						.getInt(TrainingQueryConstants.SYB_SUB_SUBMODULE_ID), subModuleName);
+				
+				/*subModules = moduleVO.getSubmodules();
 				if (subModules == null) {
 					subModules = new ArrayList<String>(2);
 					moduleVO.setSubmodules(subModules);
 				}
 				subModules.add(resultSet
-						.getString(TrainingQueryConstants.SUBMODULE_NAME));
+						.getString(TrainingQueryConstants.SUBMODULE_NAME));*/
 				prevSubject = curSubject;
-				prevModuleName = curModuleName;
+				//prevModuleName = curModuleName;
 
 			} while (resultSet.next());
 		}
