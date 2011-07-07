@@ -8,6 +8,7 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
 import com.manteam.iwant2learn.training.server.TrainingServer;
+import com.manteam.iwant2learn.training.util.WebXMLCreator;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 import com.manteam.iwant2learn.vo.SubjectVO;
 
@@ -42,6 +43,21 @@ public class TrainingController {
 			throws SystemException {
 
 		return getTrainingServer().retrieveSubjects(subjectName);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws SystemException
+	 */
+	public String retrieveXMLStreamForSubject(String subjectName)
+			throws SystemException {
+		String xmlString = null;
+		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName);
+		for (SubjectVO subjectVO: subjectVOs) {
+			xmlString = WebXMLCreator.createXMLStreamForWebClient(subjectVO);
+		}
+		return xmlString;
 	}
 
 	/**
