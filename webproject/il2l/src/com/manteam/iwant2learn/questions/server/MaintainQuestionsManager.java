@@ -5,7 +5,6 @@ package com.manteam.iwant2learn.questions.server;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import com.manteam.framework.db.ConnectionManager;
 import com.manteam.framework.db.exceptions.DatabaseException;
@@ -13,7 +12,6 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.sql.MaintainQuestionSql;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
 
 /**
  * @author Praveen
