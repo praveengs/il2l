@@ -30,6 +30,7 @@ public class MaintainQuestionSql extends AbstractSql {
 
 		} finally {
 			close(preparedStatement);
+			close(connection);
 		}
 		return rowsInserted;
 	}
@@ -63,7 +64,7 @@ public class MaintainQuestionSql extends AbstractSql {
 						.getInt(MaintainQuestionsQueryConstants.SYB_SUB_SUBMODULE_ID);
 			}
 		} finally {
-			close(resultSet, preparedStatement);
+			close(connection, resultSet, preparedStatement);
 		}
 		return submoduleId;
 	}
