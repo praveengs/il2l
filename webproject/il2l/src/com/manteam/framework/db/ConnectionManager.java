@@ -5,6 +5,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +33,31 @@ public class ConnectionManager {
 	}
 
 	public Connection getConnection() throws DatabaseException {
+
+		Context initContext = null;
+		Context envContext = null;
+		DataSource ds = null;
+		Connection conn = null;
+		try {
+			initContext = new InitialContext();
+
+			envContext = (Context) initContext.lookup("java:/comp/env");
+			ds = (DataSource) envContext.lookup("jdbc/TrainingDB");
+			conn = ds.getConnection();
+		} catch (NamingException namingException) {
+			throw new DatabaseException(DatabaseException.DATABASE_UNAVAILABLE,
+					namingException);
+		} catch (SQLException sqlException) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			throw new DatabaseException(DatabaseException.DATABASE_UNAVAILABLE,
+					sqlException);
+		}
+		return conn;
+
+	}
+
+	public Connection getNewConnection() throws DatabaseException {
 		Connection conn = null;
 		ConnectionDetails connectionDetails;
 		// String userName = "";
@@ -37,7 +67,7 @@ public class ConnectionManager {
 			connectionDetails = getConnectionDetailsFromSystemFile(new File(
 					"config/DBConfig.xml"));
 
-			//System.out.println(connectionDetails);
+			// System.out.println(connectionDetails);
 			url = buildUrl(connectionDetails.getDbType(),
 					connectionDetails.getHost(), connectionDetails.getPort(),
 					connectionDetails.getDbschema());
