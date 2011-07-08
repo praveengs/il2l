@@ -1,6 +1,7 @@
 package com.manteam.iwant2learn.questions.client.handler;
 
 import com.manteam.framework.exceptions.SystemException;
+import com.manteam.framework.manager.AbstractManager;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
@@ -24,7 +25,8 @@ public class MaintainQuestionsHandler {
 
 	private MaintainQuestionsManager getMaintainQuestionsManager() {
 		if (maintainQuestionsManager == null) {
-			maintainQuestionsManager = new MaintainQuestionsManager();
+			maintainQuestionsManager = new MaintainQuestionsManager();		
+			maintainQuestionsManager.setMode(AbstractManager.CLIENT_APP_MODE);
 		}
 		return maintainQuestionsManager;
 	}
