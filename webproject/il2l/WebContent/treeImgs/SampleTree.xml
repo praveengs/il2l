@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<tree id="0">
+	<item text="Physics" id="books">
+		<item text="Newtonean mechanics" id="mystery">
+			<item text="Kinematics" id="lb" />				
+			<item text="Dynamics" id="rc" />
+			<item text="Forces" id="ir" />
+			<item text="Work, Energy, Power" id="jp" />
+			<item text="Motion in a Circle" id="na" />
+			<item text="Gravitational Field" id="na" />
+		</item>
+		<item text="General Physics" id="history">
+			<item text="Test" id="jmf" />
+		</item>		
+	</item>
+</tree> 
