@@ -11,6 +11,7 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.sql.MaintainQuestionSql;
+import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
 /**
@@ -19,14 +20,7 @@ import com.manteam.iwant2learn.vo.ExamQuestionsVO;
  */
 public class MaintainQuestionsManager extends AbstractManager {
 
-	private Connection connection = null;
-
-	private Connection retrieveConnection() throws DatabaseException {
-		if (connection == null) {
-			connection = getConnection();
-		}
-		return connection;
-	}
+	
 
 	public boolean saveQuestion(ExamQuestionsVO examQuestionsVO)
 			throws SystemException, MaintainQuestionsException {
@@ -34,15 +28,46 @@ public class MaintainQuestionsManager extends AbstractManager {
 		boolean isInserted = false;
 		try {
 
+			Connection conn = getConnection();
 			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
 			int submoduleId = maintainQuestionSql.getSubmoduleId(
-					retrieveConnection(), examQuestionsVO);
+					conn, examQuestionsVO);
 			if (submoduleId == -1) {
 				throw new MaintainQuestionsException(
 						MaintainQuestionsException.INVALID_SUBJ_MOD_SUBMOD_COMB);
 			}
 			int recordsUpdated = maintainQuestionSql.saveQuestion(
-					retrieveConnection(), examQuestionsVO, submoduleId);
+					conn, examQuestionsVO, submoduleId);
+			if (recordsUpdated > 0) {
+				isInserted = true;
+			}
+		} catch (DatabaseException databaseException) {
+			// TODO Auto-generated catch block
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return isInserted;
+	}
+	
+	public boolean saveQuestionForSubmodules(LogonAttributesVO logonAttributesVO, ExamQuestionsVO examQuestionsVO)
+			throws SystemException, MaintainQuestionsException {
+
+		boolean isInserted = false;
+		try {
+			Connection conn = getConnection();
+
+			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
+			int submoduleId = maintainQuestionSql.getSubmoduleId(
+					conn, examQuestionsVO);
+			if (submoduleId == -1) {
+				throw new MaintainQuestionsException(
+						MaintainQuestionsException.INVALID_SUBJ_MOD_SUBMOD_COMB);
+			}
+			int recordsUpdated = maintainQuestionSql.saveQuestion(
+					conn, examQuestionsVO, submoduleId);
 			if (recordsUpdated > 0) {
 				isInserted = true;
 			}

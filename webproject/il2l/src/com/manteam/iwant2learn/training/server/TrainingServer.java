@@ -12,8 +12,7 @@ import com.manteam.iwant2learn.vo.QuestionReturnVO;
 import com.manteam.iwant2learn.vo.SubjectVO;
 
 public class TrainingServer extends AbstractManager {
-	Connection connection = null;
-
+	
 	public Collection<SubjectVO> retrieveSubjects(String subjectName)
 			throws SystemException {
 		Collection<SubjectVO> subjectVOs = null;
@@ -21,7 +20,7 @@ public class TrainingServer extends AbstractManager {
 		try {
 
 			subjectVOs = TrainingSql.getInstance().retrieveSubjects(
-					retrieveConnection(), subjectName);
+					getConnection(), subjectName);
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block
 			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
@@ -48,7 +47,7 @@ public class TrainingServer extends AbstractManager {
 		try {
 
 			questionReturnVO = TrainingSql.getInstance()
-					.retrieveQuestionsForSelection(retrieveConnection(),
+					.retrieveQuestionsForSelection(getConnection(),
 							subjectVO);
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block
@@ -83,11 +82,6 @@ public class TrainingServer extends AbstractManager {
 		return subjects;
 	}
 
-	private Connection retrieveConnection() throws DatabaseException {
-		if (connection == null) {
-			connection = getConnection();
-		}
-		return connection;
-	}
+	
 
 }
