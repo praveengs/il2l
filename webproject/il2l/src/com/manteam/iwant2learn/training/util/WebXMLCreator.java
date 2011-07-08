@@ -53,17 +53,17 @@ public class WebXMLCreator {
 			 */
 
 			Element subjectChild = getChild(doc, subjectVO.getSubjectName(),
-					subjectVO.getSubjectId());
+					WebXMLConstants.SUBJECT+subjectVO.getSubjectId());
 			root.appendChild(subjectChild);
 			Element moduleChild;
 			Element submoduleChild;
 			for (ModuleVO moduleVO : subjectVO.getModules()) {
 				moduleChild = getChild(doc, moduleVO.getModuleName(),
-						moduleVO.getModuleId());
+						WebXMLConstants.MODULE+moduleVO.getModuleId());
 				HashMap<Integer, String> idSubmoduleMap = moduleVO
 						.getIdSubModuleMap();
 				for (Integer key : idSubmoduleMap.keySet()) {
-					submoduleChild = getChild(doc, idSubmoduleMap.get(key), key);
+					submoduleChild = getChild(doc, idSubmoduleMap.get(key), WebXMLConstants.SUBMODULE+key);
 					moduleChild.appendChild(submoduleChild);
 				}
 
@@ -76,7 +76,7 @@ public class WebXMLCreator {
 			TransformerFactory transfac = TransformerFactory.newInstance();
 			Transformer trans = transfac.newTransformer();
 			trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			trans.setOutputProperty(OutputKeys.INDENT, "yes");
+			//trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
 			// create string from xml tree
 			StringWriter sw = new StringWriter();
@@ -98,10 +98,10 @@ public class WebXMLCreator {
 
 	}
 
-	private static Element getChild(Document doc, String name, int id) {
+	private static Element getChild(Document doc, String name, String id) {
 		Element child = doc.createElement(WebXMLConstants.ITEM);
 		child.setAttribute(WebXMLConstants.TEXT, name);
-		child.setAttribute(WebXMLConstants.ID, (new Integer(id)).toString());
+		child.setAttribute(WebXMLConstants.ID, id);
 		return child;
 
 	}
