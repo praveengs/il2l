@@ -40,7 +40,7 @@ public class TrainingSql extends AbstractSql {
 			subjectVOs = getSubjectVOs(resultSet);
 			//System.out.println(subjectVOs);
 		} finally {
-			close(resultSet, preparedStatement);
+			close(connection, resultSet, preparedStatement);
 		}
 
 		return subjectVOs;
@@ -63,7 +63,7 @@ public class TrainingSql extends AbstractSql {
                             } while (resultSet.next());
                         }
 		} finally {
-			close(resultSet, preparedStatement);
+			close(connection, resultSet, preparedStatement);
 		}
 
 		return subjects;
@@ -178,7 +178,7 @@ public class TrainingSql extends AbstractSql {
 			}
 
 		} finally {
-			close(resultSet, preparedStatement);
+			close(connection, resultSet, preparedStatement);
 		}
 
 		return questionReturnVO;
