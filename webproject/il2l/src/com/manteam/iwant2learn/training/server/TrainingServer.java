@@ -7,9 +7,9 @@ import java.util.Collection;
 import com.manteam.framework.db.exceptions.DatabaseException;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.sql.TrainingSql;
 import com.manteam.iwant2learn.vo.QuestionReturnVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
 
 public class TrainingServer extends AbstractManager {
 	
@@ -19,7 +19,7 @@ public class TrainingServer extends AbstractManager {
 
 		try {
 
-			subjectVOs = TrainingSql.getInstance().retrieveSubjects(
+			subjectVOs = TrainingSql.getInstance().retrieveSubjectDetails(
 					getConnection(), subjectName);
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block
@@ -58,30 +58,7 @@ public class TrainingServer extends AbstractManager {
 					sqlException);
 		}
 		return questionReturnVO;
-	}
-
-	/**
-	 * 
-	 * @return
-	 * @throws SystemException
-	 */
-	public Collection<String> retrieveAllSubjects() throws SystemException {
-		Collection<String> subjects = null;
-		Connection conn;
-		try {
-			conn = getConnection();
-
-			subjects = TrainingSql.getInstance().retrieveAllSubjects(conn);
-		} catch (DatabaseException databaseException) {
-			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
-					databaseException);
-		} catch (SQLException sqlException) {
-			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
-					sqlException);
-		}
-		return subjects;
-	}
-
+	}	
 	
 
 }

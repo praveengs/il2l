@@ -19,8 +19,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.manteam.iwant2learn.vo.ModuleVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
+import com.manteam.iwant2learn.subject.vo.ModuleVO;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 
 /**
  * @author Praveen

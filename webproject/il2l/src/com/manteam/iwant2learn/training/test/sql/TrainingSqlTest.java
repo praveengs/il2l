@@ -5,9 +5,9 @@ import java.util.Collection;
 
 import com.manteam.framework.db.ConnectionManager;
 import com.manteam.framework.db.exceptions.DatabaseException;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.sql.TrainingSql;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
-import com.manteam.iwant2learn.vo.SubjectVO;
 
 public class TrainingSqlTest {
 
@@ -19,8 +19,8 @@ public class TrainingSqlTest {
 	public void testRetrieveSubjects() {
 		Collection<SubjectVO> subjectVOs = null;
 		try {
-			subjectVOs = TrainingSql.getInstance().retrieveSubjects(
-					ConnectionManager.getInstance().getConnection(), "Physics");
+			subjectVOs = TrainingSql.getInstance().retrieveSubjectDetails(
+					ConnectionManager.getInstance().getNewConnection(), "Physics");
 			for (SubjectVO subjectVO:subjectVOs) {
 				WebXMLCreator.createXMLStreamForWebClient(subjectVO);
 			}

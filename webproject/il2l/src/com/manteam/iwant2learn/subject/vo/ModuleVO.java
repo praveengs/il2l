@@ -1,4 +1,4 @@
-package com.manteam.iwant2learn.vo;
+package com.manteam.iwant2learn.subject.vo;
 
 import java.io.Serializable;
 import java.util.Collection;

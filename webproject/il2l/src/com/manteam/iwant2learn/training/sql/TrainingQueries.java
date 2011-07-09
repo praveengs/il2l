@@ -2,9 +2,6 @@ package com.manteam.iwant2learn.training.sql;
 
 public abstract class TrainingQueries {
 
-	public static final String RETRIEVE_ALL_SUBJECTS = "select SUBJECT_NAME, "
-			+ "SUBJECT_DESCRIPTION, " + "SUBJECT_WRITEUP from syb_subject";
-
 	public static final String RETRIEVE_SUBJECT_DETAILS = "SELECT A.IDSYB_SUBJECT, A.SUBJECT_NAME, B.SYB_SUB_MODULE_ID, B.MODULE_NAME, C.SYB_SUB_SUBMODULE_ID, C.SUBMODULE_NAME "
 			+ "FROM SYB_SUBJECT A, SYB_MODULE B, SYB_SUBMODULE C "
 			+ "WHERE A.SUBJECT_NAME = ? "

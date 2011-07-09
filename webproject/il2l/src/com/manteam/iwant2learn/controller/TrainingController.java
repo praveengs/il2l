@@ -8,11 +8,12 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
+import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.server.TrainingServer;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
 
 import java.util.Collection;
 
@@ -23,8 +24,10 @@ import java.util.Collection;
 public class TrainingController {
 	private static TrainingServer trainingServer = null;
 	private static MaintainQuestionsManager maintainQuestionsManager = null;
+	private static MaintainSubjectsManager maintainSubjectsManager = null;
 
 	/**
+	 * This method retrieves all the subjects defined in the system
 	 * 
 	 * @return
 	 * @throws SystemException
@@ -32,9 +35,9 @@ public class TrainingController {
 	public Collection<String> retrieveAllSubjects() throws SystemException {
 		Collection<String> subjects = null;
 
-		subjects = getTrainingServer().retrieveAllSubjects();
+		subjects = getMaintainSubjectsManager().retrieveAllSubjects();
 		return subjects;
-	}
+	}	
 
 	/**
 	 * 
@@ -110,5 +113,16 @@ public class TrainingController {
 			trainingServer = new TrainingServer();
 		}
 		return trainingServer;
+	}
+	
+	/**
+	 * To get the instance of the Maintain Subjects Manager class
+	 * @return
+	 */
+	private MaintainSubjectsManager getMaintainSubjectsManager() {
+		if (maintainSubjectsManager == null) {
+			maintainSubjectsManager = new MaintainSubjectsManager();
+		}
+		return maintainSubjectsManager;
 	}
 }

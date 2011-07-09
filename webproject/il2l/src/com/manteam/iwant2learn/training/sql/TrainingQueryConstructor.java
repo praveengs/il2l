@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.manteam.iwant2learn.vo.ModuleVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
+import com.manteam.iwant2learn.subject.vo.ModuleVO;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 
 public class TrainingQueryConstructor {
 
-	public static PreparedStatement retrieveSubjects(String subjectName,
+	public static PreparedStatement retrieveSubjectDetails(String subjectName,
 			Connection connection) throws SQLException {
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(TrainingQueries.RETRIEVE_SUBJECT_DETAILS);
@@ -67,12 +67,6 @@ public class TrainingQueryConstructor {
 		return preparedStatement;
 	}
 
-	public static PreparedStatement retrieveAllSubjects(Connection connection)
-			throws SQLException {
-		PreparedStatement preparedStatement = connection
-				.prepareStatement(TrainingQueries.RETRIEVE_ALL_SUBJECTS);
-
-		return preparedStatement;
-	}
+	
 
 }

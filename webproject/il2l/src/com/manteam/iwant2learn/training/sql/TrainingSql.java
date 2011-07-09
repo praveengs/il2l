@@ -9,11 +9,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import com.manteam.framework.sql.AbstractSql;
+import com.manteam.iwant2learn.subject.vo.KeyWordVO;
+import com.manteam.iwant2learn.subject.vo.ModuleVO;
+import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
-import com.manteam.iwant2learn.vo.KeyWordVO;
-import com.manteam.iwant2learn.vo.ModuleVO;
 import com.manteam.iwant2learn.vo.QuestionReturnVO;
-import com.manteam.iwant2learn.vo.SubjectVO;
 
 public class TrainingSql extends AbstractSql {
 
@@ -26,14 +26,14 @@ public class TrainingSql extends AbstractSql {
 		return trainingSql;
 	}
 
-	public Collection<SubjectVO> retrieveSubjects(Connection connection,
+	public Collection<SubjectVO> retrieveSubjectDetails(Connection connection,
 			String subjectName) throws SQLException {
 		Collection<SubjectVO> subjectVOs = null;
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
-			preparedStatement = TrainingQueryConstructor.retrieveSubjects(
+			preparedStatement = TrainingQueryConstructor.retrieveSubjectDetails(
 					subjectName, connection);
 			resultSet = preparedStatement.executeQuery();
 
@@ -44,30 +44,8 @@ public class TrainingSql extends AbstractSql {
 		}
 
 		return subjectVOs;
-	}
-        
-        public Collection<String> retrieveAllSubjects(Connection connection) throws SQLException {
-		Collection<String> subjects = null;
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			preparedStatement = TrainingQueryConstructor.retrieveAllSubjects(connection);
-			resultSet = preparedStatement.executeQuery();
-                        if (resultSet.next()) {
-                            do {
-                                if (subjects == null) {
-                                    subjects = new ArrayList<String>(2);
-                                }
-                                subjects.add(resultSet.getString(TrainingQueryConstants.SUBJECT_NAME));
-                            } while (resultSet.next());
-                        }
-		} finally {
-			close(connection, resultSet, preparedStatement);
-		}
-
-		return subjects;
-	}
+	}        
+	
 
 	private Collection<SubjectVO> getSubjectVOs(ResultSet resultSet)
 			throws SQLException {
@@ -118,32 +96,15 @@ public class TrainingSql extends AbstractSql {
 					}
 					moduleVOs.add(moduleVO);
 					moduleMap.put(curModuleName, moduleVO);
-				} 
-				/*if (!curModuleName.equals(prevModuleName)) {
-					moduleVO = new ModuleVO();
-					moduleVO.setModuleName(curModuleName);
-					moduleVOs = subjectVO.getModules();
-					if (moduleVOs == null) {
-						moduleVOs = new ArrayList<ModuleVO>(2);
-						subjectVO.setModules(moduleVOs);
-					}
-					moduleVOs.add(moduleVO);
-				}*/
+				}
+				
 				subModuleName = resultSet
 						.getString(TrainingQueryConstants.SUBMODULE_NAME);
 				moduleVO.getSubmodules().add(subModuleName);
 				moduleVO.getIdSubModuleMap().put(resultSet
-						.getInt(TrainingQueryConstants.SYB_SUB_SUBMODULE_ID), subModuleName);
+						.getInt(TrainingQueryConstants.SYB_SUB_SUBMODULE_ID), subModuleName);	
 				
-				/*subModules = moduleVO.getSubmodules();
-				if (subModules == null) {
-					subModules = new ArrayList<String>(2);
-					moduleVO.setSubmodules(subModules);
-				}
-				subModules.add(resultSet
-						.getString(TrainingQueryConstants.SUBMODULE_NAME));*/
 				prevSubject = curSubject;
-				//prevModuleName = curModuleName;
 
 			} while (resultSet.next());
 		}
