@@ -15,3 +15,7 @@ source ../Tables/SUB_KEYWORD_SUBMODULE_MAP.sql;
 
 select 'Creating EXAM_QUESTIONS';
 source ../Tables/EXAM_QUESTIONS.sql;
+
+select 'Creating EXAM_QUES_SUBMODULE_MAP';
+source ../Tables/EXAM_QUES_SUBMODULE_MAP.sql;
+
