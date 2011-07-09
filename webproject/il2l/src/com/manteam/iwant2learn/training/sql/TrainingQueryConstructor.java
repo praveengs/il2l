@@ -32,8 +32,8 @@ public class TrainingQueryConstructor {
 		for (ModuleVO moduleVO : subjectVO.getModules()) {
 			query.append("(");
 			for (String submodule : moduleVO.getSubmodules()) {
-				query.append("('").append(moduleVO.getModuleName())
-						.append("','").append(submodule).append("'),");
+				query.append("'").append(submodule)
+						.append("',");
 			}
 			query.replace(query.length() - 1, query.length(), ")");
 

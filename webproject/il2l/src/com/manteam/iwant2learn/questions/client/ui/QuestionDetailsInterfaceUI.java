@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -33,6 +35,7 @@ import javax.swing.WindowConstants;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.client.handler.MaintainQuestionsHandler;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
+import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.training.client.handler.TrainingUIHandler;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
@@ -399,53 +402,62 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 
 	private void chooseQuestionImageButtonActionPerformed(ActionEvent evt) {
 		JFileChooser chooser = new JFileChooser();
-	    // Note: source for ExampleFileFilter can be found in FileChooserDemo,
-	    // under the demo/jfc directory in the Java 2 SDK, Standard Edition.
-	    /*ExampleFileFilter filter = new ExampleFileFilter();
-	    filter.addExtension("jpg");
-	    filter.addExtension("gif");
-	    filter.setDescription("JPG & GIF Images");
-	    chooser.setFileFilter(filter);*/
-		//chooser.setFileFilter(filter)
-	    int returnVal = chooser.showOpenDialog(this);
-	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	       System.out.println("You chose to open this file: " +
-	            chooser.getSelectedFile().getName());
-	       questionImagePathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-	    }
+		// Note: source for ExampleFileFilter can be found in FileChooserDemo,
+		// under the demo/jfc directory in the Java 2 SDK, Standard Edition.
+		/*
+		 * ExampleFileFilter filter = new ExampleFileFilter();
+		 * filter.addExtension("jpg"); filter.addExtension("gif");
+		 * filter.setDescription("JPG & GIF Images");
+		 * chooser.setFileFilter(filter);
+		 */
+		// chooser.setFileFilter(filter)
+		int returnVal = chooser.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to open this file: "
+					+ chooser.getSelectedFile().getName());
+			questionImagePathTextField.setText(chooser.getSelectedFile()
+					.getAbsolutePath());
+		}
 	}
 
 	private void choosePathButtonActionPerformed(ActionEvent evt) {
 		JFileChooser chooser = new JFileChooser();
-	    // Note: source for ExampleFileFilter can be found in FileChooserDemo,
-	    // under the demo/jfc directory in the Java 2 SDK, Standard Edition.
-	    /*ExampleFileFilter filter = new ExampleFileFilter();
-	    filter.addExtension("jpg");
-	    filter.addExtension("gif");
-	    filter.setDescription("JPG & GIF Images");
-	    chooser.setFileFilter(filter);*/
-	    int returnVal = chooser.showOpenDialog(this);
-	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	       System.out.println("You chose to open this file: " +
-	            chooser.getSelectedFile().getName());
-	       answerImagePathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-	    }
+		// Note: source for ExampleFileFilter can be found in FileChooserDemo,
+		// under the demo/jfc directory in the Java 2 SDK, Standard Edition.
+		/*
+		 * ExampleFileFilter filter = new ExampleFileFilter();
+		 * filter.addExtension("jpg"); filter.addExtension("gif");
+		 * filter.setDescription("JPG & GIF Images");
+		 * chooser.setFileFilter(filter);
+		 */
+		int returnVal = chooser.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to open this file: "
+					+ chooser.getSelectedFile().getName());
+			answerImagePathTextField.setText(chooser.getSelectedFile()
+					.getAbsolutePath());
+		}
 	}
 
 	private void saveButtonActionPerformed(ActionEvent evt) {
-		ExamQuestionsVO examQuestionsVO = null;
+		QuestionSaveVO questionSaveVO = null;
+		// ExamQuestionsVO examQuestionsVO = null;
 		if (isValidForSave()) {
-			examQuestionsVO = generateExamQuestionsVO();
+			// examQuestionsVO = generateExamQuestionsVO();
+			questionSaveVO = generateQuestionSaveVO();
 			try {
-				if (MaintainQuestionsHandler.getInstance().saveQuestion(examQuestionsVO)) {
+				// if
+				// (MaintainQuestionsHandler.getInstance().saveQuestion(examQuestionsVO))
+				// {
+				if (MaintainQuestionsHandler.getInstance().saveQuestion(
+						questionSaveVO)) {
 					JOptionPane.showMessageDialog(this,
 							"Question saved Succesfully", "Info",
 							JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(this,
-							"Record Not saved", "Inane error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Record Not saved",
+							"Inane error", JOptionPane.ERROR_MESSAGE);
 					saveButton.requestFocus();
 				}
 			} catch (SystemException systemException) {
@@ -489,10 +501,44 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 		return examQuestionsVO;
 	}
 
+	private QuestionSaveVO generateQuestionSaveVO() {
+		QuestionSaveVO questionSaveVO = new QuestionSaveVO();
+		questionSaveVO.setSubjectName(subjectNameTextField.getText());
+		// examQuestionsVO.setModuleName(moduleNameTextField.getText());
+		// examQuestionsVO.setSubmoduleName(submoduleNameTextField.getText());
+		questionSaveVO.setSubmodules(getSubmodules(submoduleNameTextField
+				.getText().trim().split(",")));
+		questionSaveVO.setQuestion(questionTextArea.getText());
+		if (questionImagePathTextField.getText() != null
+				&& questionImagePathTextField.getText().length() > 0) {
+			questionSaveVO
+					.setQuestionImage(createInputStreamForImage(questionImagePathTextField
+							.getText()));
+		}
+		questionSaveVO.setQuestionYearMarkString(questionYearTextField
+				.getText());
+		questionSaveVO.setAnswer(answerTextArea.getText());
+		if (answerImagePathTextField.getText() != null
+				&& answerImagePathTextField.getText().length() > 0) {
+			questionSaveVO
+					.setAnswerImageStream(createInputStreamForImage(answerImagePathTextField
+							.getText()));
+		}
+		return questionSaveVO;
+	}
+
+	private Collection<String> getSubmodules(String[] split) {
+		Collection<String> submodules = new ArrayList<String>(split.length);
+		for (String submodule : split) {
+			submodules.add(submodule);
+		}
+		return submodules;
+	}
+
 	private InputStream createInputStreamForImage(String text) {
 		FileInputStream fis = null;
 		File file = new File(text);
-	      try {
+		try {
 			fis = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -510,14 +556,13 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 			subjectNameTextField.requestFocus();
 			return isValid;
 		}
-		if (moduleNameTextField.getText() == null
-				|| moduleNameTextField.getText().trim().length() == 0) {
-			JOptionPane.showMessageDialog(this,
-					"Please specify the Module Name", "Inane error",
-					JOptionPane.ERROR_MESSAGE);
-			moduleNameTextField.requestFocus();
-			return isValid;
-		}
+		/*
+		 * if (moduleNameTextField.getText() == null ||
+		 * moduleNameTextField.getText().trim().length() == 0) {
+		 * JOptionPane.showMessageDialog(this, "Please specify the Module Name",
+		 * "Inane error", JOptionPane.ERROR_MESSAGE);
+		 * moduleNameTextField.requestFocus(); return isValid; }
+		 */
 		if (submoduleNameTextField.getText() == null
 				|| submoduleNameTextField.getText().trim().length() == 0) {
 			JOptionPane.showMessageDialog(this,

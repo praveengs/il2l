@@ -3,7 +3,12 @@
     Created on : Jul 3, 2011, 8:07:16 PM
     Author     : Narayanan
 --%>
-<%@page import="com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Collection"%>
+<%@page import="com.manteam.iwant2learn.questions.vo.QuestionSaveVO"%>
+<%@page import="com.manteam.iwant2learn.user.vo.LogonAttributesVO"%>
+<%@page
+	import="com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException"%>
 <%@page import="com.manteam.framework.exceptions.SystemException"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@page import="com.manteam.iwant2learn.vo.ExamQuestionsVO"%>
@@ -17,17 +22,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="java.util.List" %>
+<%@page import="java.util.List"%>
 
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+	<%! Collection<String> getSubmodules(String[] split) {
+		Collection<String> submodules = new ArrayList<String>(split.length);
+		for (String submodule : split) {
+			submodules.add(submodule);
+		}
+		return submodules;
+	} %>
 
-        <%
+	<%
                     String subject = "";
                     String module = "";
                     String submod = "";
@@ -64,11 +76,17 @@
                         answerImage = new FileInputStream(ansIm);
                     }
 
+                    LogonAttributesVO logonAttributesVO = new LogonAttributesVO();
+                    logonAttributesVO.setUserName("WebUser");
+                    logonAttributesVO.setUserRole("Faculty");
+                    
+                    QuestionSaveVO question = new QuestionSaveVO();
 
-                    ExamQuestionsVO question = new ExamQuestionsVO();
+                    //ExamQuestionsVO question = new ExamQuestionsVO();
                     question.setSubjectName(subject);
-                    question.setModuleName(module);
-                    question.setSubmoduleName(submod);
+                    //question.setModuleName(module);
+                    //question.setSubmoduleName(submod);
+                    question.setSubmodules(getSubmodules(submod.trim().split(",")));
                     question.setQuestion(questionString);
                     question.setQuestionImage(questImage);
                     question.setAnswer(answerString);
@@ -77,7 +95,7 @@
 
                     TrainingController training = new TrainingController();
                     try {
-                        boolean ret = training.saveQuestion(question);
+                        boolean ret = training.saveQuestionForSubmodules(logonAttributesVO, question);
                     } catch (SystemException se) {
                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
                         out.println(se.getMessage());
@@ -88,7 +106,10 @@
                     }
         %>
 
-        <h1>The question is uploaded. Click here to add the next question : <a href="addQuestion.html">Add Question</a></h1>
+	<h1>
+		The question is uploaded. Click here to add the next question : <a
+			href="addQuestion.html">Add Question</a>
+	</h1>
 
-    </body>
+</body>
 </html>

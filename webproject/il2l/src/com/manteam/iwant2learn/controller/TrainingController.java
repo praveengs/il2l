@@ -7,8 +7,10 @@ package com.manteam.iwant2learn.controller;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
+import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.training.server.TrainingServer;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
+import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 import com.manteam.iwant2learn.vo.SubjectVO;
 
@@ -71,6 +73,21 @@ public class TrainingController {
 	public boolean saveQuestion(ExamQuestionsVO examQuestionsVO)
 			throws SystemException, MaintainQuestionsException {
 		return getQuestionManager().saveQuestion(examQuestionsVO);
+	}
+	
+	/**
+	 * New Method to save question
+	 * 
+	 * @param logonAttributesVO
+	 * @param questionSaveVO
+	 * @return
+	 * @throws SystemException
+	 * @throws MaintainQuestionsException
+	 */
+	public boolean saveQuestionForSubmodules(
+			LogonAttributesVO logonAttributesVO, QuestionSaveVO questionSaveVO)
+			throws SystemException, MaintainQuestionsException {
+		return getQuestionManager().saveQuestionForSubmodules(logonAttributesVO, questionSaveVO);
 	}
 
 	/**

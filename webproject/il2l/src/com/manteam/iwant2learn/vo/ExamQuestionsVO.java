@@ -3,20 +3,23 @@
  */
 package com.manteam.iwant2learn.vo;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+
+import com.manteam.iwant2learn.questions.vo.QuestionVO;
 
 /**
  * @author Praveen
  * 
  */
-public class ExamQuestionsVO implements Serializable {
+public class ExamQuestionsVO extends QuestionVO implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7563438310076340511L;
+
+	private int subjectID;
 
 	private String subjectName;
 
@@ -26,23 +29,22 @@ public class ExamQuestionsVO implements Serializable {
 
 	private String submoduleDescription;
 
-	private String question;
-
-	private InputStream questionImage;
-
-	private int questionImageLength;
-
-	private String questionYearMarkString;
-
-	private String answer;
-
-	private String answerImageName;
-
-	private int answerImageLength;
-
-	private InputStream answerImageStream;
-
 	private HashMap<String, KeyWordVO> keyWordMap;
+
+	/**
+	 * @return the subjectID
+	 */
+	public int getSubjectID() {
+		return subjectID;
+	}
+
+	/**
+	 * @param subjectID
+	 *            the subjectID to set
+	 */
+	public void setSubjectID(int subjectID) {
+		this.subjectID = subjectID;
+	}
 
 	/**
 	 * @return the subjectName
@@ -105,96 +107,6 @@ public class ExamQuestionsVO implements Serializable {
 	}
 
 	/**
-	 * @return the question
-	 */
-	public String getQuestion() {
-		return question;
-	}
-
-	/**
-	 * @param question
-	 *            the question to set
-	 */
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	/**
-	 * @return the questionImage
-	 */
-	public InputStream getQuestionImage() {
-		return questionImage;
-	}
-
-	/**
-	 * @param questionImage
-	 *            the questionImage to set
-	 */
-	public void setQuestionImage(InputStream questionImage) {
-		this.questionImage = questionImage;
-	}
-
-	/**
-	 * @return the questionYearMarkString
-	 */
-	public String getQuestionYearMarkString() {
-		return questionYearMarkString;
-	}
-
-	/**
-	 * @param questionYearMarkString
-	 *            the questionYearMarkString to set
-	 */
-	public void setQuestionYearMarkString(String questionYearMarkString) {
-		this.questionYearMarkString = questionYearMarkString;
-	}
-
-	/**
-	 * @return the answer
-	 */
-	public String getAnswer() {
-		return answer;
-	}
-
-	/**
-	 * @param answer
-	 *            the answer to set
-	 */
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	/**
-	 * @return the answerImageName
-	 */
-	public String getAnswerImageName() {
-		return answerImageName;
-	}
-
-	/**
-	 * @param answerImageName
-	 *            the answerImageName to set
-	 */
-	public void setAnswerImageName(String answerImageName) {
-		this.answerImageName = answerImageName;
-	}
-
-	/**
-	 * @return the answerImageStream
-	 */
-	public InputStream getAnswerImageStream() {
-		return answerImageStream;
-	}
-
-	/**
-	 * @param answerImageStream
-	 *            the answerImageStream to set
-	 */
-	public void setAnswerImageStream(InputStream answerImageStream) {
-		this.answerImageStream = answerImageStream;
-	}
-
-	/**
 	 * @return the keyWordMap
 	 */
 	public HashMap<String, KeyWordVO> getKeyWordMap() {
@@ -209,22 +121,6 @@ public class ExamQuestionsVO implements Serializable {
 		this.keyWordMap = keyWordMap;
 	}
 
-	public void setQuestionImageLength(int questionImageLength) {
-		this.questionImageLength = questionImageLength;
-	}
-
-	public int getQuestionImageLength() {
-		return questionImageLength;
-	}
-
-	public void setAnswerImageLength(int answerImageLength) {
-		this.answerImageLength = answerImageLength;
-	}
-
-	public int getAnswerImageLength() {
-		return answerImageLength;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -233,28 +129,12 @@ public class ExamQuestionsVO implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
-		result = prime * result + answerImageLength;
-		result = prime * result
-				+ ((answerImageName == null) ? 0 : answerImageName.hashCode());
-		result = prime
-				* result
-				+ ((answerImageStream == null) ? 0 : answerImageStream
-						.hashCode());
+		int result = super.hashCode();
 		result = prime * result
 				+ ((keyWordMap == null) ? 0 : keyWordMap.hashCode());
 		result = prime * result
 				+ ((moduleName == null) ? 0 : moduleName.hashCode());
-		result = prime * result
-				+ ((question == null) ? 0 : question.hashCode());
-		result = prime * result
-				+ ((questionImage == null) ? 0 : questionImage.hashCode());
-		result = prime * result + questionImageLength;
-		result = prime
-				* result
-				+ ((questionYearMarkString == null) ? 0
-						: questionYearMarkString.hashCode());
+		result = prime * result + subjectID;
 		result = prime * result
 				+ ((subjectName == null) ? 0 : subjectName.hashCode());
 		result = prime
@@ -276,37 +156,13 @@ public class ExamQuestionsVO implements Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+		if (!super.equals(obj)) {
 			return false;
 		}
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		ExamQuestionsVO other = (ExamQuestionsVO) obj;
-		if (answer == null) {
-			if (other.answer != null) {
-				return false;
-			}
-		} else if (!answer.equals(other.answer)) {
-			return false;
-		}
-		if (answerImageLength != other.answerImageLength) {
-			return false;
-		}
-		if (answerImageName == null) {
-			if (other.answerImageName != null) {
-				return false;
-			}
-		} else if (!answerImageName.equals(other.answerImageName)) {
-			return false;
-		}
-		if (answerImageStream == null) {
-			if (other.answerImageStream != null) {
-				return false;
-			}
-		} else if (!answerImageStream.equals(other.answerImageStream)) {
-			return false;
-		}
 		if (keyWordMap == null) {
 			if (other.keyWordMap != null) {
 				return false;
@@ -321,28 +177,7 @@ public class ExamQuestionsVO implements Serializable {
 		} else if (!moduleName.equals(other.moduleName)) {
 			return false;
 		}
-		if (question == null) {
-			if (other.question != null) {
-				return false;
-			}
-		} else if (!question.equals(other.question)) {
-			return false;
-		}
-		if (questionImage == null) {
-			if (other.questionImage != null) {
-				return false;
-			}
-		} else if (!questionImage.equals(other.questionImage)) {
-			return false;
-		}
-		if (questionImageLength != other.questionImageLength) {
-			return false;
-		}
-		if (questionYearMarkString == null) {
-			if (other.questionYearMarkString != null) {
-				return false;
-			}
-		} else if (!questionYearMarkString.equals(other.questionYearMarkString)) {
+		if (subjectID != other.subjectID) {
 			return false;
 		}
 		if (subjectName == null) {
@@ -376,16 +211,21 @@ public class ExamQuestionsVO implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "ExamQuestionsVO [subjectName=" + subjectName + ", moduleName="
-				+ moduleName + ", submoduleName=" + submoduleName
-				+ ", submoduleDescription=" + submoduleDescription
-				+ ", question=" + question + ", questionImage=" + questionImage
-				+ ", questionImageLength=" + questionImageLength
-				+ ", questionYearMarkString=" + questionYearMarkString
-				+ ", answer=" + answer + ", answerImageName=" + answerImageName
-				+ ", answerImageLength=" + answerImageLength
-				+ ", answerImageStream=" + answerImageStream + ", keyWordMap="
-				+ keyWordMap + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("ExamQuestionsVO [subjectID=");
+		builder.append(subjectID);
+		builder.append(", subjectName=");
+		builder.append(subjectName);
+		builder.append(", moduleName=");
+		builder.append(moduleName);
+		builder.append(", submoduleName=");
+		builder.append(submoduleName);
+		builder.append(", submoduleDescription=");
+		builder.append(submoduleDescription);
+		builder.append(", keyWordMap=");
+		builder.append(keyWordMap);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
