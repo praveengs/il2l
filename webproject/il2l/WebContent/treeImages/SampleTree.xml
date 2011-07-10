@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<tree id="0">
+	<item id="1" text="Physics">
+		<item id="1" text="General Physics">
+			<item id="1" text="Physical Quantities and units"/>
+			<item id="2" text="Measurement Techniques"/>
+		</item>
+		<item id="2" text="Newtonian mechanics">
+			<item id="8" text="Gravitational field"/>
+			<item id="3" text="Kinematics"/>
+			<item id="4" text="Dynamics"/>
+			<item id="5" text="Forces"/>
+			<item id="6" text="Work, energy, power"/>
+			<item id="7" text="Motion in a circle"/>
+		</item>
+	</item>
+</tree>
