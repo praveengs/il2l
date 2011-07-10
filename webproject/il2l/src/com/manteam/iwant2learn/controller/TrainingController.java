@@ -15,7 +15,9 @@ import com.manteam.iwant2learn.training.util.WebXMLCreator;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * 
@@ -91,6 +93,19 @@ public class TrainingController {
 			LogonAttributesVO logonAttributesVO, QuestionSaveVO questionSaveVO)
 			throws SystemException, MaintainQuestionsException {
 		return getQuestionManager().saveQuestionForSubmodules(logonAttributesVO, questionSaveVO);
+	}
+	
+	/**
+	 * This method returns all the subjects and submodules associated with it
+	 * in the form of a HashMap. This is used to populate the Question Creation
+	 * screen
+	 * 
+	 * @return
+	 * @throws SystemException
+	 */
+	public HashMap<String, ArrayList<String>> retrieveAllSubjectsnSubmodules()
+			throws SystemException {
+		return getMaintainSubjectsManager().retrieveAllSubjectsnSubmodules();
 	}
 
 	/**
