@@ -75,26 +75,8 @@ body {
 }
 
 .{
-font-family
-
-
-
-
-
-
-
-
-:arial
-
-
-
-
-
-
-
-
-;
-font-size:12px
+font-family:arial;
+font-size:12px;
 }
 h1 {
 	cursor: hand;
@@ -172,9 +154,6 @@ xmp {
 					%>
 				</select><br />
 			</div>
-
-
-
 			Appearance : <br /> <input type="checkbox" name="chk1" id="chk1"
 				onClick="showhide(1);" value="1"> Appearance 1<br />
 			<div id="div1" class="hide">
@@ -258,15 +237,11 @@ xmp {
 			<br /> Question : <br />
 			<textarea style="width: 350px; height: 150px" name="question"></textarea>
 			<br /> Question Image : <br /> <input type="file" name="quesUpload" />
-
-
 			Answer : <br />
 			<textarea style="width: 350px; height: 150px" name="answer"></textarea>
 			<br /> Answer Image : <br /> <input type="file" name="ansUpload" /><br />
 			<br /> <input type="submit" value="Upload Question" />
 			&nbsp;&nbsp;&nbsp; <input type="reset" />
-
-
 		</form>
 	</div>
 </body>

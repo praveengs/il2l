@@ -3,12 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@page import="java.io.FileWriter"%>
-<%@page import="java.io.BufferedWriter"%>
-<%@page import="java.io.File"%>
-<%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
-<link rel="stylesheet" type="text/css" href="final.css" />
-<title></title>
+<title>DHTML Tree samples. dhtmlXTree - Checkboxes</title>
 </head>
 <style>
 body {
@@ -16,8 +11,11 @@ body {
 }
 
 .{
-font-family:arial;
-font-size:12px;
+font-family
+:arial
+;font-size
+:
+12px
 }
 h1 {
 	cursor: hand;
@@ -36,9 +34,10 @@ xmp {
 }
 </style>
 <body>
-<style rel="STYLESHEET" type="text/css">
-<!--
-dhtmlXTree.css -->.defaultTreeTable {
+	<h1>Checkboxes</h1>
+	<!-- dhtmlXTree.css -->
+	<style rel="STYLESHEET" type="text/css">
+.defaultTreeTable {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -91,7 +90,6 @@ dhtmlXTree.css -->.defaultTreeTable {
 		};
 
 		dtmlXMLLoaderObject.prototype.waitLoadFunction = function(dhtmlObject) {
-			//alert("waitLoadFunction");
 			this.check = function() {
 				if (!dhtmlObject.xmlDoc.readyState)
 					dhtmlObject.onloadAction(dhtmlObject.mainObject);
@@ -114,11 +112,11 @@ dhtmlXTree.css -->.defaultTreeTable {
 				var z = this.xmlDoc.documentElement;
 			if (z)
 				return z;
-			alert("Incorrect XML"+z+"tagName"+tagName);
+			alert("Incorrect XML");
 			return document.createElement("DIV");
 		};
 
-		 dtmlXMLLoaderObject.prototype.loadXMLString = function(xmlString) {
+		dtmlXMLLoaderObject.prototype.loadXMLString = function(xmlString) {
 			try {
 				var parser = new DOMParser();
 				this.xmlDoc = parser.parseFromString(xmlString, "text/xml");
@@ -127,7 +125,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 				this.xmlDoc.loadXML(xmlString);
 			}
 			this.onloadAction(this.mainObject);
-		} 
+		}
 		dtmlXMLLoaderObject.prototype.loadXML = function(filePath) {
 			try {
 				this.xmlDoc = new XMLHttpRequest();
@@ -311,7 +309,6 @@ dhtmlXTree.css -->.defaultTreeTable {
 	<!-- dhtmlXTree.js -->
 	<script>
 		function dhtmlXTreeObject(htmlObject, width, height, rootId) {
-			//alert("dhtmlXTreeObject");
 			if (typeof (htmlObject) != "object")
 				this.parentObject = document.getElementById(htmlObject);
 			else
@@ -339,7 +336,6 @@ dhtmlXTree.css -->.defaultTreeTable {
 			this.tscheck = false;
 			this.timgen = true;
 
-			
 			this.imPath = "treeGfx/";
 			this.checkArray = new Array("iconUnCheckAll.gif",
 					"iconCheckAll.gif", "iconCheckGray.gif");
@@ -579,10 +575,9 @@ dhtmlXTree.css -->.defaultTreeTable {
 
 		dhtmlXTreeObject.prototype._parseXMLTree = function(dhtmlObject, node,
 				parentId, level) {
-			//alert("_parseXMLTree");
 			dhtmlObject.XMLloadingWarning = 1;
 			var nodeAskingCall = "";
-			if (!node) {				
+			if (!node) {
 				node = dhtmlObject.XMLLoader.getXMLTopNode("tree");
 				parentId = node.getAttribute("id");
 				dhtmlObject.setCheckList = "";
@@ -1816,55 +1811,84 @@ dhtmlXTree.css -->.defaultTreeTable {
 				clearTimeout(this._autoOpenTimer);
 		}
 	</script>
-	<form action="takeTest.jsp">
-		<table height="100%" align="left" width="35%" cellpadding="10">
-			<tr height="70%">
-				<td valign="top">
-					<div id="treeboxbox_tree"
-						style="width: 150; height: 218;;;; overflow: auto;"></div></td>
-				<!-- 			<td style="padding-left: 25" valign="top">Two state checkboxes <a -->
-				<!-- 				href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="alert(tree.getAllChecked());">Get list of checked</a><br> -->
-				<!-- 				<br></td> -->
 
-			</tr>
-			<tr>
-				<td><input id="modID" type="button" value="Take Test"
-					name="moduleName" onclick="alert(tree.getAllChecked());"></td>
-			</tr>
-
-			<tr>
-				<td>
-					<%
-						String st = "<script>tree.getAllChecked()</script>";
-						out.println("value= " + st);
-					%>
-				</td>
-			</tr>
-		</table>
-		<script>
-		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
-		tree.setImagePath("treeImages/");
+	<table>
+		<tr>
+			<td valign="top">
+				<div id="treeboxbox_tree"
+					style="width: 250; height: 218; background-color: #f5f5f5; border: 1px solid Silver;; overflow: auto;"></div>
+			</td>
+			<td style="padding-left: 25" valign="top">Two state checkboxes <a
+				href="javascript:void(0);"
+				onclick="tree.setCheck(tree.getSelectedItemId(),true);">Check
+					item</a><br>
+			<br> <a href="javascript:void(0);"
+				onclick="tree.setCheck(tree.getSelectedItemId(),false);">UnCheck
+					item</a><br>
+			<br> <a href="javascript:void(0);"
+				onclick="tree.setSubChecked(tree.getSelectedItemId(),true);">Check
+					branch</a><br>
+			<br> <a href="javascript:void(0);"
+				onclick="tree.setSubChecked(tree.getSelectedItemId(),false);">UnCheck
+					branch</a><br>
+			<br> <a href="javascript:void(0);"
+				onclick="alert(tree.getAllChecked());">Get list of checked</a><br>
+			<br></td>
+		</tr>
+<!-- 		<tr> -->
+<!-- 			<td valign="top"> -->
+<!-- 				<div id="treeboxbox_tree2" -->
+<!-- 					style="width: 250; height: 218; background-color: #f5f5f5; border: 1px solid Silver;; overflow: auto;"></div> -->
+<!-- 			</td> -->
+<!-- 			<td style="padding-left: 25" valign="top">Three state checkboxes<br> -->
+<!-- 				<br> <a href="javascript:void(0);" -->
+<!-- 				onclick="tree2.setCheck(tree2.getSelectedItemId(),true);">Check -->
+<!-- 					item</a><br> -->
+<!-- 			<br> <a href="javascript:void(0);" -->
+<!-- 				onclick="tree2.setCheck(tree2.getSelectedItemId(),false);">UnCheck -->
+<!-- 					item</a><br> -->
+<!-- 			<br> <a href="javascript:void(0);" -->
+<!-- 				onclick="alert(tree2.getAllChecked());">Get list of checked</a><br> -->
+<!-- 			<br></td> -->
+<!-- 		</tr> -->
+	</table>
+	<hr>
+	<XMP>
+	<div id="treeboxbox_tree" style="width: 200; height: 200"></div>
+	<script>
+		tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
+		tree.setImagePath("treeImgs/");
+		//enable checkboxes
 		tree.enableCheckBoxes(1);
-		tree.enableThreeStateCheckboxes(true);
-		
-		</script>
-		<%
-			TrainingController training = new TrainingController();
-			String ret = training.retrieveXMLStreamForSubject("Physics");
-		%>
-		<script type="text/javascript">
-			tree.loadXMLString('<%=ret%>');
-		</script>
-		<br> <br>
-	</form>
+		tree.loadXML("tree.xml");
+		//check item
+		tree.setCheck(id, true);
+		//uncheck item
+		tree.setCheck(id, false);
+		//check branch
+		tree.setSubChecked(id, true);
+		//uncheck branch
+		tree.setSubChecked(id, false);
+		//check item
+		tree.setCheck(id, true);
+		//return ids of checked items
+		var list = tree.getAllChecked();
+	</script> </XMP>
+	<script>
+		tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
+		tree.setImagePath("treeImgs/");
+		tree.enableCheckBoxes(1);
+
+		tree.loadXML("treeImgs/tree3.xml");
+
+		tree2 = new dhtmlXTreeObject("treeboxbox_tree2", "100%", "100%", 0);
+		tree2.setImagePath("treeImgs/");
+		tree2.enableCheckBoxes(1);
+		tree2.enableThreeStateCheckboxes(true);
+		tree2.loadXML("treeImgs/tree3.xml");
+	</script>
+	<br>
+	<br>
+
 </body>
 </html>

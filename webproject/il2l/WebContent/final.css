@@ -1,0 +1,99 @@
+.contentbody
+{
+	margin: 3;
+	padding: 0;
+	margin-bottom: 15px;
+	font-family: verdana;
+	font-size: 13px;
+	color: #000000;
+	background-color: white;
+	line-height: 120%;
+	position:fixed;
+}
+
+.contenttable {
+	font-family: verdana;
+	font-size: 13px;
+	width: 80%;
+	border-collapse:collapse;
+	border:1px;
+	align:center;
+	position:relative;
+	left:50px;
+	valign:middle;
+	color: black;
+}
+
+.contenttd,.contentth {
+
+	border:1px solid #000000;
+	font-size: 13px;
+	
+}
+.contenttr {
+	valign:center;
+	
+}
+
+.textaftertable 
+{
+	position:relative;
+	top:-10px;
+	
+}
+.imgPostion {
+	position:relative;
+	//top:-10px;
+	left:30px;
+	align:left;
+}
+pre {
+	font-size: 13px;
+	font-family: verdana;
+	line-height: 120%;
+}
+
+.textafterimage {
+	position:relative;
+	top:-30px;
+}
+
+.contentli {
+	line-height: 150%;
+}
+
+body {
+	scrollbar-face-color: white;
+	scrollbar-shadow-color: #600;
+	scrollbar-highlight-color: #600;
+	scrollbar-3dlight-color: #600;
+	scrollbar-darkshadow-color: #600;
+	scrollbar-track-color: brown;
+	scrollbar-arrow-color: black;
+}
+.moduleTreebody{
+	background-color:#BDBDBD;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 15px;
+	font-family: verdana;
+	font-size: 12px;
+	color: #000000;
+	line-height: 120%;
+	position:fixed;
+}
+
+.contentsForTable{
+	font-family: verdana;
+	font-size: 13px;
+	color: #000000;
+	background-color: white;
+	line-height: 120%;
+}
+.contentexample {
+	background-color: #DBE5F1;
+	border-width: 1px;
+	border-style: solid;
+	padding-left: 10px;
+	width: 550px;
+}

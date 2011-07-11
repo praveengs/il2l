@@ -7,8 +7,8 @@
 <%@page import="java.util.Collection"%>
 <%@page import="com.manteam.iwant2learn.questions.vo.QuestionSaveVO"%>
 <%@page import="com.manteam.iwant2learn.user.vo.LogonAttributesVO"%>
-<%@page
-	import="com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException"%>
 <%@page import="com.manteam.framework.exceptions.SystemException"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@page import="com.manteam.iwant2learn.vo.ExamQuestionsVO"%>
@@ -18,40 +18,39 @@
 <%@page import="java.io.IOException"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Iterator"%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="java.util.List" %>
 
 
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
-</head>
-<body>
-	<%! Collection<String> getSubmodules(String[] split) {
-		Collection<String> submodules = new ArrayList<String>(split.length);
-		for (String submodule : split) {
-			submodules.add(submodule);
-		}
-		return submodules;
-	} %>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+    <%! Collection<String> getSubmodules(String[] split) {
+  Collection<String> submodules = new ArrayList<String>(split.length);
+  for (String submodule : split) {
+   submodules.add(submodule);
+  }
+  return submodules;
+ } %>
 
-	<%
+        <%
                     String subject = "";
-                    String module = "";
-                    String submod = "";
+                   
+                    String[] submod;
                     String checkVal = "";
                     String date = "";
                     String questionString = "";
                     String answerString = "";
 
                     MultipartRequest req = new MultipartRequest(request, "../");
-                    subject = req.getParameter("sub");
-                    module = req.getParameter("mod");
-                    submod = req.getParameter("submod");
+                    subject = req.getParameter("subject");
+                    submod = req.getParameterValues("submodule");
+                    System.out.println(Arrays.toString(submod));
                     checkVal = null;
                     date = "";
 
@@ -86,7 +85,7 @@
                     question.setSubjectName(subject);
                     //question.setModuleName(module);
                     //question.setSubmoduleName(submod);
-                    question.setSubmodules(getSubmodules(submod.trim().split(",")));
+                    question.setSubmodules(getSubmodules(submod));
                     question.setQuestion(questionString);
                     question.setQuestionImage(questImage);
                     question.setAnswer(answerString);
@@ -104,12 +103,30 @@
                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
                         out.println(mqe.getStackTrace().toString());
                     }
+//                     ExamQuestionsVO question = new ExamQuestionsVO();
+//                     question.setSubjectName(subject);
+                    
+                   // question.setSubmoduleName(submod);
+//                     question.setQuestion(questionString);
+//                     question.setQuestionImage(questImage);
+//                     question.setAnswer(answerString);
+//                     question.setAnswerImageStream(answerImage);
+//                     question.setQuestionYearMarkString(date);
+
+                    //TrainingController training = new TrainingController();
+//                     try {
+//                         boolean ret = training.saveQuestion(question);
+//                     } catch (SystemException se) {
+//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
+//                         out.println(se.getMessage());
+
+//                     } catch (MaintainQuestionsException mqe) {
+//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
+//                         out.println(mqe.getStackTrace().toString());
+//                     }
         %>
 
-	<h1>
-		The question is uploaded. Click here to add the next question : <a
-			href="addQuestion.html">Add Question</a>
-	</h1>
+        <h1>The question is uploaded. Click here to add the next question : <a href="addQuestion.html">Add Question</a></h1>
 
-</body>
+    </body>
 </html>

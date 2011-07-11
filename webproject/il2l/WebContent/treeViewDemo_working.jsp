@@ -1,14 +1,15 @@
+<%@page import="java.io.FileWriter"%>
+<%@page import="java.io.BufferedWriter"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@page import="java.io.FileWriter"%>
-<%@page import="java.io.BufferedWriter"%>
-<%@page import="java.io.File"%>
-<%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
-<link rel="stylesheet" type="text/css" href="final.css" />
-<title></title>
+<title>DHTML Tree samples. dhtmlXTree - Checkboxes</title>
 </head>
 <style>
 body {
@@ -16,8 +17,33 @@ body {
 }
 
 .{
-font-family:arial;
-font-size:12px;
+font-family
+
+
+
+
+:arial
+
+
+
+
+;
+font-size
+
+
+
+
+:
+
+
+
+
+12
+px
+
+
+
+
 }
 h1 {
 	cursor: hand;
@@ -36,9 +62,10 @@ xmp {
 }
 </style>
 <body>
-<style rel="STYLESHEET" type="text/css">
-<!--
-dhtmlXTree.css -->.defaultTreeTable {
+	<h1>Checkboxes</h1>
+	<!-- dhtmlXTree.css -->
+	<style rel="STYLESHEET" type="text/css">
+.defaultTreeTable {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -1816,55 +1843,43 @@ dhtmlXTree.css -->.defaultTreeTable {
 				clearTimeout(this._autoOpenTimer);
 		}
 	</script>
-	<form action="takeTest.jsp">
-		<table height="100%" align="left" width="35%" cellpadding="10">
-			<tr height="70%">
-				<td valign="top">
-					<div id="treeboxbox_tree"
-						style="width: 150; height: 218;;;; overflow: auto;"></div></td>
-				<!-- 			<td style="padding-left: 25" valign="top">Two state checkboxes <a -->
-				<!-- 				href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="alert(tree.getAllChecked());">Get list of checked</a><br> -->
-				<!-- 				<br></td> -->
 
-			</tr>
-			<tr>
-				<td><input id="modID" type="button" value="Take Test"
-					name="moduleName" onclick="alert(tree.getAllChecked());"></td>
-			</tr>
+	<table>
+		<tr>
+			<td valign="top">
+				<div id="treeboxbox_tree"
+					style="width: 150; height: 218; background-color: #f5f5f5; border: 1px solid Silver;; overflow: auto;"></div>
+			</td>
+			<td style="padding-left: 25" valign="top">Two state checkboxes <a
+				href="javascript:void(0);"
+				onclick="tree.setCheck(tree.getSelectedItemId(),true);">Check
+					item</a><br> <br> <a href="javascript:void(0);"
+				onclick="tree.setCheck(tree.getSelectedItemId(),false);">UnCheck
+					item</a><br> <br> <a href="javascript:void(0);"
+				onclick="tree.setSubChecked(tree.getSelectedItemId(),true);">Check
+					branch</a><br> <br> <a href="javascript:void(0);"
+				onclick="tree.setSubChecked(tree.getSelectedItemId(),false);">UnCheck
+					branch</a><br> <br> <a href="javascript:void(0);"
+				onclick="alert(tree.getAllChecked());">Get list of checked</a><br>
+				<br></td>
+		</tr>
+	</table>
+	<hr>
 
-			<tr>
-				<td>
-					<%
-						String st = "<script>tree.getAllChecked()</script>";
-						out.println("value= " + st);
-					%>
-				</td>
-			</tr>
-		</table>
-		<script>
+	<script>
 		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
-		tree.setImagePath("treeImages/");
+		tree.setImagePath("treeImgs/");
 		tree.enableCheckBoxes(1);
-		tree.enableThreeStateCheckboxes(true);
-		
 		</script>
-		<%
-			TrainingController training = new TrainingController();
-			String ret = training.retrieveXMLStreamForSubject("Physics");
-		%>
-		<script type="text/javascript">
-			tree.loadXMLString('<%=ret%>');
-		</script>
-		<br> <br>
-	</form>
+	<%
+		TrainingController training = new TrainingController();
+		String ret = training.retrieveXMLStreamForSubject("Physics");
+	%>
+	<script type="text/javascript">
+	tree.loadXMLString('<%=ret%>');
+	</script>
+	<br>
+	<br>
+
 </body>
 </html>

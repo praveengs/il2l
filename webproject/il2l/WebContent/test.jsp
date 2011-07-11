@@ -1,5 +1,8 @@
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,16 +11,124 @@
 <%@page import="java.io.File"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <link rel="stylesheet" type="text/css" href="final.css" />
-<title></title>
+<title>Training</title>
+<script type="text/javascript">
+
+/***********************************************
+* Dynamic Ajax Content- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+var loadedobjects=""
+var rootdomain="http://"+window.location.hostname
+
+function ajaxpage(url, containerid,ret){
+start="SUB_Physics"
+url=url+'?selection='+start+','+ret;
+alert(url);
+var page_request = false
+if (window.XMLHttpRequest) // if Mozilla, Safari etc
+page_request = new XMLHttpRequest()
+else if (window.ActiveXObject){ // if IE
+try {
+page_request = new ActiveXObject("Msxml2.XMLHTTP")
+} 
+catch (e){
+try{
+page_request = new ActiveXObject("Microsoft.XMLHTTP")
+}
+catch (e){}
+}
+}
+else
+return false
+page_request.onreadystatechange=function(){
+loadpage(page_request, containerid)
+}
+page_request.open('GET', url, true)
+page_request.send(null)
+}
+
+function loadpage(page_request, containerid){
+if (page_request.readyState == 4 && (page_request.status==200 || window.location.href.indexOf("http")==-1))
+document.getElementById(containerid).innerHTML=page_request.responseText
+}
+
+function loadobjs(){
+if (!document.getElementById)
+return
+for (i=0; i<arguments.length; i++){
+var file=arguments[i]
+var fileref=""
+if (loadedobjects.indexOf(file)==-1){ //Check to see if this object has not already been added to page before proceeding
+if (file.indexOf(".js")!=-1){ //If object is a js file
+fileref=document.createElement('script')
+fileref.setAttribute("type","text/javascript");
+fileref.setAttribute("src", file);
+}
+else if (file.indexOf(".css")!=-1){ //If object is a css file
+fileref=document.createElement("link")
+fileref.setAttribute("rel", "stylesheet");
+fileref.setAttribute("type", "text/css");
+fileref.setAttribute("href", file);
+}
+}
+if (fileref!=""){
+document.getElementsByTagName("head").item(0).appendChild(fileref)
+loadedobjects+=file+" " //Remember this object as being already added to page
+}
+}
+}
+
+</script>
+
+<style type="text/css">
+#leftcolumn{
+float:left;
+width:300px;
+height: 400px;
+border: 3px solid black;
+padding: 5px;
+padding-left: 8px;
+
+}
+
+#leftcolumn a{
+padding: 3px 1px;
+display: block;
+width: 100%;
+text-decoration: none;
+font-weight: bold;
+border-bottom: 1px solid gray;
+}
+
+#leftcolumn a:hover{
+background-color: #FFFF80;
+}
+
+#rightcolumn{
+float:left;
+width:550px;
+min-height: 400px;
+border: 3px solid black;
+margin-left: 10px;
+padding: 5px;
+padding-bottom: 8px;
+}
+
+* html #rightcolumn{ /*IE only style*/
+height: 400px;
+}
+</style>
 </head>
 <style>
 body {
 	font-size: 12px
 }
-
 .{
-font-family:arial;
-font-size:12px;
+	font-family:arial;
+	font-size:12px
 }
 h1 {
 	cursor: hand;
@@ -36,7 +147,9 @@ xmp {
 }
 </style>
 <body>
-<style rel="STYLESHEET" type="text/css">
+
+<div id="leftcolumn">
+	<style rel="STYLESHEET" type="text/css">
 <!--
 dhtmlXTree.css -->.defaultTreeTable {
 	margin: 0;
@@ -1637,6 +1750,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 				htmlNode = this.htmlNode;
 			if (((mode) && (htmlNode.checkstate == 1))
 					|| ((!mode) && (htmlNode.checkstate > 0))) {
+				
 				if (list)
 					list += "," + htmlNode.id;
 				else
@@ -1821,41 +1935,27 @@ dhtmlXTree.css -->.defaultTreeTable {
 			<tr height="70%">
 				<td valign="top">
 					<div id="treeboxbox_tree"
-						style="width: 150; height: 218;;;; overflow: auto;"></div></td>
-				<!-- 			<td style="padding-left: 25" valign="top">Two state checkboxes <a -->
-				<!-- 				href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setCheck(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					item</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),true);">Check -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="tree.setSubChecked(tree.getSelectedItemId(),false);">UnCheck -->
-				<!-- 					branch</a><br> <br> <a href="javascript:void(0);" -->
-				<!-- 				onclick="alert(tree.getAllChecked());">Get list of checked</a><br> -->
-				<!-- 				<br></td> -->
+						style="width: 150; height: 218;;;; overflow: auto;"></div>
+				</td>
 
 			</tr>
 			<tr>
 				<td><input id="modID" type="button" value="Take Test"
-					name="moduleName" onclick="alert(tree.getAllChecked());"></td>
-			</tr>
-
-			<tr>
-				<td>
-					<%
-						String st = "<script>tree.getAllChecked()</script>";
-						out.println("value= " + st);
-					%>
+					name="moduleName" onclick="javascript:ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
 				</td>
 			</tr>
+			
+<tr>
+<td>
+
+</td>
+</tr>
 		</table>
 		<script>
 		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
-		tree.setImagePath("treeImages/");
+		tree.setImagePath("treeImgs/");
 		tree.enableCheckBoxes(1);
 		tree.enableThreeStateCheckboxes(true);
-		
 		</script>
 		<%
 			TrainingController training = new TrainingController();
@@ -1863,8 +1963,14 @@ dhtmlXTree.css -->.defaultTreeTable {
 		%>
 		<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
+			//	tree.loadXML("treeImgs/SampleTree.xml");
 		</script>
 		<br> <br>
 	</form>
+	
+	</div>
+	
+	<div id="rightcolumn"><h3>Choose a page to load.</h3></div>
+	<div style="clear: left; margin-bottom: 1em"></div>
 </body>
 </html>
