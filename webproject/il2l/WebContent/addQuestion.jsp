@@ -126,7 +126,7 @@
 //                     }
         %>
 
-        <h1>The question is uploaded. Click here to add the next question : <a href="addQuestion.html">Add Question</a></h1>
+        <h1>The question is uploaded. Click here to add the next question : <a href="addQuestion_html.jsp">Add Question</a></h1>
 
     </body>
 </html>
