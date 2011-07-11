@@ -13,7 +13,7 @@ public abstract class MaintainSubjectsQueries {
 			+ "SUBJECT_DESCRIPTION, " + "SUBJECT_WRITEUP from syb_subject";
 
 	public static final String RETRIEVE_ALL_SUBJECTS_AND_SUBMODULES = "SELECT A.SUBJECT_NAME, C.SUBMODULE_NAME "
-			+ "FROM SYB_SUBJECT A, SYB_MODULE B, SYB_SUBMODULE C "
+			+ "FROM syb_subject A, syb_module B, syb_submodule C "
 			+ "WHERE B.MODULE_SUBJECT_REF = A.IDSYB_SUBJECT "
 			+ "AND C.MODULE_REF = B.SYB_SUB_MODULE_ID ";
 
