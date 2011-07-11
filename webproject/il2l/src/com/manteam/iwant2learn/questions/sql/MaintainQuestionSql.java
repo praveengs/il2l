@@ -143,7 +143,7 @@ public class MaintainQuestionSql extends AbstractSql {
 				preparedStatement = MaintainQuestionQueryConstructor
 						.saveQuestionSubmoduleMap((int) lastQuestionId, submoduleIds,
 								conn);
-				preparedStatement.executeUpdate();
+				preparedStatement.executeBatch();
 			}
 
 		} finally {
