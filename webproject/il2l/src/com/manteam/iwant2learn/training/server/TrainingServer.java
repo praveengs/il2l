@@ -10,6 +10,7 @@ import com.manteam.framework.manager.AbstractManager;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.sql.TrainingSql;
 import com.manteam.iwant2learn.vo.QuestionReturnVO;
+import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 public class TrainingServer extends AbstractManager {
 	
@@ -49,6 +50,25 @@ public class TrainingServer extends AbstractManager {
 			questionReturnVO = TrainingSql.getInstance()
 					.retrieveQuestionsForSelection(getConnection(),
 							subjectVO);
+		} catch (DatabaseException databaseException) {
+			// TODO Auto-generated catch block
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return questionReturnVO;
+	}
+
+	public QuestionReturnVO retrieveQuestionsForWeb(QuestionSearchVO questionSearchVO) throws SystemException {
+		QuestionReturnVO questionReturnVO = null;
+
+		try {
+
+			questionReturnVO = TrainingSql.getInstance()
+					.retrieveQuestionsForWeb(getConnection(),
+							questionSearchVO);
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block
 			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,

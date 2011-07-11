@@ -14,6 +14,7 @@ import com.manteam.iwant2learn.subject.vo.ModuleVO;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 import com.manteam.iwant2learn.vo.QuestionReturnVO;
+import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 public class TrainingSql extends AbstractSql {
 
@@ -126,7 +127,6 @@ public class TrainingSql extends AbstractSql {
 			preparedStatement = TrainingQueryConstructor.retrieveQuestions(
 					subjectVO, connection);
 			resultSet = preparedStatement.executeQuery();
-
 			questionReturnVO = getExamQuestionsVOs(resultSet);
 
 			if (questionReturnVO != null) {
@@ -233,6 +233,59 @@ public class TrainingSql extends AbstractSql {
 			} while (resultSet.next());
 		}
 		return questionReturnVO;
+	}
+
+	public QuestionReturnVO retrieveQuestionsForWeb(Connection connection,
+			QuestionSearchVO questionSearchVO) throws SQLException {
+		QuestionReturnVO questionReturnVO = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		// Hashmap to hold submodule-keyword mappings
+		HashMap<String, String> submoduleKeyWordMap;
+
+		// Hashmap to hold the keyword details
+		HashMap<String, KeyWordVO> keywordMap;
+
+		try {
+			preparedStatement = TrainingQueryConstructor.retrieveQuestionsForWeb(
+					questionSearchVO, connection);
+			resultSet = preparedStatement.executeQuery();
+			questionReturnVO = getExamQuestionsVOs(resultSet);
+
+			if (questionReturnVO != null) {
+				submoduleKeyWordMap = new HashMap<String, String>(2);
+				keywordMap = new HashMap<String, KeyWordVO>(2);
+				questionReturnVO.setKeywordMap(keywordMap);
+				questionReturnVO.setSubmoduleKeyWordMap(submoduleKeyWordMap);
+				retrieveKeyWordsForSubmodulesofSubject(connection, questionSearchVO,
+						submoduleKeyWordMap, keywordMap);
+			}
+
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+
+		return questionReturnVO;
+	}
+
+	private void retrieveKeyWordsForSubmodulesofSubject(Connection connection,
+			QuestionSearchVO questionSearchVO,
+			HashMap<String, String> submoduleKeyWordMap,
+			HashMap<String, KeyWordVO> keywordMap) throws SQLException {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			preparedStatement = TrainingQueryConstructor
+					.retrieveKeyWordsForSubmodulesofSubject(questionSearchVO,
+							connection);
+			resultSet = preparedStatement.executeQuery();
+			getSubmoduleKeyWordMap(resultSet, submoduleKeyWordMap, keywordMap);
+		} finally {
+			close(resultSet, preparedStatement);
+		}
+		
 	}
 
 }

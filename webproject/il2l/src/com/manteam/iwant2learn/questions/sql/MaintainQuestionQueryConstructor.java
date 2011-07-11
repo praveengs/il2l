@@ -79,7 +79,7 @@ public class MaintainQuestionQueryConstructor {
 			preparedStatement.setBinaryStream(2,
 					questionSaveVO.getQuestionImage());
 		} else {
-			preparedStatement.setBinaryStream(2, null);
+			preparedStatement.setBinaryStream(2, null, (int)0);
 		}
 		preparedStatement.setString(3,
 				questionSaveVO.getQuestionYearMarkString());
@@ -88,7 +88,7 @@ public class MaintainQuestionQueryConstructor {
 			preparedStatement.setBinaryStream(5,
 					questionSaveVO.getAnswerImageStream());
 		} else {
-			preparedStatement.setBinaryStream(5, null);
+			preparedStatement.setBinaryStream(5, null, (int)0);
 		}
 		//LAST_MODIFIED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_ROLE
 		preparedStatement.setString(6, userName);

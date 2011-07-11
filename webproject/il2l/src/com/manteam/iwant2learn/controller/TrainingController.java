@@ -14,6 +14,8 @@ import com.manteam.iwant2learn.training.server.TrainingServer;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
+import com.manteam.iwant2learn.vo.QuestionReturnVO;
+import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +30,32 @@ public class TrainingController {
 	private static MaintainQuestionsManager maintainQuestionsManager = null;
 	private static MaintainSubjectsManager maintainSubjectsManager = null;
 
+	/**
+	  * This method returns the questions for the selected modules, submodules of
+	  * a particular subject
+	  * 
+	  * @param subjectVO
+	  * @return
+	  * @throws SystemException
+	  */
+	 public QuestionReturnVO retrieveQuestions(SubjectVO subjectVO)
+	   throws SystemException {
+	  return getTrainingServer().retrieveQuestions(subjectVO);
+	 }
+	 
+	 /**
+	  * This method returns the questions for the selected modules, submodules of
+	  * a particular subject
+	  * 
+	  * @param subjectVO
+	  * @return
+	  * @throws SystemException
+	  */
+	 public QuestionReturnVO retrieveQuestions(QuestionSearchVO questionSearchVO)
+	   throws SystemException {
+	  return getTrainingServer().retrieveQuestionsForWeb(questionSearchVO);
+	 }
+	
 	/**
 	 * This method retrieves all the subjects defined in the system
 	 * 

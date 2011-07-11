@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import com.manteam.iwant2learn.subject.vo.ModuleVO;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
+import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 public class TrainingQueryConstructor {
 
@@ -29,15 +30,14 @@ public class TrainingQueryConstructor {
 		PreparedStatement preparedStatement;
 		StringBuilder query = new StringBuilder(
 				TrainingQueries.RETRIEVE_QUESTIONS_SUBMOD);
-		for (ModuleVO moduleVO : subjectVO.getModules()) {
-			query.append("(");
+		query.append("(");
+		for (ModuleVO moduleVO : subjectVO.getModules()) {			
 			for (String submodule : moduleVO.getSubmodules()) {
 				query.append("'").append(submodule)
 						.append("',");
-			}
-			query.replace(query.length() - 1, query.length(), ")");
-
+			}		
 		}
+		query.replace(query.length() - 1, query.length(), ")");
 		query.append(TrainingQueries.RETRIEVE_QUESTIONS_REST);
 		System.out.println(query);
 		preparedStatement = connection.prepareStatement(query.toString());
@@ -63,6 +63,45 @@ public class TrainingQueryConstructor {
 		System.out.println(query);
 		preparedStatement = connection.prepareStatement(query.toString());
 		preparedStatement.setString(1, subjectVO.getSubjectName());
+
+		return preparedStatement;
+	}
+
+	public static PreparedStatement retrieveQuestionsForWeb(
+			QuestionSearchVO questionSearchVO, Connection connection) throws SQLException {
+		PreparedStatement preparedStatement;
+		StringBuilder query = new StringBuilder(
+				TrainingQueries.RETRIEVE_QUESTIONS_SUBMOD);
+		query.append("(");
+		for (String submodule : questionSearchVO.getSubmodules()) {			
+			
+				query.append("'").append(submodule)
+						.append("',");
+					
+		}
+		query.replace(query.length() - 1, query.length(), ")");
+		query.append(TrainingQueries.RETRIEVE_QUESTIONS_REST);
+		System.out.println(query);
+		preparedStatement = connection.prepareStatement(query.toString());
+		preparedStatement.setString(1, questionSearchVO.getSubjectName());
+
+		return preparedStatement;
+	}
+
+	public static PreparedStatement retrieveKeyWordsForSubmodulesofSubject(
+			QuestionSearchVO questionSearchVO, Connection connection) throws SQLException {
+		PreparedStatement preparedStatement;
+		StringBuilder query = new StringBuilder(
+				TrainingQueries.GET_KEYWORD_FOR_SUBMODULES);
+		query.append("(");
+		for (String submodule : questionSearchVO.getSubmodules()) {			
+				query.append("'").append(submodule).append("',");
+		}
+		query.replace(query.length() - 1, query.length(), ")");
+		query.append(TrainingQueries.GET_KEYWORD_FOR_SUBMODULES_REST);
+		System.out.println(query);
+		preparedStatement = connection.prepareStatement(query.toString());
+		preparedStatement.setString(1, questionSearchVO.getSubjectName());
 
 		return preparedStatement;
 	}

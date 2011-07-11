@@ -53,17 +53,17 @@ public class WebXMLCreator {
 			 */
 
 			Element subjectChild = getChild(doc, subjectVO.getSubjectName(),
-					WebXMLConstants.SUBJECT+subjectVO.getSubjectId());
+					WebXMLConstants.SUBJECT+subjectVO.getSubjectName());
 			root.appendChild(subjectChild);
 			Element moduleChild;
 			Element submoduleChild;
 			for (ModuleVO moduleVO : subjectVO.getModules()) {
 				moduleChild = getChild(doc, moduleVO.getModuleName(),
-						WebXMLConstants.MODULE+moduleVO.getModuleId());
+						WebXMLConstants.MODULE+moduleVO.getModuleName());
 				HashMap<Integer, String> idSubmoduleMap = moduleVO
 						.getIdSubModuleMap();
 				for (Integer key : idSubmoduleMap.keySet()) {
-					submoduleChild = getChild(doc, idSubmoduleMap.get(key), WebXMLConstants.SUBMODULE+key);
+					submoduleChild = getChild(doc, idSubmoduleMap.get(key), WebXMLConstants.SUBMODULE+ idSubmoduleMap.get(key));
 					moduleChild.appendChild(submoduleChild);
 				}
 
@@ -86,7 +86,7 @@ public class WebXMLCreator {
 			xmlString = sw.toString();
 
 			// print xml
-			System.out.println("Here's the xml:\n\n" + xmlString);
+			//System.out.println("Here's the xml:\n\n" + xmlString);
 		} catch (ParserConfigurationException parserConfigurationException) {
 			// TODO Auto-generated catch block
 			parserConfigurationException.printStackTrace();

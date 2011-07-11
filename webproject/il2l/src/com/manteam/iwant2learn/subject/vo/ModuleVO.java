@@ -153,8 +153,4 @@ public class ModuleVO implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
-
-	
 }
