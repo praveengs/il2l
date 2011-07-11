@@ -1,3 +1,4 @@
+<%@page import="com.manteam.iwant2learn.vo.ExamQuestionsVO"%>
 <%@page import="com.manteam.iwant2learn.vo.QuestionSearchVO"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="com.manteam.iwant2learn.vo.QuestionReturnVO"%>
@@ -20,6 +21,7 @@
 <body>
 
 	<%
+		
 		String queryString = request.getParameter("selection");
 		System.out.println(queryString);
 		String subject=null;
@@ -65,9 +67,14 @@
 		TrainingController controller = new TrainingController();
 		QuestionReturnVO questionRet=controller.retrieveQuestions(questionSearchVO);
 		System.out.println("this is ret :"+questionRet);
+		Collection<ExamQuestionsVO> questions=questionRet.getExamQuestionVOs();
+		int noOfQuestions=questions.size();
+		if(Integer.parseInt(request.getParameter("question"))==0){
+			
+		}
+		
+		
 	%>
-<div id ="abcd">
-asdasd
-</div>
+	<div id="abcd">asdasd</div>
 </body>
 </html>
