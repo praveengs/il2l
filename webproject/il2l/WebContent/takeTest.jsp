@@ -4,14 +4,12 @@
 <%@page import="java.net.URL"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.io.FileInputStream"%>
-<%@page import="org.apache.commons.codec.binary.Base64"%>
 <%@page import="java.awt.Image"%>
 <%@page import="java.awt.Toolkit"%>
 <%@page import="javax.imageio.ImageIO"%>
 <%@page import="java.awt.image.BufferedImage"%>
 <%@page import="java.io.IOException"%>
 <%@page import="java.io.OutputStream"%>
-<%@page import="org.apache.jasper.runtime.JspWriterImpl"%>
 <%@page import="java.io.BufferedOutputStream"%>
 <%@page import="java.io.BufferedInputStream"%>
 <%@page import="java.io.InputStream"%>
@@ -143,39 +141,41 @@
 			TrainingController controller = new TrainingController();
 			QuestionReturnVO questionRet = controller
 					.retrieveQuestions(questionSearchVO);
-			System.out.println("this is ret :" + questionRet);
-			Collection<ExamQuestionsVO> questions = questionRet
-					.getExamQuestionVOs();
-			int noOfQuestions = questions.size();
-			System.out.println(noOfQuestions);
-			ArrayList<ExamQuestionsVO> questionsArray = new ArrayList<ExamQuestionsVO>(
-					questions);
-			ExamQuestionsVO question = null;
-			int location;
-			String questionString = request.getParameter("question");
-			System.out.println("Location = " + questionString);
-			if (questionString == null
-					|| questionString.equalsIgnoreCase("")) {
-				questionString="0";
-			} 
-			location = Integer.parseInt(questionString);
-			if(location<noOfQuestions){
+			if (questionRet != null) {
+				System.out.println("this is ret :" + questionRet);
+				Collection<ExamQuestionsVO> questions = questionRet
+						.getExamQuestionVOs();
+				int noOfQuestions = questions.size();
+
+				System.out.println(noOfQuestions);
+				ArrayList<ExamQuestionsVO> questionsArray = new ArrayList<ExamQuestionsVO>(
+						questions);
+				ExamQuestionsVO question = null;
+				int location;
+				String questionString = request.getParameter("question");
+				System.out.println("Location = " + questionString);
+				if (questionString == null
+						|| questionString.equalsIgnoreCase("")) {
+					questionString = "0";
+				}
+				location = Integer.parseInt(questionString);
+				if (location < noOfQuestions) {
 					question = questionsArray.get(location);
-			} else if(location>=noOfQuestions) {
-				question=questionsArray.get(location-1);
-				%>
-				<script type="text/javascript">
-					document.getElementById("nextButton").disabled=true;
-				</script>
-				<%
-			}else if(location<0){
-				question=questionsArray.get(0);
-				%>
-				<script type="text/javascript">
-					document.getElementById("prevButton").disabled=true;
-				</script>
-				<%
-			}
+				} else if (location >= noOfQuestions) {
+					question = questionsArray.get(location - 1);
+	%>
+	<script type="text/javascript">
+     document.getElementById("nextButton").disabled=true;
+    </script>
+	<%
+		} else if (location < 0) {
+					question = questionsArray.get(0);
+	%>
+	<script type="text/javascript">
+     document.getElementById("prevButton").disabled=true;
+    </script>
+	<%
+		}
 	%>
 
 	<div id="container" class="container">
@@ -189,23 +189,23 @@
 			<hr />
 			<%=question.getQuestion()%>
 			<p id="questionImage">
-			<%
-					InputStream in = question.getQuestionImage();
-					String stream = in.toString();
-				%>
-				<br /> <img src="getImage?image=<%=in%>" width="200" height="400" alt="embedded folder icon">
+				<br /> <img alt="QuestionImage"
+					src="getImage?imageId=<%=question.getQuestionId()%>" width="300"
+					height="400">
 			</p>
 			<br />
 			<%
-				System.out.println("Before call, location is : " + location);
-					
+				System.out
+								.println("Before call, location is : " + location);
 			%>
-			<input type="button" id="prevButton" value="Previous Question" align="left"
-				style="float: left;" onclick="parent.fnGetPrevQn(<%=location%>);"/> <input type="button" id="nextButton" value="Next Question"
-				align="right" style="float: right;"
-				onclick="parent.fnGetNextQn(<%=location%>);" /> <br /> <br />
+			<input type="button" id="prevButton" value="Previous Question"
+				align="left" style="float: left;"
+				onclick="parent.fnGetPrevQn(<%=location%>);" /> <input
+				type="button" id="nextButton" value="Next Question" align="right"
+				style="float: right;" onclick="parent.fnGetNextQn(<%=location%>);" />
+			<br /> <br />
 		</div>
-		<div id="answer" class="footer">
+		<div id="answerDesc" class="footer">
 			<h3>Answer</h3>
 			<hr />
 			<input type="button" value="Show Answer" align="middle"
@@ -217,8 +217,10 @@
 				</p>
 			</div>
 			<%
-			
-		}
+				} else {
+						out.println("No questions available for the selected submodules");
+					}
+				}
 			%>
 		</div>
 	</div>
