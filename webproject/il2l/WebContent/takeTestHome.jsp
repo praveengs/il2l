@@ -7,7 +7,12 @@
 <title>Take Test Home</title>
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
-
+<script>
+function fnOpen(){
+	//alert("Test");
+	window.open(href='training.jsp', 'Start_Training', 'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
+}
+</script>
 </head>
 <body>
 	<div class="container">
@@ -45,13 +50,12 @@
 			<div id="rightcolumn">
 				<center>
 					<h1>SELECT SUBJECT</h1>
-					<select name="subjectName" id="subject"
-						onchange="window.open(target='training.jsp');
-return false;">
+					<select name="subjectName" id="subject">
 						<option value="select">SELECT</option>
 						<option value="Physics">Physics</option>
 						<option value="Chemistry">Chemistry</option>
 					</select>
+					<input type="button"  value="Start the Subject" onclick="javascript:fnOpen();"/>
 				</center>
 			</div>
 
