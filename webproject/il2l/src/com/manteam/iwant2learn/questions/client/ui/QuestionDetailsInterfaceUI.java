@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -41,8 +39,6 @@ import com.manteam.iwant2learn.questions.client.handler.MaintainQuestionsHandler
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.subject.client.handler.SubjectHandler;
-import com.manteam.iwant2learn.subject.test.sql.SubjectSqlTest;
-import com.manteam.iwant2learn.training.client.handler.TrainingUIHandler;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
 public class QuestionDetailsInterfaceUI extends JFrame {
