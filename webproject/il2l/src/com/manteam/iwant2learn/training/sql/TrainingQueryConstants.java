@@ -19,6 +19,7 @@ public abstract class TrainingQueryConstants {
 	public static final String QNO_YEAR_MARKS = "QNO_YEAR_MARKS";
 	public static final String ANSWER = "ANSWER";
 	public static final String ANSWER_IMG = "ANSWER_IMG";
+	public static final String EXAM_QUESTIONS_ID = "EXAM_QUESTIONS_ID";
 
 	/**
 	 * Keyword table column names
@@ -30,6 +31,7 @@ public abstract class TrainingQueryConstants {
 	public static final String FORMULAE = "FORMULAE";
 	public static final String DATA = "DATA";
 	public static final String SYB_SUB_SUBMODULE_ID = "SYB_SUB_SUBMODULE_ID";
+	
 	
 
 }

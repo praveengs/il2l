@@ -118,4 +118,12 @@ public class MaintainQuestionQueryConstructor {
 		return preparedStatement;
 	}
 
+	public static PreparedStatement retrieveImageInfoForQuestion(
+			Connection connection, int questionId) throws SQLException {
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(MaintainQuestionQueries.RETRIEVE_QUES_IMG);
+		preparedStatement.setInt(1, questionId);
+		return preparedStatement;
+	}
+
 }

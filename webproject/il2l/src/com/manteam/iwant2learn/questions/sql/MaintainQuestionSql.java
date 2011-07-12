@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import com.manteam.framework.sql.AbstractSql;
+import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
@@ -150,6 +151,30 @@ public class MaintainQuestionSql extends AbstractSql {
 			close(preparedStatement);
 		}
 		return rowsInserted;
+	}
+
+	public ImageStreamVO retrieveImageInfoForQuestion(Connection connection,
+			int questionId) throws SQLException {
+		ImageStreamVO imageStreamVO = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;		
+		try {
+			preparedStatement = MaintainQuestionQueryConstructor.retrieveImageInfoForQuestion(
+					connection,questionId);
+			resultSet = preparedStatement.executeQuery();
+			//preparedStatement.close();
+
+			if (resultSet.next()) {
+				imageStreamVO = new ImageStreamVO();
+				imageStreamVO.setImageByteArray(resultSet.getBytes(MaintainQuestionsQueryConstants.QUES_IMG));
+				imageStreamVO.setImageString(resultSet.getString(MaintainQuestionsQueryConstants.QUES_IMG));
+			}
+			
+
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+		return imageStreamVO;
 	}
 
 }

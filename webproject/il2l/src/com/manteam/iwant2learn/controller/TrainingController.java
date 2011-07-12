@@ -7,6 +7,7 @@ package com.manteam.iwant2learn.controller;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
+import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
@@ -134,6 +135,19 @@ public class TrainingController {
 	public HashMap<String, ArrayList<String>> retrieveAllSubjectsnSubmodules()
 			throws SystemException {
 		return getMaintainSubjectsManager().retrieveAllSubjectsnSubmodules();
+	}
+	
+	/**
+	 * This method returns all the subjects and submodules associated with it
+	 * in the form of a HashMap. This is used to populate the Question Creation
+	 * screen
+	 * 
+	 * @return
+	 * @throws SystemException
+	 */
+	public ImageStreamVO retrieveImageInfoForQuestion(int questionId)
+			throws SystemException {
+		return getQuestionManager().retrieveImageInfoForQuestion(questionId);
 	}
 
 	/**

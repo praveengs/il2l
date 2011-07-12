@@ -13,6 +13,7 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.sql.MaintainQuestionSql;
+import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
@@ -62,7 +63,7 @@ public class MaintainQuestionsManager extends AbstractManager {
 		try {
 			conn = getConnection();
 
-			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();			
+			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
 
 			HashMap<Integer, String> submoduleIdMap = maintainQuestionSql
 					.getSubmoduleIds(conn, questionSaveVO.getSubjectName(),
@@ -74,7 +75,8 @@ public class MaintainQuestionsManager extends AbstractManager {
 			}
 			conn.setAutoCommit(false);
 			int recordsUpdated = maintainQuestionSql.saveQuestion(conn,
-					questionSaveVO, submoduleIdMap.keySet(), logonAttributesVO, new Date());
+					questionSaveVO, submoduleIdMap.keySet(), logonAttributesVO,
+					new Date());
 			if (recordsUpdated > 0) {
 				isInserted = true;
 			}
@@ -97,6 +99,28 @@ public class MaintainQuestionsManager extends AbstractManager {
 					sqlException);
 		}
 		return isInserted;
+	}
+
+	public ImageStreamVO retrieveImageInfoForQuestion(int questionId)
+			throws SystemException {
+
+		ImageStreamVO imageStreamVO = null;
+		try {
+
+			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
+
+			imageStreamVO = maintainQuestionSql.retrieveImageInfoForQuestion(
+					getConnection(), questionId);
+
+		} catch (DatabaseException databaseException) {
+			// TODO Auto-generated catch block
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return imageStreamVO;
 	}
 
 }

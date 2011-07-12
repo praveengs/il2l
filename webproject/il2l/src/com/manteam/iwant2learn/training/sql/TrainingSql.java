@@ -211,6 +211,8 @@ public class TrainingSql extends AbstractSql {
 			questionReturnVO.setExamQuestionVOs(examQuestionsVOs);
 			do {
 				examQuestionsVO = new ExamQuestionsVO();
+				examQuestionsVO.setQuestionId(resultSet
+						.getInt(TrainingQueryConstants.EXAM_QUESTIONS_ID));
 				examQuestionsVO.setSubjectName(resultSet
 						.getString(TrainingQueryConstants.SUBJECT_NAME));
 				examQuestionsVO.setModuleName(resultSet

@@ -21,4 +21,6 @@ public class MaintainQuestionQueries {
 
 	public static final String INSERT_EXAM_SUBMODULE_MAP = "INSERT INTO exam_ques_submodule_map (QUESTION_ID, SUBMODULE_ID) VALUES (? , ?)";
 
+	public static final String RETRIEVE_QUES_IMG = "SELECT QUES_IMG FROM exam_questions WHERE EXAM_QUESTIONS_ID = ?";
+
 }
