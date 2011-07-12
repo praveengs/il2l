@@ -223,6 +223,8 @@ public class TrainingSql extends AbstractSql {
 						.getString(TrainingQueryConstants.QUESTION));
 				examQuestionsVO.setQuestionImage(resultSet
 						.getBinaryStream(TrainingQueryConstants.QUES_IMG));
+				examQuestionsVO.setQuestionImageByteArray(resultSet
+						.getBytes(TrainingQueryConstants.QUES_IMG));
 				examQuestionsVO.setQuestionYearMarkString(resultSet
 						.getString(TrainingQueryConstants.QNO_YEAR_MARKS));
 				examQuestionsVO.setAnswer(resultSet

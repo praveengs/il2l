@@ -11,6 +11,8 @@ public class QuestionVO implements Serializable {
 	private String question;
 
 	private InputStream questionImage;
+	
+	private byte[] questionImageByteArray;
 
 	private String questionYearMarkString;
 
@@ -157,6 +159,20 @@ public class QuestionVO implements Serializable {
 	 */
 	public void setLastModifiedRole(String lastModifiedRole) {
 		this.lastModifiedRole = lastModifiedRole;
+	}
+
+	/**
+	 * @return the questionImageByteArray
+	 */
+	public byte[] getQuestionImageByteArray() {
+		return questionImageByteArray;
+	}
+
+	/**
+	 * @param questionImageByteArray the questionImageByteArray to set
+	 */
+	public void setQuestionImageByteArray(byte[] questionImageByteArray) {
+		this.questionImageByteArray = questionImageByteArray;
 	}
 
 	/*
