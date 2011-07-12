@@ -51,14 +51,16 @@ public class TrainingQueryConstructor {
 		PreparedStatement preparedStatement;
 		StringBuilder query = new StringBuilder(
 				TrainingQueries.GET_KEYWORD_FOR_SUBMODULES);
+		query.append("(");
 		for (ModuleVO moduleVO : subjectVO.getModules()) {
-			query.append("(");
+			
 			for (String submodule : moduleVO.getSubmodules()) {
 				query.append("'").append(submodule).append("',");
 			}
-			query.replace(query.length() - 1, query.length(), ")");
+			
 
 		}
+		query.replace(query.length() - 1, query.length(), ")");
 		query.append(TrainingQueries.GET_KEYWORD_FOR_SUBMODULES_REST);
 		System.out.println(query);
 		preparedStatement = connection.prepareStatement(query.toString());

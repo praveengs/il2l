@@ -13,11 +13,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +40,8 @@ import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.questions.client.handler.MaintainQuestionsHandler;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
+import com.manteam.iwant2learn.subject.client.handler.SubjectHandler;
+import com.manteam.iwant2learn.subject.test.sql.SubjectSqlTest;
 import com.manteam.iwant2learn.training.client.handler.TrainingUIHandler;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
@@ -73,14 +79,30 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 	private JButton saveButton;
 	private JPanel statusPanel;
 	private JLabel subjectNameLabel;
-	private JTextField subjectNameTextField;
+	private JComboBox subjectNameComboBox;
 	private JPanel subjectPanel;
 	private JLabel submoduleNameLabel;
-	private JTextField submoduleNameTextField;
+	private JComboBox submoduleNameComboBox;
+
+	private HashMap<String, ArrayList<String>> subjectnSubmodules;
 
 	/** Creates new form QuestionInterfaceUI */
 	public QuestionDetailsInterfaceUI() {
+		subjectnSubmodules = getSubjectsnSubmodules();
 		initComponents();
+	}
+
+	private HashMap<String, ArrayList<String>> getSubjectsnSubmodules() {
+		SubjectHandler subjectHandler = new SubjectHandler();
+		HashMap<String, ArrayList<String>> subjectnSubmodulesMap = null;
+		try {
+			subjectnSubmodulesMap = subjectHandler
+					.retrieveAllSubjectsnSubmodules();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return subjectnSubmodulesMap;
 	}
 
 	/**
@@ -112,11 +134,11 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 		choosePathButton = new JButton();
 		subjectPanel = new JPanel();
 		subjectNameLabel = new JLabel();
-		subjectNameTextField = new JTextField();
+		subjectNameComboBox = new JComboBox();
 		moduleNameLabel = new JLabel();
 		moduleNameTextField = new JTextField();
 		submoduleNameLabel = new JLabel();
-		submoduleNameTextField = new JTextField();
+		submoduleNameComboBox = new JComboBox();
 		buttonPanel = new JPanel();
 		closeButton = new JButton();
 		saveButton = new JButton();
@@ -263,13 +285,17 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 		gridBagConstraints.insets = new Insets(10, 10, 5, 5);
 		subjectPanel.add(subjectNameLabel, gridBagConstraints);
 
-		subjectNameTextField.setMinimumSize(new Dimension(19, 22));
-		subjectNameTextField.setPreferredSize(new Dimension(200, 22));
+		// subjectnSubmodules.keySet().toArray();
+		// subjectNameComboBox.setModel(new
+		// DefaultComboBoxModel(subjectnSubmodules.keySet().toArray()));
+		subjectNameComboBox.setMinimumSize(new Dimension(19, 22));
+		subjectNameComboBox.setPreferredSize(new Dimension(200, 22));
+
 		gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.anchor = GridBagConstraints.WEST;
 		gridBagConstraints.weightx = 1.0;
 		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		subjectPanel.add(subjectNameTextField, gridBagConstraints);
+		subjectPanel.add(subjectNameComboBox, gridBagConstraints);
 
 		moduleNameLabel.setText("Module Name");
 		gridBagConstraints = new GridBagConstraints();
@@ -295,14 +321,25 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 		gridBagConstraints.insets = new Insets(5, 0, 10, 5);
 		subjectPanel.add(submoduleNameLabel, gridBagConstraints);
 
-		submoduleNameTextField.setPreferredSize(new Dimension(200, 22));
+		submoduleNameComboBox.setPreferredSize(new Dimension(200, 22));
 		gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.anchor = GridBagConstraints.EAST;
 		gridBagConstraints.insets = new Insets(5, 5, 10, 10);
-		subjectPanel.add(submoduleNameTextField, gridBagConstraints);
+		subjectPanel.add(submoduleNameComboBox, gridBagConstraints);
+
+		subjectNameComboBox.setModel(new DefaultComboBoxModel(
+				subjectnSubmodules.keySet().toArray()));
+		subjectNameComboBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				submoduleNameComboBox.setModel(new DefaultComboBoxModel(
+						subjectnSubmodules.get(subjectNameComboBox.getSelectedItem()).toArray()));
+			}
+		});
 
 		gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 0;
@@ -479,9 +516,10 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 
 	private ExamQuestionsVO generateExamQuestionsVO() {
 		ExamQuestionsVO examQuestionsVO = new ExamQuestionsVO();
-		examQuestionsVO.setSubjectName(subjectNameTextField.getText());
+		examQuestionsVO.setSubjectName(subjectNameComboBox.getSelectedItem()
+				.toString());
 		examQuestionsVO.setModuleName(moduleNameTextField.getText());
-		examQuestionsVO.setSubmoduleName(submoduleNameTextField.getText());
+		examQuestionsVO.setSubmoduleName(submoduleNameComboBox.getSelectedItem().toString());
 		examQuestionsVO.setQuestion(questionTextArea.getText());
 		if (questionImagePathTextField.getText() != null
 				&& questionImagePathTextField.getText().length() > 0) {
@@ -503,11 +541,12 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 
 	private QuestionSaveVO generateQuestionSaveVO() {
 		QuestionSaveVO questionSaveVO = new QuestionSaveVO();
-		questionSaveVO.setSubjectName(subjectNameTextField.getText());
+		questionSaveVO.setSubjectName(subjectNameComboBox.getSelectedItem()
+				.toString());
 		// examQuestionsVO.setModuleName(moduleNameTextField.getText());
 		// examQuestionsVO.setSubmoduleName(submoduleNameTextField.getText());
-		questionSaveVO.setSubmodules(getSubmodules(submoduleNameTextField
-				.getText().trim().split(",")));
+		questionSaveVO.setSubmodules(getSubmodules(submoduleNameComboBox
+				.getSelectedItem().toString().trim().split(",")));
 		questionSaveVO.setQuestion(questionTextArea.getText());
 		if (questionImagePathTextField.getText() != null
 				&& questionImagePathTextField.getText().length() > 0) {
@@ -549,11 +588,12 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 
 	private boolean isValidForSave() {
 		boolean isValid = false;
-		if (subjectNameTextField.getText() == null
-				|| subjectNameTextField.getText().trim().length() == 0) {
+		if (subjectNameComboBox.getSelectedItem() == null
+				|| subjectNameComboBox.getSelectedItem().toString().trim()
+						.length() == 0) {
 			JOptionPane.showMessageDialog(this, "Please specify the Subject",
 					"Inane error", JOptionPane.ERROR_MESSAGE);
-			subjectNameTextField.requestFocus();
+			subjectNameComboBox.requestFocus();
 			return isValid;
 		}
 		/*
@@ -563,12 +603,12 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 		 * "Inane error", JOptionPane.ERROR_MESSAGE);
 		 * moduleNameTextField.requestFocus(); return isValid; }
 		 */
-		if (submoduleNameTextField.getText() == null
-				|| submoduleNameTextField.getText().trim().length() == 0) {
+		if (submoduleNameComboBox.getSelectedItem() == null
+				|| submoduleNameComboBox.getSelectedItem().toString().trim().length() == 0) {
 			JOptionPane.showMessageDialog(this,
 					"Please specify the Sub Module Name", "Inane error",
 					JOptionPane.ERROR_MESSAGE);
-			submoduleNameTextField.requestFocus();
+			submoduleNameComboBox.requestFocus();
 			return isValid;
 		}
 		if (questionTextArea.getText() == null

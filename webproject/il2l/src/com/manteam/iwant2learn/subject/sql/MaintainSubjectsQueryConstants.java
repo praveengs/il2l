@@ -16,4 +16,6 @@ public abstract class MaintainSubjectsQueryConstants {
 	public static final String SUBMODULE_DESC = "SUBMODULE_DESC";
 	public static final String IDSYB_SUBJECT = "IDSYB_SUBJECT";
 	public static final String SYB_SUB_MODULE_ID = "SYB_SUB_MODULE_ID";
+	public static final String LAST_INSERTED_ID = "last_insert_id()";
+	public static final String SYB_SUB_SUBMODULE_ID = "SYB_SUB_SUBMODULE_ID";
 }

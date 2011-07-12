@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import com.manteam.framework.sql.AbstractSql;
+import com.manteam.iwant2learn.questions.sql.MaintainQuestionQueryConstructor;
+import com.manteam.iwant2learn.questions.sql.MaintainQuestionsQueryConstants;
+import com.manteam.iwant2learn.subject.vo.SubmoduleSaveVO;
 
 /**
  * @author Praveen
@@ -77,6 +80,89 @@ public class MaintainSubjectsSql extends AbstractSql {
 		}
 
 		return subjectnSubmoduleMap;
+	}
+
+	public int getModuleID(Connection conn, String moduleName,
+			String subjectName) throws SQLException {
+		int moduleId = 0;
+		// int subjectId = 0;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = MaintainSubjectsQueryConstructor.getModuleId(
+					conn, moduleName, subjectName);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				moduleId = resultSet
+						.getInt(MaintainSubjectsQueryConstants.SYB_SUB_MODULE_ID);
+				// subjectId =
+				// resultSet.getInt(MaintainSubjectsQueryConstants.IDSYB_SUBJECT);
+			}
+			if (moduleId == 0) {
+				preparedStatement = MaintainSubjectsQueryConstructor
+						.saveModule(conn, moduleName, subjectName);
+				int rowsInserted = preparedStatement.executeUpdate();
+				if (rowsInserted > 0) {
+					preparedStatement = MaintainSubjectsQueryConstructor
+							.getLastInsertedId(conn);
+					resultSet = preparedStatement.executeQuery();
+					if (resultSet.next()) {
+						moduleId = (int) resultSet
+								.getLong(MaintainSubjectsQueryConstants.LAST_INSERTED_ID);
+					}
+				}
+			}
+		} finally {
+			close(resultSet, preparedStatement);
+		}
+		return moduleId;
+	}
+
+	public int saveSubmodule(Connection conn, int moduleId,
+			SubmoduleSaveVO submoduleSaveVO) throws SQLException {
+		int submoduleId = 0;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+
+			preparedStatement = MaintainSubjectsQueryConstructor.saveSubModule(
+					conn, moduleId, submoduleSaveVO);
+			int rowsInserted = preparedStatement.executeUpdate();
+			if (rowsInserted > 0) {
+				preparedStatement = MaintainSubjectsQueryConstructor
+						.getLastInsertedId(conn);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					submoduleId = (int) resultSet
+							.getLong(MaintainSubjectsQueryConstants.LAST_INSERTED_ID);
+				}
+			}
+
+		} finally {
+			close(resultSet, preparedStatement);
+		}
+		return submoduleId;
+	}
+
+	public int getSubmoduleForSubject(Connection conn, String subjectName,
+			String submoduleName) throws SQLException {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		int submoduleId = 0;
+		try {
+			preparedStatement = MaintainSubjectsQueryConstructor
+					.getSubModuleId(conn, subjectName, submoduleName);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				submoduleId = resultSet
+						.getInt(MaintainSubjectsQueryConstants.SYB_SUB_SUBMODULE_ID);
+				// subjectId =
+				// resultSet.getInt(MaintainSubjectsQueryConstants.IDSYB_SUBJECT);
+			}
+		} finally {
+			close(resultSet, preparedStatement);
+		}
+		return submoduleId;
 	}
 
 }

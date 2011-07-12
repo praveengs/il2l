@@ -12,7 +12,9 @@ import java.util.HashMap;
 import com.manteam.framework.db.exceptions.DatabaseException;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
+import com.manteam.iwant2learn.subject.exceptions.MaintainSubjectsException;
 import com.manteam.iwant2learn.subject.sql.MaintainSubjectsSql;
+import com.manteam.iwant2learn.subject.vo.SubmoduleSaveVO;
 
 /**
  * @author Praveen
@@ -45,8 +47,8 @@ public class MaintainSubjectsManager extends AbstractManager {
 	}
 
 	/**
-	 * This method returns all the subjects and submodules associated with it
-	 * in the form of a HashMap. This is used to populate the Question Creation
+	 * This method returns all the subjects and submodules associated with it in
+	 * the form of a HashMap. This is used to populate the Question Creation
 	 * screen
 	 * 
 	 * @return
@@ -76,5 +78,57 @@ public class MaintainSubjectsManager extends AbstractManager {
 			maintainSubjectsSql = new MaintainSubjectsSql();
 		}
 		return maintainSubjectsSql;
+	}
+
+	public int saveModulenSubmodule(SubmoduleSaveVO submoduleSaveVO)
+			throws MaintainSubjectsException, SystemException {
+		Connection conn = null;
+		int submoduleId = 0;
+		try {
+			conn = getConnection();
+
+			conn.setAutoCommit(false);
+			int moduleId = getMaintainSubjectsSql().getModuleID(conn,
+					submoduleSaveVO.getModuleName(),
+					submoduleSaveVO.getSubjectName());
+			if (moduleId == 0) {
+				throw new MaintainSubjectsException(
+						MaintainSubjectsException.INVALID_MODULE_ID);
+			}
+			submoduleId = getMaintainSubjectsSql().getSubmoduleForSubject(conn,
+					submoduleSaveVO.getSubjectName(),
+					submoduleSaveVO.getSubmoduleName());
+			if (submoduleId != 0) {
+				throw new MaintainSubjectsException(
+						MaintainSubjectsException.SUBMODULE_ALREADY_PRESENT
+								+ submoduleId);
+			}
+			submoduleId = getMaintainSubjectsSql().saveSubmodule(conn,
+					moduleId, submoduleSaveVO);
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch (DatabaseException databaseException) {
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return submoduleId;
 	}
 }
