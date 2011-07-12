@@ -1,5 +1,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page import="java.util.Collection"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Set"%>
@@ -43,23 +44,65 @@
 <link href="addQForm.css" rel="stylesheet" type="text/css" />
 
 
-<script type="text/javascript">
-	function fnGetSubModules(passValue) {
-		url = "addQuestionForm.jsp?subject=" + passValue;
-		document.location.href = url;
-	}
-</script>
-
 </head>
-
+<%
+	TrainingController controller = new TrainingController();
+	HashMap<String, ArrayList<String>> subjectsnSubmodules = controller
+			.retrieveAllSubjectsnSubmodules();
+	Set<String> subjects = subjectsnSubmodules.keySet();
+	Object[] subjectArray = subjects.toArray();
+	//System.out.println("Subject selected is"+subjectArray[0].toString());
+	/* Collection<String> submodules = subjectsnSubmodules
+			.get(subjectArray[0]); */
+	Collection<String> submodules = new ArrayList<String>(2);
+	//System.out.println("Submodules are"+submodules);
+%>
 <body>
+	<script type="text/javascript">
+function populateSubmodulesCombo(key) {
+	
+	  var submodulesArray = new Array();
+	  var singleSubjectSubmodulesArray = new Array();
+	  var i = 0;
 
+	 // alert(key);
+	  //Here goes the tricky part, we populate a two-dimensional javascript array with values from the map
+	<%for (int i = 0; i < subjectArray.length; i++) {
+
+				submodules = (ArrayList<String>) subjectsnSubmodules
+						.get(subjectArray[i]);%>
+	        singleSubjectSubmodulesArray = new Array();
+	<%int j = 0;
+				for (String submodule : submodules) {%>         
+	 singleSubjectSubmodulesArray[<%=j%>] = "<%=submodule%>";
+	 <%j++;
+				}%>
+	  submodulesArray[<%=i%>] = singleSubjectSubmodulesArray;
+	 <%}%>  
+		var submodulesList = document.getElementById("submodulesList");
+
+			//alert(submodulesList);
+			//Empty the second combo
+			while (submodulesList.hasChildNodes()) {
+				submodulesList.removeChild(submodulesList.childNodes[0]);
+			}
+
+			if (key == -1) {
+				submodulesList.options[0] = new Option("-SELECT-","-SELECT-");
+			} else {
+				//Populate the second combo with new values
+				for (i = 0; i < submodulesArray[key].length; i++) {
+					submodulesList.options[i] = new Option(submodulesArray[key][i],
+							submodulesArray[key][i]);
+				}
+			}
+		}
+	</script>
 	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -76,61 +119,31 @@
 		</div>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> 
-			<a href="#">Add Question</a> 
-			<a href="addUserForm.jsp">Add User</a> 
-			<a href="takeTestHome.jsp">Take Test</a>
+			<a href="AdminHome.jsp">Admin Home</a> <a href="#">Add Question</a> <a
+				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
+				Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
-		
+
 		<div id="rightcolumn">
 			<form id="feedbackform" action="addQuestion.jsp"
 				enctype="multipart/form-data" method="post">
 				<div>
-					Subject Name : <br /> <select name="subject"
-						onchange="fnGetSubModules(this.document.forms[0].subject.value);">
+					Subject Name : <br /> <select
+						onchange="populateSubmodulesCombo(this.options[this.selectedIndex].index-1);"
+						id="subjectList" name="subject">
 						<option value="">-SELECT-</option>
 						<%
-							String sub = request.getParameter("subject");
-							TrainingController controller = new TrainingController();
-							HashMap<String, ArrayList<String>> ret = controller
-									.retrieveAllSubjectsnSubmodules();
-							Set<String> subs = ret.keySet();
-							System.out.println(sub);
-							if (sub == null || sub.equals("")) {
-
-								Iterator<String> it = subs.iterator();
-								while (it.hasNext()) {
-									String temp = it.next();
+							for (String subject : subjects) {
 						%>
-						<option value="<%=temp%>"><%=temp%></option>
+						<option value="<%=subject%>"><%=subject%></option>
 						<%
 							}
 						%>
-					</select><br /> Sub-Module Name : <br /> <select name="submodule">
+					</select><br /> Sub-Module Name : <br /> <select id="submodulesList"
+						name="submodule" multiple="multiple">
 						<option value="">-SELECT-</option>
-						<%
-							} else {
-								Iterator<String> it = subs.iterator();
-								while (it.hasNext()) {
-									String temp = it.next();
-						%>
-						<option value="<%=temp%>" selected="selected"><%=temp%></option>
-						<%
-							}
-						%>
-					</select><br /> Sub-Module Name : <br /> <select name="submodule"
-						multiple="multiple">
-						<%
-							ArrayList<String> submods = ret.get(sub);
-								for (String tempSubmod : submods) {
-						%>
-						<option value="<%=tempSubmod%>"><%=tempSubmod%></option>
-						<%
-							}
-							}
-						%>
 					</select><br />
 				</div>
 				Appearance : <br /> <input type="checkbox" name="chk1" id="chk1"
@@ -212,7 +225,7 @@
 								</div> <br /> Question : <br /> <textarea
 									style="width: 350px; height: 150px" name="question"></textarea>
 								<br /> Question Image : <br /> <input type="file"
-								name="quesUpload" /> Answer : <br /> <textarea
+								name="quesUpload" /> <br />Answer : <br /> <textarea
 									style="width: 350px; height: 150px" name="answer"></textarea> <br />
 								Answer Image : <br /> <input type="file" name="ansUpload" /><br />
 								<br /> <input type="submit" value="Upload Question" />
