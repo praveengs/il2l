@@ -11,11 +11,8 @@
 <%@page import="java.io.File"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <link rel="stylesheet" type="text/css" href="final.css" />
-<title>Training</title>
-<script type="text/javascript">
-	
-</script>
 
+<title>Training</title>
 <script type="text/javascript">
 
 /***********************************************
@@ -29,8 +26,8 @@ var loadedobjects=""
 var rootdomain="http://"+window.location.hostname
 
 function ajaxpage(url, containerid,ret){
-	finalURL=url;
-	finalRet=ret;
+ finalURL=url;
+ finalRet=ret;
 start="SUB_Physics";
 url=url+'?selection='+start+','+ret;
 document.getElementById("trainingFrame").src=url;
@@ -68,49 +65,41 @@ loadedobjects+=file+" " //Remember this object as being already added to page
 }
 
 function toggleLayer(whichLayer) {
-	alert(document.getElementById(whichLayer).style.visibility);	
+ alert(document.getElementById(whichLayer).style.visibility); 
 }
 
-	
- 	function clearChildren(element) {
- 		alert("Cleaning...")
- 		$('#rightcolumn div').empty()
- 		$('#submodDesc p').empty()
- 		$('#questionDesc p').empty()
- 		$('#answerDesc p').empty()
-	}	
 </script>
 <script type="text/javascript">
 function fnGetNextQn(location){
-	currentUrl=null;
-	location=location+1;
-	currentUrl=document.getElementById("trainingFrame").src;
-	alert(currentUrl)
-	tempUrl=currentUrl.substring(0,currentUrl.indexOf('&'))
-	alert("trmpUrl : "+tempUrl)
-	if(tempUrl==''){
-		modifiedUrl=currentUrl+'&question='+location;
-	}else{
-		modifiedUrl=tempUrl+'&question='+location;
-	}
-	alert(modifiedUrl)
-	document.getElementById("trainingFrame").src=modifiedUrl;	
+ currentUrl=null;
+ location=location+1;
+ currentUrl=document.getElementById("trainingFrame").src;
+ 
+ tempUrl=currentUrl.substring(0,currentUrl.indexOf('&'))
+ 
+ if(tempUrl==''){
+  modifiedUrl=currentUrl+'&question='+location;
+ }else{
+  modifiedUrl=tempUrl+'&question='+location;
+ }
+ 
+ document.getElementById("trainingFrame").src=modifiedUrl; 
 }
 
 function fnGetPrevQn(location){
-	currentUrl=null;
-	location=location-1;
-	currentUrl=document.getElementById("trainingFrame").src;
-	alert(currentUrl)
-	tempUrl=currentUrl.substring(0,currentUrl.indexOf('&'))
-	alert("trmpUrl : "+tempUrl)
-	if(tempUrl==''){
-		modifiedUrl=currentUrl+'&question='+location;
-	}else{
-		modifiedUrl=tempUrl+'&question='+location;
-	}
-	alert(modifiedUrl)
-	document.getElementById("trainingFrame").src=modifiedUrl;
+ currentUrl=null;
+ location=location-1;
+ currentUrl=document.getElementById("trainingFrame").src;
+ 
+ tempUrl=currentUrl.substring(0,currentUrl.indexOf('&'))
+ 
+ if(tempUrl==''){
+  modifiedUrl=currentUrl+'&question='+location;
+ }else{
+  modifiedUrl=tempUrl+'&question='+location;
+ }
+ 
+ document.getElementById("trainingFrame").src=modifiedUrl;
 }
 </script>
 <style type="text/css">
@@ -160,13 +149,72 @@ body {
 
 .{
 font-family
-:arial
-;
 
-	
+
+
+
+
+
+
+
+
+
+
+
+:arial
+
+
+
+
+
+
+
+
+
+
+
+
+;
 font-size
+
+
+
+
+
+
+
+
+
+
+
+
 :
-12px
+
+
+
+
+
+
+
+
+
+
+
+
+12
+px
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
@@ -1970,6 +2018,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 				clearTimeout(this._autoOpenTimer);
 		}
 	</script>
+
 		<form action="takeTest.jsp">
 			<table height="100%" align="left" width="35%" cellpadding="10">
 				<tr height="70%">
@@ -1996,9 +2045,9 @@ dhtmlXTree.css -->.defaultTreeTable {
 		tree.enableThreeStateCheckboxes(true);
 		</script>
 			<%
-			TrainingController training = new TrainingController();
-			String ret = training.retrieveXMLStreamForSubject("Physics");
-		%>
+				TrainingController training = new TrainingController();
+				String ret = training.retrieveXMLStreamForSubject("Physics");
+			%>
 			<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
 			//	tree.loadXML("treeImgs/SampleTree.xml");
@@ -2008,7 +2057,18 @@ dhtmlXTree.css -->.defaultTreeTable {
 
 	</div>
 
-	<iframe src="takeTest.jsp" width="550px" height="413px" id="trainingFrame"></iframe>
+	<iframe src="takeTest.jsp" width="550px" height="413px"
+		id="trainingFrame"></iframe>
 	<div style="clear: left; margin-bottom: 1em"></div>
+	<div class="footer">
+		<center>
+
+			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
+			<b style="color: #999; font-size: 15px">The University of
+				Manchester</b>
+
+		</center>
+		<!-- end .footer -->
+	</div>
 </body>
 </html>
