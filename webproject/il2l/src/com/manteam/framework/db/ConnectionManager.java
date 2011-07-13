@@ -63,9 +63,15 @@ public class ConnectionManager {
 		// String userName = "";
 		// String password = "";
 		String url = "";
+		
 		try {
-			connectionDetails = getConnectionDetailsFromSystemFile(new File(
-					"config/DBConfig.xml"));
+			File file = new File("config/DBConfig.xml");
+			if (file.canRead()) {
+				connectionDetails = getConnectionDetailsFromSystemFile(file);
+			} else {
+				connectionDetails = getHardCodedDBValues();
+			}
+			
 
 			// System.out.println(connectionDetails);
 			url = buildUrl(connectionDetails.getDbType(),
@@ -119,6 +125,22 @@ public class ConnectionManager {
 		 * (Exception e) { ignore close errors } } }
 		 */
 		return conn;
+	}
+
+	private ConnectionDetails getHardCodedDBValues() {
+		ConnectionDetails connectionDetails = new ConnectionDetails();
+		connectionDetails.setDbType(DBProperties.MYSQL_TYPE);
+		/*connectionDetails.setHost("localhost");
+		connectionDetails.setPort("3306");
+		connectionDetails.setDbschema("syllabus");
+		connectionDetails.setDbUserName("appuser");
+		connectionDetails.setDbPassword("appuser");*/
+		connectionDetails.setHost("uomsyllabus.db.8110135.hostedresource.com");
+		connectionDetails.setPort("3306");
+		connectionDetails.setDbschema("uomsyllabus");
+		connectionDetails.setDbUserName("uomsyllabus");
+		connectionDetails.setDbPassword("Manteam@123");
+		return connectionDetails;
 	}
 
 	private String buildUrl(String dbType, String host, String port,
