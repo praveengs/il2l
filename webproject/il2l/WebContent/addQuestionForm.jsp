@@ -128,45 +128,71 @@ function populateSubmodulesCombo(key) {
 
 		<div id="rightcolumn">
 			<form id="feedbackform" action="addQuestion.jsp"
-				enctype="multipart/form-data" method="post">
-				<div>
-					Subject Name : <br /> <select
+			enctype="multipart/form-data" method="post">
+			<table>
+				<tr>
+					<td>Subject Name</td>
+					<td><select
 						onchange="populateSubmodulesCombo(this.options[this.selectedIndex].index-1);"
 						id="subjectList" name="subject">
-						<option value="">-SELECT-</option>
-						<%
-							for (String subject : subjects) {
-						%>
-						<option value="<%=subject%>"><%=subject%></option>
-						<%
-							}
-						%>
-					</select><br /> Sub-Module Name : <br /> <select id="submodulesList"
-						name="submodule" multiple="multiple">
-						<option value="">-SELECT-</option>
-					</select><br />
-				</div>
-				Appearance : <br /> <input type="checkbox" name="chk1" id="chk1"
-					onClick="showhide(1);" value="1"> Appearance 1<br />
-					<div id="div1" class="hide">
-						Month & Year: <select name="month1">
-							<option value="Jan">Jan</option>
-							<option value="Feb">Feb</option>
-							<option value="Mar">Mar</option>
-							<option value="Apr">Apr</option>
-							<option value="May">May</option>
-							<option value="Jun">Jun</option>
-							<option value="Jul">Jul</option>
-							<option value="Aug">Aug</option>
-							<option value="Sep">Sep</option>
-							<option value="Oct">Oct</option>
-							<option value="Nov">Nov</option>
-							<option value="Dec">Dec</option>
-						</select>&nbsp;&nbsp; <input type="text" name="year1" value="2001" size="5"
-							maxlength="4" /> <br /> Marks : <input type="text"
-							name="marks1" size="3" maxlength="2" />
-					</div> <input type="checkbox" name="chk2" id="chk2"
-					onClick="showhide(2);" value="2"> Appearance 2<br />
+
+							<option value="">-SELECT-</option>
+							<%
+								for (String subject : subjects) {
+							%>
+							<option value="<%=subject%>"><%=subject%></option>
+							<%
+								}
+							%>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Sub-Module Name</td>
+					<td><select id="submodulesList" name="submodule">
+							<option value="">-SELECT-</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Keywords</td>
+					<td><select id="submodulesList" name="keywords"
+						multiple="multiple">
+							<option value="">-SELECT-</option>
+							<option>displacement</option>
+							<option>speed</option>
+							<option>velocity</option>
+							<option>acceleration</option>
+							<option>Velocity-time graph</option>
+							<option>Displacement-time graph</option>
+							<option>slope</option>
+							<option>uniformly</option>
+							<option>air resistance</option>
+							<option>weight</option>
+							<option>free fall</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Appearance</td>
+					<td><input type="checkbox" name="chk1" id="chk1"
+						onClick="showhide(1);" value="1"> Appearance 1 <br />
+						<div id="div1" class="hide">
+							Month & Year: <select name="month1">
+								<option value="Jan">Jan</option>
+								<option value="Feb">Feb</option>
+								<option value="Mar">Mar</option>
+								<option value="Apr">Apr</option>
+								<option value="May">May</option>
+								<option value="Jun">Jun</option>
+								<option value="Jul">Jul</option>
+								<option value="Aug">Aug</option>
+								<option value="Sep">Sep</option>
+								<option value="Oct">Oct</option>
+								<option value="Nov">Nov</option>
+								<option value="Dec">Dec</option>
+							</select>&nbsp;&nbsp; <input type="text" name="year1" value="2001"
+								size="5" maxlength="4" /> <br /> Marks : <input type="text"
+								name="marks1" size="3" maxlength="2" />
+						</div> <input type="checkbox" name="chk2" id="chk2"
+						onClick="showhide(2);" value="2"> Appearance 2 <br />
 						<div id="div2" class="hide">
 							Month & Year: <select name="month2">
 								<option value="Jan">Jan</option>
@@ -185,52 +211,69 @@ function populateSubmodulesCombo(key) {
 								size="5" maxlength="4" /> <br /> Marks : <input type="text"
 								name="marks2" size="3" maxlength="2" />
 						</div> <input type="checkbox" name="chk3" id="chk3"
-						onClick="showhide(3);" value="3"> Appearance 3<br />
-							<div id="div3" class="hide">
-								Month & Year: <select name="month3">
-									<option value="Jan">Jan</option>
-									<option value="Feb">Feb</option>
-									<option value="Mar">Mar</option>
-									<option value="Apr">Apr</option>
-									<option value="May">May</option>
-									<option value="Jun">Jun</option>
-									<option value="Jul">Jul</option>
-									<option value="Aug">Aug</option>
-									<option value="Sep">Sep</option>
-									<option value="Oct">Oct</option>
-									<option value="Nov">Nov</option>
-									<option value="Dec">Dec</option>
-								</select>&nbsp;&nbsp; <input type="text" name="year3" value="2001"
-									size="5" maxlength="4" /> <br /> Marks : <input type="text"
-									name="marks3" size="3" maxlength="2" />
-							</div> <input type="checkbox" name="chk4" id="chk4"
-							onClick="showhide(4);" value="4"> Appearance 4<br />
-								<div id="div4" class="hide">
-									Month & Year: <select name="month4">
-										<option value="Jan">Jan</option>
-										<option value="Feb">Feb</option>
-										<option value="Mar">Mar</option>
-										<option value="Apr">Apr</option>
-										<option value="May">May</option>
-										<option value="Jun">Jun</option>
-										<option value="Jul">Jul</option>
-										<option value="Aug">Aug</option>
-										<option value="Sep">Sep</option>
-										<option value="Oct">Oct</option>
-										<option value="Nov">Nov</option>
-										<option value="Dec">Dec</option>
-									</select>&nbsp;&nbsp; <input type="text" name="year4" value="2001"
-										size="5" maxlength="4" /> <br /> Marks : <input type="text"
-										name="marks4" size="3" maxlength="2" />
-								</div> <br /> Question : <br /> <textarea
-									style="width: 350px; height: 150px" name="question"></textarea>
-								<br /> Question Image : <br /> <input type="file"
-								name="quesUpload" /> <br />Answer : <br /> <textarea
-									style="width: 350px; height: 150px" name="answer"></textarea> <br />
-								Answer Image : <br /> <input type="file" name="ansUpload" /><br />
-								<br /> <input type="submit" value="Upload Question" />
-								&nbsp;&nbsp;&nbsp; <input type="reset" />
-			</form>
+						onClick="showhide(3);" value="3"> Appearance 3 <br />
+						<div id="div3" class="hide">
+							Month & Year: <select name="month3">
+								<option value="Jan">Jan</option>
+								<option value="Feb">Feb</option>
+								<option value="Mar">Mar</option>
+								<option value="Apr">Apr</option>
+								<option value="May">May</option>
+								<option value="Jun">Jun</option>
+								<option value="Jul">Jul</option>
+								<option value="Aug">Aug</option>
+								<option value="Sep">Sep</option>
+								<option value="Oct">Oct</option>
+								<option value="Nov">Nov</option>
+								<option value="Dec">Dec</option>
+							</select>&nbsp;&nbsp; <input type="text" name="year3" value="2001"
+								size="5" maxlength="4" /> <br /> Marks : <input type="text"
+								name="marks3" size="3" maxlength="2" />
+						</div> <input type="checkbox" name="chk4" id="chk4"
+						onClick="showhide(4);" value="4"> Appearance 4 <br />
+						<div id="div4" class="hide">
+							Month & Year: <select name="month4">
+								<option value="Jan">Jan</option>
+								<option value="Feb">Feb</option>
+								<option value="Mar">Mar</option>
+								<option value="Apr">Apr</option>
+								<option value="May">May</option>
+								<option value="Jun">Jun</option>
+								<option value="Jul">Jul</option>
+								<option value="Aug">Aug</option>
+								<option value="Sep">Sep</option>
+								<option value="Oct">Oct</option>
+								<option value="Nov">Nov</option>
+								<option value="Dec">Dec</option>
+							</select>&nbsp;&nbsp; <input type="text" name="year4" value="2001"
+								size="5" maxlength="4" /> <br /> Marks : <input type="text"
+								name="marks4" size="3" maxlength="2" />
+						</div></td>
+				</tr>
+				<tr>
+					<td>Question</td>
+					<td><textarea style="width: 350px; height: 150px"
+							name="question"></textarea></td>
+				</tr>
+				<tr>
+					<td>Question Image</td>
+					<td><input type="file" name="quesUpload" /></td>
+				</tr>
+				<tr>
+					<td>Answer</td>
+					<td><textarea style="width: 350px; height: 150px"
+							name="answer"></textarea></td>
+				</tr>
+				<tr>
+					<td>Answer Image</td>
+					<td><input type="file" name="ansUpload" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Upload Question" />
+						&nbsp;&nbsp;&nbsp; <input type="reset" /></td>
+				</tr>
+			</table>
+		</form>
 		</div>
 		<div class="footer" align="center">
 
