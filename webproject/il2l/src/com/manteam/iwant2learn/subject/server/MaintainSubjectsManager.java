@@ -95,7 +95,7 @@ public class MaintainSubjectsManager extends AbstractManager {
 				throw new MaintainSubjectsException(
 						MaintainSubjectsException.INVALID_MODULE_ID);
 			}
-			submoduleId = getMaintainSubjectsSql().getSubmoduleForSubject(conn,
+			submoduleId = getSubmoduleForSubject(
 					submoduleSaveVO.getSubjectName(),
 					submoduleSaveVO.getSubmoduleName());
 			if (submoduleId != 0) {
@@ -128,6 +128,22 @@ public class MaintainSubjectsManager extends AbstractManager {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		return submoduleId;
+	}
+	
+	public int getSubmoduleForSubject (String subjectName, String submoduleName) throws SystemException {
+		int submoduleId = 0;
+		try {
+			submoduleId = getMaintainSubjectsSql().getSubmoduleForSubject(getConnection(),
+					subjectName,
+					submoduleName);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		} catch (DatabaseException databaseException) {
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
 		}
 		return submoduleId;
 	}

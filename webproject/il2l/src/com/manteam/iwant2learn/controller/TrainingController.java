@@ -5,6 +5,9 @@
 package com.manteam.iwant2learn.controller;
 
 import com.manteam.framework.exceptions.SystemException;
+import com.manteam.iwant2learn.keywords.exceptions.MaintainKeyWordsException;
+import com.manteam.iwant2learn.keywords.manager.MaintainKeywordsManager;
+import com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
 import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
@@ -30,33 +33,34 @@ public class TrainingController {
 	private static TrainingServer trainingServer = null;
 	private static MaintainQuestionsManager maintainQuestionsManager = null;
 	private static MaintainSubjectsManager maintainSubjectsManager = null;
+	private static MaintainKeywordsManager maintainKeywordsManager = null;
 
 	/**
-	  * This method returns the questions for the selected modules, submodules of
-	  * a particular subject
-	  * 
-	  * @param subjectVO
-	  * @return
-	  * @throws SystemException
-	  */
-	 public QuestionReturnVO retrieveQuestions(SubjectVO subjectVO)
-	   throws SystemException {
-	  return getTrainingServer().retrieveQuestions(subjectVO);
-	 }
-	 
-	 /**
-	  * This method returns the questions for the selected modules, submodules of
-	  * a particular subject
-	  * 
-	  * @param subjectVO
-	  * @return
-	  * @throws SystemException
-	  */
-	 public QuestionReturnVO retrieveQuestions(QuestionSearchVO questionSearchVO)
-	   throws SystemException {
-	  return getTrainingServer().retrieveQuestionsForWeb(questionSearchVO);
-	 }
-	
+	 * This method returns the questions for the selected modules, submodules of
+	 * a particular subject
+	 * 
+	 * @param subjectVO
+	 * @return
+	 * @throws SystemException
+	 */
+	public QuestionReturnVO retrieveQuestions(SubjectVO subjectVO)
+			throws SystemException {
+		return getTrainingServer().retrieveQuestions(subjectVO);
+	}
+
+	/**
+	 * This method returns the questions for the selected modules, submodules of
+	 * a particular subject
+	 * 
+	 * @param subjectVO
+	 * @return
+	 * @throws SystemException
+	 */
+	public QuestionReturnVO retrieveQuestions(QuestionSearchVO questionSearchVO)
+			throws SystemException {
+		return getTrainingServer().retrieveQuestionsForWeb(questionSearchVO);
+	}
+
 	/**
 	 * This method retrieves all the subjects defined in the system
 	 * 
@@ -68,7 +72,7 @@ public class TrainingController {
 
 		subjects = getMaintainSubjectsManager().retrieveAllSubjects();
 		return subjects;
-	}	
+	}
 
 	/**
 	 * 
@@ -80,7 +84,7 @@ public class TrainingController {
 
 		return getTrainingServer().retrieveSubjects(subjectName);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -90,7 +94,7 @@ public class TrainingController {
 			throws SystemException {
 		String xmlString = null;
 		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName);
-		for (SubjectVO subjectVO: subjectVOs) {
+		for (SubjectVO subjectVO : subjectVOs) {
 			xmlString = WebXMLCreator.createXMLStreamForWebClient(subjectVO);
 		}
 		return xmlString;
@@ -108,7 +112,7 @@ public class TrainingController {
 			throws SystemException, MaintainQuestionsException {
 		return getQuestionManager().saveQuestion(examQuestionsVO);
 	}
-	
+
 	/**
 	 * New Method to save question
 	 * 
@@ -121,12 +125,13 @@ public class TrainingController {
 	public boolean saveQuestionForSubmodules(
 			LogonAttributesVO logonAttributesVO, QuestionSaveVO questionSaveVO)
 			throws SystemException, MaintainQuestionsException {
-		return getQuestionManager().saveQuestionForSubmodules(logonAttributesVO, questionSaveVO);
+		return getQuestionManager().saveQuestionForSubmodules(
+				logonAttributesVO, questionSaveVO);
 	}
-	
+
 	/**
-	 * This method returns all the subjects and submodules associated with it
-	 * in the form of a HashMap. This is used to populate the Question Creation
+	 * This method returns all the subjects and submodules associated with it in
+	 * the form of a HashMap. This is used to populate the Question Creation
 	 * screen
 	 * 
 	 * @return
@@ -136,10 +141,10 @@ public class TrainingController {
 			throws SystemException {
 		return getMaintainSubjectsManager().retrieveAllSubjectsnSubmodules();
 	}
-	
+
 	/**
-	 * This method returns all the subjects and submodules associated with it
-	 * in the form of a HashMap. This is used to populate the Question Creation
+	 * This method returns all the subjects and submodules associated with it in
+	 * the form of a HashMap. This is used to populate the Question Creation
 	 * screen
 	 * 
 	 * @return
@@ -151,7 +156,24 @@ public class TrainingController {
 	}
 
 	/**
+	 * This method adds a new keyword into the system
+	 * 
+	 * @param logonAttributesVO
+	 * @param keyWordSaveVO
+	 * @return
+	 * @throws MaintainKeyWordsException
+	 * @throws SystemException
+	 */
+	public boolean saveKeyword(LogonAttributesVO logonAttributesVO,
+			KeyWordSaveVO keyWordSaveVO) throws MaintainKeyWordsException,
+			SystemException {
+		return getMaintainKeywordsManager().saveKeyword(logonAttributesVO,
+				keyWordSaveVO);
+	}
+
+	/**
 	 * To get the question manager
+	 * 
 	 * @return
 	 */
 	private MaintainQuestionsManager getQuestionManager() {
@@ -163,6 +185,7 @@ public class TrainingController {
 
 	/**
 	 * Get the training server
+	 * 
 	 * @return
 	 */
 	private TrainingServer getTrainingServer() {
@@ -171,9 +194,10 @@ public class TrainingController {
 		}
 		return trainingServer;
 	}
-	
+
 	/**
 	 * To get the instance of the Maintain Subjects Manager class
+	 * 
 	 * @return
 	 */
 	private MaintainSubjectsManager getMaintainSubjectsManager() {
@@ -181,5 +205,12 @@ public class TrainingController {
 			maintainSubjectsManager = new MaintainSubjectsManager();
 		}
 		return maintainSubjectsManager;
+	}
+
+	private MaintainKeywordsManager getMaintainKeywordsManager() {
+		if (maintainKeywordsManager == null) {
+			maintainKeywordsManager = new MaintainKeywordsManager();
+		}
+		return maintainKeywordsManager;
 	}
 }

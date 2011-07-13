@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import com.manteam.framework.db.ConnectionManager;
 import com.manteam.framework.db.exceptions.DatabaseException;
+import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 
 /**
  * @author Praveen
@@ -45,6 +46,18 @@ public abstract class AbstractManager {
 			connection = ConnectionManager.getInstance().getNewConnection();
 		}
 		return connection;
+	}
+	
+	protected LogonAttributesVO getLogonAttributesVO() {
+		LogonAttributesVO logonAttributesVO = new LogonAttributesVO();
+		if (WEB_APP_MODE.equals(getMode())) {
+			logonAttributesVO.setUserName("System Web User");
+			logonAttributesVO.setUserRole("System Web Role");
+		} else {
+			logonAttributesVO.setUserName("System Client User");
+			logonAttributesVO.setUserRole("System Client Role");
+		}
+		return logonAttributesVO;
 	}
 
 }

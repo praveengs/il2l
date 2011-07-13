@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Set;
 
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
-import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 
 public class MaintainQuestionQueryConstructor {

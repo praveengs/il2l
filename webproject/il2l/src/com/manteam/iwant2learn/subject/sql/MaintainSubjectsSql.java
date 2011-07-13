@@ -160,7 +160,7 @@ public class MaintainSubjectsSql extends AbstractSql {
 				// resultSet.getInt(MaintainSubjectsQueryConstants.IDSYB_SUBJECT);
 			}
 		} finally {
-			close(resultSet, preparedStatement);
+			close(conn, resultSet, preparedStatement);
 		}
 		return submoduleId;
 	}
