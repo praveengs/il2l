@@ -33,9 +33,9 @@
 <style type="text/css">
 /* ~~ this fixed width container surrounds the other divs ~~ */
 .container {
-	width: 550px;
+	width: 800px;
 	background: #FFF;
-	margin: 0 auto;
+	margin: 10 px;
 	/* the auto value on the sides, coupled with the width, centers the layout */
 }
 
@@ -86,6 +86,9 @@
 -->
 </style>
 
+
+
+</script>
 </head>
 <body>
 	<%
@@ -159,13 +162,15 @@
 					questionString = "0";
 				}
 				location = Integer.parseInt(questionString);
+				System.out.println("LOCATION : " + location);
 				if (location < noOfQuestions) {
 					question = questionsArray.get(location);
 				} else if (location >= noOfQuestions) {
-					question = questionsArray.get(location - 1);
+
+					question = questionsArray.get(location - 2);
 	%>
 	<script type="text/javascript">
-     document.getElementById("nextButton").disabled=true;
+     parent.fnDisable("nextButton");
     </script>
 	<%
 		} else if (location < 0) {
@@ -183,16 +188,29 @@
 			<h3>Sub Module Details</h3>
 			<hr />
 			<%=question.getSubmoduleDescription()%>
+			<br /> <br /> <b><em>Keywords</em> </b> : <a href="#">displacement</a>&nbsp;&nbsp;&nbsp;<a
+				href="#">speed</a>&nbsp;&nbsp;&nbsp;<a href="#">velocity</a>
+
 		</div>
 		<div id="question" class="content">
 			<h3>Question</h3>
 			<hr />
 			<%=question.getQuestion()%>
+			<%
+				byte[] array = question.getQuestionImageByteArray();
+						if (array == null || array.length == 0) {
+			%><br />
+			<%
+				} else {
+			%>
 			<p id="questionImage">
 				<br /> <img alt="QuestionImage"
 					src="getImage?imageId=<%=question.getQuestionId()%>" width="300"
 					height="400">
 			</p>
+			<%
+				}
+			%>
 			<br />
 			<%
 				System.out
@@ -202,14 +220,14 @@
 				align="left" style="float: left;"
 				onclick="parent.fnGetPrevQn(<%=location%>);" /> <input
 				type="button" id="nextButton" value="Next Question" align="right"
-				style="float: right;" onclick="parent.fnGetNextQn(<%=location%>);" />
+				style="float: right;" name="nextButton"
+				onclick="parent.fnGetNextQn(<%=location%>,<%=noOfQuestions%>);" />
 			<br /> <br />
 		</div>
 		<div id="answerDesc" class="footer">
 			<h3>Answer</h3>
 			<hr />
-			<input type="button" value="Show Answer" align="middle"
-				onclick="javascript:if(document.getElementById('answer').style.visibility=='hidden'){document.getElementById('answer').style.visibility='visible'}else{document.getElementById('answer').style.visibility='hidden'}" />
+			<input type="button" value="Show Answer" onclick="parent.fnHide();" />
 			<br />
 			<div id="answer" class="hidden">
 				<p id="answerDesc">
