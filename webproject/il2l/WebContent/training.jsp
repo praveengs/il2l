@@ -31,6 +31,7 @@ function ajaxpage(url, containerid,ret){
 start="SUB_Physics";
 url=url+'?selection='+start+','+ret;
 document.getElementById("trainingFrame").src=url;
+window.frames[0].document.getElementById("prevButton").disabled=true;
 }
 
 function loadpage(page_request, containerid){
@@ -70,7 +71,8 @@ function toggleLayer(whichLayer) {
 
 </script>
 <script type="text/javascript">
-function fnGetNextQn(location){
+function fnGetNextQn(location,max){
+	
  currentUrl=null;
  location=location+1;
  currentUrl=document.getElementById("trainingFrame").src;
@@ -82,8 +84,12 @@ function fnGetNextQn(location){
  }else{
   modifiedUrl=tempUrl+'&question='+location;
  }
- 
+ if(location>=(max-1)){
+	 window.frames[0].document.getElementById("nextButton").disabled=true;
+ }else{
  document.getElementById("trainingFrame").src=modifiedUrl; 
+ }
+ 
 }
 
 function fnGetPrevQn(location){
@@ -98,15 +104,31 @@ function fnGetPrevQn(location){
  }else{
   modifiedUrl=tempUrl+'&question='+location;
  }
- 
- document.getElementById("trainingFrame").src=modifiedUrl;
+ if(location<0){
+	 window.frames[0].document.getElementById("prevButton").disabled=true;
+ }else{
+ document.getElementById("trainingFrame").src=modifiedUrl; 
+ }
+}
+
+function fnHide(){
+	if(window.frames[0].document.getElementById('answer').style.visibility=='hidden'){
+		window.frames[0].document.getElementById('answer').style.visibility='visible';
+	}
+	else{
+		window.frames[0].document.getElementById('answer').style.visibility='hidden';
+		}
 }
 </script>
+<style type="text/css" >
+.iframepadding{ padding:0px; margin:0px; }
+</style>
 <style type="text/css">
+
 #leftcolumn {
 	float: left;
-	width: 300px;
-	height: 400px;
+	width: 320px;
+	height: 800px;
 	border: 3px solid black;
 	padding: 5px;
 	padding-left: 8px;
@@ -2057,8 +2079,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 
 	</div>
 
-	<iframe src="takeTest.jsp" width="550px" height="413px"
-		id="trainingFrame"></iframe>
+	<iframe src="takeTest.jsp" width="800px" height="800px"
+		id="trainingFrame" class="iframepadding"></iframe>
 	<div style="clear: left; margin-bottom: 1em"></div>
 	<div class="footer">
 		<center>
