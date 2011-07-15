@@ -47,7 +47,7 @@ public class KeyWordMaintenanceQueryConstructor {
 		preparedStatement.setString(2, keyWordSaveVO.getKeyWordDescription());
 		if (keyWordSaveVO.getKeywordImageStream() != null) {
 			preparedStatement.setBinaryStream(3,
-					keyWordSaveVO.getKeywordImageStream());
+					keyWordSaveVO.getKeywordImageStream(), keyWordSaveVO.getKeyWordImageLength());
 		} else {
 			preparedStatement.setBinaryStream(3, null, 0);
 		}

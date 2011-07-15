@@ -22,18 +22,18 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(2, examQuestionsVO.getQuestion());
 		if (examQuestionsVO.getQuestionImage() != null) {
 			preparedStatement.setBinaryStream(3,
-					examQuestionsVO.getQuestionImage());
+					examQuestionsVO.getQuestionImage(), examQuestionsVO.getQuestionImageLength());
 		} else {
-			preparedStatement.setBinaryStream(3, null);
+			preparedStatement.setBinaryStream(3, null, 0);
 		}
 		preparedStatement.setString(4,
 				examQuestionsVO.getQuestionYearMarkString());
 		preparedStatement.setString(5, examQuestionsVO.getAnswer());
 		if (examQuestionsVO.getAnswerImageStream() != null) {
 			preparedStatement.setBinaryStream(6,
-					examQuestionsVO.getAnswerImageStream());
+					examQuestionsVO.getAnswerImageStream(), examQuestionsVO.getAnswerImageLength());
 		} else {
-			preparedStatement.setBinaryStream(6, null);
+			preparedStatement.setBinaryStream(6, null, 0);
 		}
 		return preparedStatement;
 	}
@@ -76,7 +76,7 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(1, questionSaveVO.getQuestion());
 		if (questionSaveVO.getQuestionImage() != null) {
 			preparedStatement.setBinaryStream(2,
-					questionSaveVO.getQuestionImage());
+					questionSaveVO.getQuestionImage(), questionSaveVO.getQuestionImageLength());
 		} else {
 			preparedStatement.setBinaryStream(2, null, (int)0);
 		}
@@ -85,7 +85,7 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(4, questionSaveVO.getAnswer());
 		if (questionSaveVO.getAnswerImageStream() != null) {
 			preparedStatement.setBinaryStream(5,
-					questionSaveVO.getAnswerImageStream());
+					questionSaveVO.getAnswerImageStream(), questionSaveVO.getAnswerImageLength());
 		} else {
 			preparedStatement.setBinaryStream(5, null, (int)0);
 		}

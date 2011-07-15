@@ -8,19 +8,21 @@ import java.io.Serializable;
 
 /**
  * @author Praveen
- *
+ * 
  */
 public class KeyWordSaveVO implements Serializable {
 
 	private String subjectName;
-	
+
 	private String submoduleName;
-	
+
 	private String keywordName;
-	
+
 	private String keyWordDescription;
-	
+
 	private InputStream keywordImageStream;
+
+	private int keyWordImageLength;
 
 	/**
 	 * @return the subjectName
@@ -30,7 +32,8 @@ public class KeyWordSaveVO implements Serializable {
 	}
 
 	/**
-	 * @param subjectName the subjectName to set
+	 * @param subjectName
+	 *            the subjectName to set
 	 */
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
@@ -44,7 +47,8 @@ public class KeyWordSaveVO implements Serializable {
 	}
 
 	/**
-	 * @param submoduleName the submoduleName to set
+	 * @param submoduleName
+	 *            the submoduleName to set
 	 */
 	public void setSubmoduleName(String submoduleName) {
 		this.submoduleName = submoduleName;
@@ -58,7 +62,8 @@ public class KeyWordSaveVO implements Serializable {
 	}
 
 	/**
-	 * @param keywordName the keywordName to set
+	 * @param keywordName
+	 *            the keywordName to set
 	 */
 	public void setKeywordName(String keywordName) {
 		this.keywordName = keywordName;
@@ -72,7 +77,8 @@ public class KeyWordSaveVO implements Serializable {
 	}
 
 	/**
-	 * @param keyWordDescription the keyWordDescription to set
+	 * @param keyWordDescription
+	 *            the keyWordDescription to set
 	 */
 	public void setKeyWordDescription(String keyWordDescription) {
 		this.keyWordDescription = keyWordDescription;
@@ -86,13 +92,31 @@ public class KeyWordSaveVO implements Serializable {
 	}
 
 	/**
-	 * @param keywordImageStream the keywordImageStream to set
+	 * @param keywordImageStream
+	 *            the keywordImageStream to set
 	 */
 	public void setKeywordImageStream(InputStream keywordImageStream) {
 		this.keywordImageStream = keywordImageStream;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the keyWordImageLength
+	 */
+	public int getKeyWordImageLength() {
+		return keyWordImageLength;
+	}
+
+	/**
+	 * @param keyWordImageLength
+	 *            the keyWordImageLength to set
+	 */
+	public void setKeyWordImageLength(int keyWordImageLength) {
+		this.keyWordImageLength = keyWordImageLength;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -102,7 +126,8 @@ public class KeyWordSaveVO implements Serializable {
 		result = prime
 				* result
 				+ ((keyWordDescription == null) ? 0 : keyWordDescription
-						.hashCode());		
+						.hashCode());
+		result = prime * result + keyWordImageLength;
 		result = prime * result
 				+ ((keywordName == null) ? 0 : keywordName.hashCode());
 		result = prime * result
@@ -112,7 +137,9 @@ public class KeyWordSaveVO implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -133,7 +160,10 @@ public class KeyWordSaveVO implements Serializable {
 			}
 		} else if (!keyWordDescription.equals(other.keyWordDescription)) {
 			return false;
-		}		
+		}
+		if (keyWordImageLength != other.keyWordImageLength) {
+			return false;
+		}
 		if (keywordName == null) {
 			if (other.keywordName != null) {
 				return false;
@@ -158,7 +188,9 @@ public class KeyWordSaveVO implements Serializable {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -174,9 +206,10 @@ public class KeyWordSaveVO implements Serializable {
 		builder.append(keyWordDescription);
 		builder.append(", keywordImageStream=");
 		builder.append(keywordImageStream);
+		builder.append(", keyWordImageLength=");
+		builder.append(keyWordImageLength);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

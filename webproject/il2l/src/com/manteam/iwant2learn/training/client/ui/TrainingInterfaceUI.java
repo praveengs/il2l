@@ -26,7 +26,6 @@ import java.util.Vector;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -37,6 +36,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
@@ -93,6 +93,7 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 	private JTextArea answerTextArea;
 	private JPanel statusPanel;
 	private JPanel subjectPanel;
+	private JPanel rightPanel;
 	private JScrollPane subjectScrollPane;
 	private JScrollPane answerImageScrollPane;
 	private JScrollPane answerTextScrollPane;
@@ -102,10 +103,12 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 	private Collection<SubjectVO> backUpSubjectVOs;
 	private int questionCount, currentQuestionIndex = 0;
 	private ExamQuestionsVO[] examQuestionVOSArray;
-	HashMap<String, String> submoduleKeywordMap;
-	HashMap<String, KeyWordVO> keyWordMap;
+	private HashMap<String, String> submoduleKeywordMap;
+	private HashMap<String, KeyWordVO> keyWordMap;
 	private HashMap<String, ImageIcon> imageIconStoreMap;
 	private HashMap<String, ImageIcon> answerImageIconStoreMap;
+	private JSplitPane mainSplitPane;
+	
 
 	/** Creates new form JFrameUI */
 	public TrainingInterfaceUI() {
@@ -427,14 +430,18 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 
 	private void initMainPanel() {
 		mainPanel = new JPanel();
+		rightPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
+		rightPanel.setLayout(new GridBagLayout());
+		mainSplitPane = new JSplitPane();
+		getContentPane().setLayout(new GridBagLayout());
 
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.weightx = 1.0;
-		mainPanel.add(answerPanel, gridBagConstraints);
+		rightPanel.add(answerPanel, gridBagConstraints);
 
 		gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 1;
@@ -442,25 +449,70 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.weightx = 1.0;
 		gridBagConstraints.weighty = 1.0;
-		mainPanel.add(questionPanel, gridBagConstraints);
+		rightPanel.add(questionPanel, gridBagConstraints);
 
-		gridBagConstraints = new GridBagConstraints();
+		/*gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridheight = 3;
 		gridBagConstraints.fill = GridBagConstraints.VERTICAL;
 		gridBagConstraints.anchor = GridBagConstraints.WEST;
 		gridBagConstraints.weighty = 1.0;
-		mainPanel.add(subjectPanel, gridBagConstraints);
+		mainPanel.add(subjectPanel, gridBagConstraints);*/
 
-		gridBagConstraints = new GridBagConstraints();
+		/*gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridx = 1;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.weighty = 1.0;
-		mainPanel.add(descriptionPanel, gridBagConstraints);
+		mainPanel.add(descriptionPanel, gridBagConstraints);*/
+		
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
+        rightPanel.add(descriptionPanel, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        mainPanel.add(mainSplitPane, gridBagConstraints);
 
-		GroupLayout layout = new GroupLayout(getContentPane());
+		mainSplitPane.setLeftComponent(subjectPanel);
+		mainSplitPane.setRightComponent(rightPanel);
+		
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 162;
+        gridBagConstraints.ipady = 103;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(mainPanel, gridBagConstraints);
+
+        statusPanel.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        statusPanel.setLayout(new GridBagLayout());
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(0, 0, 0, 10);
+        statusPanel.add(jProgressBar1, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 1113;
+        gridBagConstraints.ipady = 14;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(18, 0, 0, 0);
+        getContentPane().add(statusPanel, gridBagConstraints);
+        
+		/*GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout
 				.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -475,7 +527,7 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 								Short.MAX_VALUE)
 						.addGap(18, 18, 18)
 						.addComponent(statusPanel, GroupLayout.PREFERRED_SIZE,
-								30, GroupLayout.PREFERRED_SIZE)));
+								30, GroupLayout.PREFERRED_SIZE)));*/
 	}
 
 	private void CloseActionPerformed(ActionEvent evt) {
@@ -715,7 +767,6 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 	private class TrainingActionListener implements ActionListener,
 			ItemListener {
 
-		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			if (actionEvent.getSource() == closeMenuItem) {
 				CloseActionPerformed(actionEvent);
@@ -731,7 +782,6 @@ public class TrainingInterfaceUI extends javax.swing.JFrame {
 
 		}
 
-		@Override
 		public void itemStateChanged(ItemEvent itemEvent) {
 			// System.out.println(itemEvent.getItem());
 

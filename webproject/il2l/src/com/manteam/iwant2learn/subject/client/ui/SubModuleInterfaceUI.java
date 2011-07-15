@@ -14,12 +14,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -39,10 +37,7 @@ import javax.swing.WindowConstants;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.iwant2learn.subject.client.handler.SubjectHandler;
 import com.manteam.iwant2learn.subject.exceptions.MaintainSubjectsException;
-import com.manteam.iwant2learn.subject.vo.ModuleVO;
-import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.subject.vo.SubmoduleSaveVO;
-import com.sun.crypto.provider.DESCipher;
 
 /**
  * 
@@ -134,221 +129,183 @@ public class SubModuleInterfaceUI extends JFrame {
 		jMenu2 = new JMenu();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new GridBagLayout());
 
-		mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setLayout(new GridBagLayout());
 
-		submoduleDetailsPanel.setBorder(BorderFactory
-				.createTitledBorder("Submodule Details"));
-		submoduleDetailsPanel.setLayout(new GridBagLayout());
+        submoduleDetailsPanel.setBorder(BorderFactory.createTitledBorder("Submodule Details"));
+        submoduleDetailsPanel.setLayout(new GridBagLayout());
 
-		descriptionLabel.setText("Descirption");
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
-		gridBagConstraints.insets = new Insets(5, 10, 5, 10);
-		submoduleDetailsPanel.add(descriptionLabel, gridBagConstraints);
+        descriptionLabel.setText("Description");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new Insets(5, 10, 5, 10);
+        submoduleDetailsPanel.add(descriptionLabel, gridBagConstraints);
 
-		descriptionTextArea.setColumns(20);
-		descriptionTextArea.setRows(5);
-		descriptionScrollPane.setViewportView(descriptionTextArea);
+        descriptionTextArea.setColumns(20);
+        descriptionTextArea.setRows(5);
+        descriptionScrollPane.setViewportView(descriptionTextArea);
 
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(descriptionScrollPane, gridBagConstraints);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(descriptionScrollPane, gridBagConstraints);
 
-		questionImageLabel.setText("Image File");
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.insets = new Insets(5, 10, 5, 5);
-		submoduleDetailsPanel.add(questionImageLabel, gridBagConstraints);
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(descriptionImagePathTextField,
-				gridBagConstraints);
+        questionImageLabel.setText("Image File");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new Insets(5, 10, 5, 5);
+        submoduleDetailsPanel.add(questionImageLabel, gridBagConstraints);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(descriptionImagePathTextField, gridBagConstraints);
 
-		descriptionImagePathTextField.setEditable(false);
-		chooseQuestionImageButton.setText("Browse");
-		chooseQuestionImageButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				chooseQuestionImageButtonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 3;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 10);
-		submoduleDetailsPanel
-				.add(chooseQuestionImageButton, gridBagConstraints);
+        chooseQuestionImageButton.setText("Browse");
+        chooseQuestionImageButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                chooseQuestionImageButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 10);
+        submoduleDetailsPanel.add(chooseQuestionImageButton, gridBagConstraints);
 
-		moduleNameLabel.setText("Module Name");
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(moduleNameLabel, gridBagConstraints);
+        moduleNameLabel.setText("Module Name");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(moduleNameLabel, gridBagConstraints);
 
-		moduleNameTextField.setPreferredSize(new Dimension(200, 22));
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(moduleNameTextField, gridBagConstraints);
+        moduleNameTextField.setPreferredSize(new Dimension(200, 22));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(moduleNameTextField, gridBagConstraints);
 
-		submoduleNameLabel.setText("Submodule Name");
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = GridBagConstraints.EAST;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(submoduleNameLabel, gridBagConstraints);
+        submoduleNameLabel.setText("Submodule Name");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(submoduleNameLabel, gridBagConstraints);
 
-		submoduleNameTextField.setPreferredSize(new Dimension(200, 22));
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		submoduleDetailsPanel.add(submoduleNameTextField, gridBagConstraints);
+        submoduleNameTextField.setPreferredSize(new Dimension(200, 22));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        submoduleDetailsPanel.add(submoduleNameTextField, gridBagConstraints);
 
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.weighty = 1.0;
-		mainPanel.add(submoduleDetailsPanel, gridBagConstraints);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        mainPanel.add(submoduleDetailsPanel, gridBagConstraints);
 
-		subjectPanel.setBorder(BorderFactory
-				.createTitledBorder("Subject Details"));
-		subjectPanel.setLayout(new GridBagLayout());
+        subjectPanel.setBorder(BorderFactory.createTitledBorder("Subject Details"));
+        subjectPanel.setLayout(new GridBagLayout());
 
-		subjectNameLabel.setText("Subject Name");
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(10, 10, 5, 5);
-		subjectPanel.add(subjectNameLabel, gridBagConstraints);
+        subjectNameLabel.setText("Subject Name");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(10, 10, 5, 5);
+        subjectPanel.add(subjectNameLabel, gridBagConstraints);
 
-		subjectsComboBox.setModel(new DefaultComboBoxModel(subjects));
-		subjectsComboBox.setPreferredSize(new Dimension(200, 22));
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = GridBagConstraints.WEST;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		subjectPanel.add(subjectsComboBox, gridBagConstraints);
+        subjectsComboBox.setModel(new DefaultComboBoxModel(subjects));
+        subjectsComboBox.setPreferredSize(new Dimension(200, 22));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        subjectPanel.add(subjectsComboBox, gridBagConstraints);
 
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.NORTH;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.weighty = 1.0;
-		mainPanel.add(subjectPanel, gridBagConstraints);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        mainPanel.add(subjectPanel, gridBagConstraints);
 
-		buttonPanel.setBorder(BorderFactory.createTitledBorder(""));
-		buttonPanel.setLayout(new GridBagLayout());
+        buttonPanel.setBorder(BorderFactory.createTitledBorder(""));
+        buttonPanel.setLayout(new GridBagLayout());
 
-		closeButton.setText("Close");
-		closeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				closeButtonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.anchor = GridBagConstraints.EAST;
-		gridBagConstraints.insets = new Insets(10, 5, 10, 10);
-		buttonPanel.add(closeButton, gridBagConstraints);
+        closeButton.setText("Close");
+        closeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.insets = new Insets(10, 5, 10, 10);
+        buttonPanel.add(closeButton, gridBagConstraints);
 
-		saveButton.setText("Save");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				saveButtonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.anchor = GridBagConstraints.EAST;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.insets = new Insets(10, 0, 10, 5);
-		buttonPanel.add(saveButton, gridBagConstraints);
+        saveButton.setText("Save");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(10, 0, 10, 5);
+        buttonPanel.add(saveButton, gridBagConstraints);
 
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = GridBagConstraints.SOUTH;
-		gridBagConstraints.weightx = 1.0;
-		mainPanel.add(buttonPanel, gridBagConstraints);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.SOUTH;
+        gridBagConstraints.weightx = 1.0;
+        mainPanel.add(buttonPanel, gridBagConstraints);
 
-		statusPanel.setBorder(BorderFactory.createEtchedBorder());
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
+        getContentPane().add(mainPanel, gridBagConstraints);
 
-		GroupLayout statusPanelLayout = new GroupLayout(statusPanel);
-		statusPanel.setLayout(statusPanelLayout);
-		statusPanelLayout.setHorizontalGroup(statusPanelLayout
-				.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0,
-						812, Short.MAX_VALUE));
-		statusPanelLayout.setVerticalGroup(statusPanelLayout
-				.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0,
-						15, Short.MAX_VALUE));
+        statusPanel.setBorder(BorderFactory.createEtchedBorder());
+        statusPanel.setLayout(new GridBagLayout());
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        getContentPane().add(statusPanel, gridBagConstraints);
 
-		jMenu1.setText("File");
-		mainMenuBar.add(jMenu1);
+        jMenu1.setText("File");
+        mainMenuBar.add(jMenu1);
 
-		jMenu2.setText("Edit");
-		mainMenuBar.add(jMenu2);
+        jMenu2.setText("Edit");
+        mainMenuBar.add(jMenu2);
 
-		setJMenuBar(mainMenuBar);
-
-		GroupLayout layout = new GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGap(0, 816, Short.MAX_VALUE)
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.LEADING).addGroup(
-								layout.createSequentialGroup()
-										.addGap(5, 5, 5)
-										.addComponent(mainPanel,
-												GroupLayout.DEFAULT_SIZE, 799,
-												Short.MAX_VALUE)
-										.addContainerGap()))
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.LEADING).addComponent(
-								statusPanel, GroupLayout.Alignment.TRAILING,
-								GroupLayout.DEFAULT_SIZE,
-								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGap(0, 366, Short.MAX_VALUE)
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.LEADING).addGroup(
-								layout.createSequentialGroup()
-										.addComponent(mainPanel,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(25, Short.MAX_VALUE)))
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.LEADING).addGroup(
-								GroupLayout.Alignment.TRAILING,
-								layout.createSequentialGroup()
-										.addContainerGap(347, Short.MAX_VALUE)
-										.addComponent(statusPanel,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))));
+        setJMenuBar(mainMenuBar);
 
 		pack();
 	}// </editor-fold>

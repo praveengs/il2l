@@ -2,6 +2,7 @@ package com.manteam.iwant2learn.questions.vo;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class QuestionVO implements Serializable {
@@ -12,6 +13,8 @@ public class QuestionVO implements Serializable {
 
 	private InputStream questionImage;
 	
+	private int questionImageLength;
+	
 	private byte[] questionImageByteArray;
 
 	private String questionYearMarkString;
@@ -19,6 +22,8 @@ public class QuestionVO implements Serializable {
 	private String answer;
 
 	private InputStream answerImageStream;
+	
+	private int answerImageLength;
 
 	private String lastModifiedBy;
 
@@ -175,9 +180,35 @@ public class QuestionVO implements Serializable {
 		this.questionImageByteArray = questionImageByteArray;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @return the questionImageLength
+	 */
+	public int getQuestionImageLength() {
+		return questionImageLength;
+	}
+
+	/**
+	 * @param questionImageLength the questionImageLength to set
+	 */
+	public void setQuestionImageLength(int questionImageLength) {
+		this.questionImageLength = questionImageLength;
+	}
+
+	/**
+	 * @return the answerImageLength
+	 */
+	public int getAnswerImageLength() {
+		return answerImageLength;
+	}
+
+	/**
+	 * @param answerImageLength the answerImageLength to set
+	 */
+	public void setAnswerImageLength(int answerImageLength) {
+		this.answerImageLength = answerImageLength;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -185,6 +216,7 @@ public class QuestionVO implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
+		result = prime * result + answerImageLength;
 		result = prime * result
 				+ ((lastModifiedBy == null) ? 0 : lastModifiedBy.hashCode());
 		result = prime
@@ -196,6 +228,7 @@ public class QuestionVO implements Serializable {
 		result = prime * result
 				+ ((question == null) ? 0 : question.hashCode());
 		result = prime * result + questionId;
+		result = prime * result + Arrays.hashCode(questionImageByteArray);
 		result = prime
 				* result
 				+ ((questionYearMarkString == null) ? 0
@@ -203,9 +236,7 @@ public class QuestionVO implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -225,6 +256,9 @@ public class QuestionVO implements Serializable {
 				return false;
 			}
 		} else if (!answer.equals(other.answer)) {
+			return false;
+		}
+		if (answerImageLength != other.answerImageLength) {
 			return false;
 		}
 		if (lastModifiedBy == null) {
@@ -257,6 +291,10 @@ public class QuestionVO implements Serializable {
 		}
 		if (questionId != other.questionId) {
 			return false;
+		}		
+		if (!Arrays
+				.equals(questionImageByteArray, other.questionImageByteArray)) {
+			return false;
 		}
 		if (questionYearMarkString == null) {
 			if (other.questionYearMarkString != null) {
@@ -268,34 +306,5 @@ public class QuestionVO implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("QuestionVO [questionId=");
-		builder.append(questionId);
-		builder.append(", question=");
-		builder.append(question);
-		builder.append(", questionImage=");
-		builder.append(questionImage);
-		builder.append(", questionYearMarkString=");
-		builder.append(questionYearMarkString);
-		builder.append(", answer=");
-		builder.append(answer);
-		builder.append(", answerImageStream=");
-		builder.append(answerImageStream);
-		builder.append(", lastModifiedBy=");
-		builder.append(lastModifiedBy);
-		builder.append(", lastModifiedDate=");
-		builder.append(lastModifiedDate);
-		builder.append(", lastModifiedRole=");
-		builder.append(lastModifiedRole);
-		builder.append("]");
-		return builder.toString();
-	}
-
+	
 }
