@@ -78,6 +78,8 @@
                     String date = "";
                     String questionString = "";
                     String answerString = "";
+                    int questionImageLength = 0;
+                    int answerImageLength = 0;
 
                     MultipartRequest req = new MultipartRequest(request, "../");
                     subject = req.getParameter("subject");
@@ -102,9 +104,11 @@
                     InputStream answerImage = null;
                     if (quesIm != null && quesIm.isFile()) {
                         questImage = new FileInputStream(quesIm);
+                        questionImageLength = (int)quesIm.length();
                     }
                     if (ansIm != null && ansIm.isFile()) {
                         answerImage = new FileInputStream(ansIm);
+                        answerImageLength = (int)ansIm.length();
                     }
 
                     LogonAttributesVO logonAttributesVO = new LogonAttributesVO();
@@ -120,8 +124,10 @@
                     question.setSubmodules(getSubmodules(submod));
                     question.setQuestion(questionString);
                     question.setQuestionImage(questImage);
+                    question.setQuestionImageLength(questionImageLength);
                     question.setAnswer(answerString);
                     question.setAnswerImageStream(answerImage);
+                    question.setAnswerImageLength(answerImageLength);
                     question.setQuestionYearMarkString(date);
 
                     TrainingController training = new TrainingController();
