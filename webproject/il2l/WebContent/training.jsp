@@ -11,7 +11,8 @@
 <%@page import="java.io.File"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <link rel="stylesheet" type="text/css" href="final.css" />
-
+<link href="adminPage.css" rel="stylesheet" type="text/css"></link>
+<link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <title>Training</title>
 <script type="text/javascript">
 
@@ -120,12 +121,14 @@ function fnHide(){
 		}
 }
 </script>
-<style type="text/css" >
-.iframepadding{ padding:0px; margin:0px; }
+<style type="text/css">
+.iframepadding {
+	padding: 0px;
+	margin: 0px;
+}
 </style>
 <style type="text/css">
-
-#leftcolumn {
+#leftcolumnPage {
 	float: left;
 	width: 320px;
 	height: 800px;
@@ -170,75 +173,8 @@ body {
 }
 
 .{
-font-family
-
-
-
-
-
-
-
-
-
-
-
-
-:arial
-
-
-
-
-
-
-
-
-
-
-
-
-;
-font-size
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-12
-px
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+font-family:arial;
+font-size:12px
 }
 h1 {
 	cursor: hand;
@@ -257,9 +193,29 @@ xmp {
 }
 </style>
 <body>
+	<div class="container">
+		<div class="header">
+			<table cellpadding="10px" cellspacing="10">
+				<tr>
+					<td><br />
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
+					<td rowspan="2" style="font-size: 50px; color: red;"
+						align="justify">2</td>
+				</tr>
+				<tr>
+					<td style="font-size: 25px; color: red;">learn</td>
+				</tr>
 
-	<div id="leftcolumn">
-		<style rel="STYLESHEET" type="text/css">
+				<!-- end .header -->
+			</table>
+			<!-- end .header -->
+		</div>
+
+		<div id="leftcolumnPage">
+			<style rel="STYLESHEET" type="text/css">
 <!--
 dhtmlXTree.css -->.defaultTreeTable {
 	margin: 0;
@@ -304,8 +260,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 	border: thin solid 1 1 1 1;
 }
 </style>
-		<!-- dhtmlXCommon.js -->
-		<script>
+			<!-- dhtmlXCommon.js -->
+			<script>
 		function dtmlXMLLoaderObject(funcObject, dhtmlObject) {
 			this.xmlDoc = "";
 			this.onloadAction = funcObject || null;
@@ -531,8 +487,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 			dragger.waitDrag = 0;
 		}
 	</script>
-		<!-- dhtmlXTree.js -->
-		<script>
+			<!-- dhtmlXTree.js -->
+			<script>
 		function dhtmlXTreeObject(htmlObject, width, height, rootId) {
 			//alert("dhtmlXTreeObject");
 			if (typeof (htmlObject) != "object")
@@ -2041,56 +1997,57 @@ dhtmlXTree.css -->.defaultTreeTable {
 		}
 	</script>
 
-		<form action="takeTest.jsp">
-			<table height="100%" align="left" width="35%" cellpadding="10">
-				<tr height="70%">
-					<td valign="top">
-						<div id="treeboxbox_tree"
-							style="width: 150; height: 218;;;; overflow: auto;"></div></td>
+			<form action="takeTest.jsp">
+				<table height="100%" align="left" width="35%" cellpadding="10">
+					<tr height="70%">
+						<td valign="top">
+							<div id="treeboxbox_tree"
+								style="width: 150; height: 218;;;; overflow: auto;"></div>
+						</td>
 
-				</tr>
-				<tr>
-					<td><input id="modID" type="button" value="Take Test"
-						name="moduleName"
-						onclick="javascript:ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
-					</td>
-				</tr>
+					</tr>
+					<tr>
+						<td><input id="modID" type="button" value="Take Test"
+							name="moduleName"
+							onclick="javascript:ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
+						</td>
+					</tr>
 
-				<tr>
-					<td></td>
-				</tr>
-			</table>
-			<script>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+				<script>
 		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
 		tree.setImagePath("treeImgs/");
 		tree.enableCheckBoxes(1);
 		tree.enableThreeStateCheckboxes(true);
 		</script>
-			<%
-				TrainingController training = new TrainingController();
-				String ret = training.retrieveXMLStreamForSubject("Physics");
-			%>
-			<script type="text/javascript">
+				<%
+					TrainingController training = new TrainingController();
+					String ret = training.retrieveXMLStreamForSubject("Physics");
+				%>
+				<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
 			//	tree.loadXML("treeImgs/SampleTree.xml");
 		</script>
-			<br> <br>
-		</form>
+				<br> <br>
+			</form>
 
-	</div>
+		</div>
 
-	<iframe src="takeTest.jsp" width="800px" height="800px"
-		id="trainingFrame" class="iframepadding"></iframe>
-	<div style="clear: left; margin-bottom: 1em"></div>
-	<div class="footer">
-		<center>
+		<iframe src="takeTest.jsp" width="800px" height="800px"
+			id="trainingFrame" class="iframepadding"></iframe>
+		<div style="clear: left; margin-bottom: 1em"></div>
+		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
 			<b style="color: #999; font-size: 15px">The University of
 				Manchester</b>
 
-		</center>
-		<!-- end .footer -->
+			<!-- end .footer -->
+		</div>
+		<!-- end .container -->
 	</div>
 </body>
 </html>
