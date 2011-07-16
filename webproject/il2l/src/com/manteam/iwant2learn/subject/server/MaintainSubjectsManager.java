@@ -147,4 +147,31 @@ public class MaintainSubjectsManager extends AbstractManager {
 		}
 		return submoduleId;
 	}
+	
+	/**
+	 * This method returns all the subjects, submodules and the keywords associated 
+	 * with it. This is used to populate the Question Creation
+	 * screen
+	 * 
+	 * @return
+	 * @throws SystemException
+	 */
+	public HashMap<String, HashMap<String, ArrayList<String>>> retrieveAllSubjectDetailsForAddQuestion()
+			throws SystemException {
+		HashMap<String, HashMap<String, ArrayList<String>>> subjectnSubmodulenKeyWordMap = null;
+		Connection conn;
+		try {
+			conn = getConnection();
+
+			subjectnSubmodulenKeyWordMap = getMaintainSubjectsSql()
+					.retrieveAllSubjectDetailsForAddQuestion(conn);
+		} catch (DatabaseException databaseException) {
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return subjectnSubmodulenKeyWordMap;
+	}
 }

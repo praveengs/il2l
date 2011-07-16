@@ -70,7 +70,7 @@ public class KeyWordMaintainSql extends AbstractSql {
 				preparedStatement = KeyWordMaintenanceQueryConstructor
 						.saveKeyWordSubmoduleMap(connection, keyWordId,
 								submoduleId);
-				preparedStatement.executeBatch();
+				preparedStatement.executeUpdate();
 			}
 
 		} finally {

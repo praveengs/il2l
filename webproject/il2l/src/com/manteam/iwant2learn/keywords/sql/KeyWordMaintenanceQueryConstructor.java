@@ -54,7 +54,7 @@ public class KeyWordMaintenanceQueryConstructor {
 		preparedStatement.setString(4, logonAttributesVO.getUserName());
 		preparedStatement.setString(5, logonAttributesVO.getUserRole());
 		preparedStatement
-				.setTimestamp(7, new Timestamp(modifiedDate.getTime()));
+				.setTimestamp(6, new Timestamp(modifiedDate.getTime()));
 		return preparedStatement;
 	}
 

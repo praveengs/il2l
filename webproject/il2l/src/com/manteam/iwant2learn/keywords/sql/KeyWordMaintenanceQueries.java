@@ -2,8 +2,8 @@ package com.manteam.iwant2learn.keywords.sql;
 
 public abstract class KeyWordMaintenanceQueries {
 
-	public static final String INSERT_KEYWORD = "INSERT INTO syb_keyword (KEYWORD, KEYWORD_DESC, KEYWORD_IMAGE) "
-			+ "values (?, ?, ?)";
+	public static final String INSERT_KEYWORD = "INSERT INTO syb_keyword (KEYWORD, KEYWORD_DESC, KEYWORD_IMAGE, LAST_MODIFIED_BY, LAST_MODIFIED_ROLE, LAST_MODIFIED_DATE) "
+			+ "values (?, ?, ?, ?, ? , ?)";
 
 	public static final String GET_KEYWORD_ID = "SELECT A.SYB_KEYWORD_ID "
 			+ "FROM syb_keyword A, sub_keyword_submodule_map B, syb_submodule C, syb_module D, syb_subject E "
@@ -16,7 +16,7 @@ public abstract class KeyWordMaintenanceQueries {
 
 	public static final String GET_LAST_INSERTED_ID = " SELECT LAST_INSERT_ID() ";
 
-	public static final String INSERT_KEYWORD_SUBMODULE_MAP = "INSERT INTO sub_keyword_submodule_map (KEYWORD_ID, SUBMODULE_ID) " +
-			"values (?, ?)";
+	public static final String INSERT_KEYWORD_SUBMODULE_MAP = "INSERT INTO sub_keyword_submodule_map (KEYWORD_ID, SUBMODULE_ID) "
+			+ "values (?, ?)";
 
 }

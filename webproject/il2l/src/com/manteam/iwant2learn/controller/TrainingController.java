@@ -164,11 +164,24 @@ public class TrainingController {
 	 * @throws MaintainKeyWordsException
 	 * @throws SystemException
 	 */
-	public boolean saveKeyword(LogonAttributesVO logonAttributesVO,
+	public int saveKeyword(LogonAttributesVO logonAttributesVO,
 			KeyWordSaveVO keyWordSaveVO) throws MaintainKeyWordsException,
 			SystemException {
 		return getMaintainKeywordsManager().saveKeyword(logonAttributesVO,
 				keyWordSaveVO);
+	}
+
+	/**
+	 * This method returns all the subjects, submodules and the keywords
+	 * associated with it. This is used to populate the Question Creation screen
+	 * 
+	 * @return
+	 * @throws SystemException
+	 */
+	public HashMap<String, HashMap<String, ArrayList<String>>> retrieveAllSubjectDetailsForAddQuestion()
+			throws SystemException {
+		return getMaintainSubjectsManager()
+				.retrieveAllSubjectDetailsForAddQuestion();
 	}
 
 	/**

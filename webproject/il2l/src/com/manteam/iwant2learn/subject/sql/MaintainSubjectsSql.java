@@ -165,4 +165,50 @@ public class MaintainSubjectsSql extends AbstractSql {
 		return submoduleId;
 	}
 
+	public HashMap<String, HashMap<String, ArrayList<String>>> retrieveAllSubjectDetailsForAddQuestion(
+			Connection connection) throws SQLException {
+		HashMap<String, HashMap<String, ArrayList<String>>> subjectnSubmodulenKeywordMap = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = MaintainSubjectsQueryConstructor
+					.retrieveAllSubjectDetailsForAddQuestion(connection);
+			resultSet = preparedStatement.executeQuery();
+			String subject = null;
+			String submoduleName = null;
+			ArrayList<String> keyWords = null;
+			HashMap<String, ArrayList<String>> submoduleKeyWordMap = null;
+			if (resultSet.next()) {
+				subjectnSubmodulenKeywordMap = new HashMap<String, HashMap<String, ArrayList<String>>>(
+						2);
+				do {
+					subject = resultSet
+							.getString(MaintainSubjectsQueryConstants.SUBJECT_NAME);
+					submoduleName = resultSet
+							.getString(MaintainSubjectsQueryConstants.SUBMODULE_NAME);
+					submoduleKeyWordMap = subjectnSubmodulenKeywordMap
+							.get(subject);
+					if (submoduleKeyWordMap == null) {
+						submoduleKeyWordMap = new HashMap<String, ArrayList<String>>(
+								2);
+						subjectnSubmodulenKeywordMap.put(subject,
+								submoduleKeyWordMap);
+					}
+					keyWords = submoduleKeyWordMap.get(submoduleName);
+					if (keyWords == null) {
+						keyWords = new ArrayList<String>(2);
+						submoduleKeyWordMap.put(submoduleName, keyWords);
+					}
+					keyWords.add(resultSet
+							.getString(MaintainSubjectsQueryConstants.KEYWORD));
+				} while (resultSet.next());
+			}
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+
+		return subjectnSubmodulenKeywordMap;
+	}
+
 }

@@ -36,4 +36,11 @@ public abstract class MaintainSubjectsQueries {
 	public static final String SAVE_SUBMODULE_DETAILS = "INSERT INTO syb_submodule (SUBMODULE_NAME, SUBMODULE_DESC, MODULE_REF) " +
 			"values (?, ?, ?)";
 
+	public static final String RETRIEVE_ALL_SUBJECTS_SUBMODULES_KEYWORDS = "SELECT A.SUBJECT_NAME, C.SUBMODULE_NAME, E.KEYWORD " +
+			" FROM (syb_subject A, syb_module B, syb_submodule C)" +
+			" LEFT JOIN (sub_keyword_submodule_map D, syb_keyword E ) on (D.SUBMODULE_ID = C.SYB_SUB_SUBMODULE_ID" +
+			" AND E.SYB_KEYWORD_ID = D.KEYWORD_ID)" +
+			" WHERE B.MODULE_SUBJECT_REF = A.IDSYB_SUBJECT" +
+			" AND C.MODULE_REF = B.SYB_SUB_MODULE_ID ";
+
 }

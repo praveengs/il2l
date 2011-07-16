@@ -22,10 +22,10 @@ import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
  */
 public class MaintainKeywordsManager extends AbstractManager {
 
-	public boolean saveKeyword(LogonAttributesVO logonAttributesVO,
+	public int saveKeyword(LogonAttributesVO logonAttributesVO,
 			KeyWordSaveVO keyWordSaveVO) throws MaintainKeyWordsException,
 			SystemException {
-		boolean isKeyWordAdded = false;
+		//boolean isKeyWordAdded = false;
 		int keywordId = 0;
 		int submoduleId = 0;
 		Connection connection = null;
@@ -41,7 +41,13 @@ public class MaintainKeywordsManager extends AbstractManager {
 						MaintainKeyWordsException.KEYWORD_ALREADY_EXISTS
 								+ "with keyword id" + keywordId);
 			}
-			submoduleId = new MaintainSubjectsManager().getSubmoduleForSubject(
+			MaintainSubjectsManager maintainSubjectsManager = new MaintainSubjectsManager();
+			if (WEB_APP_MODE.equals(getMode())) {
+				maintainSubjectsManager.setMode(WEB_APP_MODE);
+			} else {
+				maintainSubjectsManager.setMode(CLIENT_APP_MODE);
+			}
+			submoduleId = maintainSubjectsManager.getSubmoduleForSubject(
 					keyWordSaveVO.getSubjectName(),
 					keyWordSaveVO.getSubmoduleName());
 
@@ -68,7 +74,7 @@ public class MaintainKeywordsManager extends AbstractManager {
 			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
 					sqlException);
 		}
-		return isKeyWordAdded;
+		return keywordId;
 	}
 	
 

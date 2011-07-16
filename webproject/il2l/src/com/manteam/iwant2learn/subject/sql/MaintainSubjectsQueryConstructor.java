@@ -91,4 +91,12 @@ public class MaintainSubjectsQueryConstructor {
 
 		return preparedStatement;
 	}
+
+	public static PreparedStatement retrieveAllSubjectDetailsForAddQuestion(
+			Connection connection) throws SQLException {
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(MaintainSubjectsQueries.RETRIEVE_ALL_SUBJECTS_SUBMODULES_KEYWORDS);
+
+		return preparedStatement;
+	}
 }
