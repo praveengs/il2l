@@ -16,7 +16,11 @@ import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.server.TrainingServer;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
+import com.manteam.iwant2learn.user.exceptions.MaintainUserException;
+import com.manteam.iwant2learn.user.manager.MaintainUserManager;
+import com.manteam.iwant2learn.user.vo.LoginVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
+import com.manteam.iwant2learn.user.vo.UserSaveVO;
 import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 import com.manteam.iwant2learn.vo.QuestionReturnVO;
 import com.manteam.iwant2learn.vo.QuestionSearchVO;
@@ -34,6 +38,7 @@ public class TrainingController {
 	private static MaintainQuestionsManager maintainQuestionsManager = null;
 	private static MaintainSubjectsManager maintainSubjectsManager = null;
 	private static MaintainKeywordsManager maintainKeywordsManager = null;
+	private static MaintainUserManager maintainUserManager = null;
 
 	/**
 	 * This method returns the questions for the selected modules, submodules of
@@ -185,6 +190,33 @@ public class TrainingController {
 	}
 
 	/**
+	 * This method is used to authenticate a user logged in through the system
+	 * 
+	 * @param loginVO
+	 * @return
+	 * @throws MaintainUserException
+	 * @throws SystemException
+	 */
+	public LogonAttributesVO authenticateUser(LoginVO loginVO)
+			throws MaintainUserException, SystemException {
+		return getMaintainUserManager().authenticateUser(loginVO);
+	}
+
+	/**
+	 * This method is used to save a user into the system
+	 * 
+	 * @param logonAttributesVO
+	 * @param userSaveVO
+	 * @return
+	 * @throws SystemException 
+	 * @throws MaintainUserException 
+	 */
+	public boolean addUser(LogonAttributesVO logonAttributesVO,
+			UserSaveVO userSaveVO) throws MaintainUserException, SystemException {
+		return getMaintainUserManager().addUser(logonAttributesVO, userSaveVO);
+	}
+
+	/**
 	 * To get the question manager
 	 * 
 	 * @return
@@ -220,10 +252,27 @@ public class TrainingController {
 		return maintainSubjectsManager;
 	}
 
+	/**
+	 * Method to return the keywords manager
+	 * 
+	 * @return
+	 */
 	private MaintainKeywordsManager getMaintainKeywordsManager() {
 		if (maintainKeywordsManager == null) {
 			maintainKeywordsManager = new MaintainKeywordsManager();
 		}
 		return maintainKeywordsManager;
+	}
+
+	/**
+	 * Method to return the user manager
+	 * 
+	 * @return
+	 */
+	private MaintainUserManager getMaintainUserManager() {
+		if (maintainUserManager == null) {
+			maintainUserManager = new MaintainUserManager();
+		}
+		return maintainUserManager;
 	}
 }

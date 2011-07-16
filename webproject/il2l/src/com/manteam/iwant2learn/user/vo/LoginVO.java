@@ -7,11 +7,13 @@ import java.io.Serializable;
 
 /**
  * @author Praveen
- * 
+ *
  */
-public class LogonAttributesVO implements Serializable {
+public class LoginVO implements Serializable {
+
 	private String userName;
-	private String userRole;
+	
+	private String userPassword;
 
 	/**
 	 * @return the userName
@@ -21,31 +23,27 @@ public class LogonAttributesVO implements Serializable {
 	}
 
 	/**
-	 * @param userName
-	 *            the userName to set
+	 * @param userName the userName to set
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
 	/**
-	 * @return the userRole
+	 * @return the userPassword
 	 */
-	public String getUserRole() {
-		return userRole;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
 	/**
-	 * @param userRole
-	 *            the userRole to set
+	 * @param userPassword the userPassword to set
 	 */
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -55,13 +53,11 @@ public class LogonAttributesVO implements Serializable {
 		result = prime * result
 				+ ((userName == null) ? 0 : userName.hashCode());
 		result = prime * result
-				+ ((userRole == null) ? 0 : userRole.hashCode());
+				+ ((userPassword == null) ? 0 : userPassword.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -75,7 +71,7 @@ public class LogonAttributesVO implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		LogonAttributesVO other = (LogonAttributesVO) obj;
+		LoginVO other = (LoginVO) obj;
 		if (userName == null) {
 			if (other.userName != null) {
 				return false;
@@ -83,25 +79,29 @@ public class LogonAttributesVO implements Serializable {
 		} else if (!userName.equals(other.userName)) {
 			return false;
 		}
-		if (userRole == null) {
-			if (other.userRole != null) {
+		if (userPassword == null) {
+			if (other.userPassword != null) {
 				return false;
 			}
-		} else if (!userRole.equals(other.userRole)) {
+		} else if (!userPassword.equals(other.userPassword)) {
 			return false;
 		}
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "LogonAttributesVO [userName=" + userName + ", userRole="
-				+ userRole + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("LoginVO [userName=");
+		builder.append(userName);
+		builder.append(", userPassword=");
+		builder.append(userPassword);
+		builder.append("]");
+		return builder.toString();
 	}
-
+	
+	
 }
