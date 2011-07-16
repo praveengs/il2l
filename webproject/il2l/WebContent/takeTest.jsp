@@ -85,10 +85,6 @@
 }
 -->
 </style>
-
-
-
-</script>
 </head>
 <body>
 	<%
