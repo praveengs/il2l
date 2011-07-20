@@ -204,18 +204,28 @@ body {
 font-family
 
 
+
+
 :arial
+
+
 
 
 ;
 font-size
 
 
+
+
 :
+
+
 
 
 12
 px
+
+
 
 
 
@@ -242,7 +252,8 @@ xmp {
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -257,7 +268,20 @@ xmp {
 			</table>
 			<!-- end .header -->
 		</div>
-
+		<%
+			String sub = request.getParameter("subject");
+			if (sub == null || sub.equalsIgnoreCase("")) {
+		%>
+		<div class="pageSidebar1"></div>
+		<div class="pageContent" style="width: 800px; height: 765px">
+			<h2 style="color: red;">Please select a subject before
+				attempting to take test</h2>
+				<h3><a  href="takeTestHome.jsp">Click here to return to selection page</a></h3>
+		</div>
+		<div class="pageSidebar2"></div>
+		<%
+			} else {
+		%>
 		<div class="pageSidebar1">
 			<style rel="STYLESHEET" type="text/css">
 <!--
@@ -2046,7 +2070,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 					<tr height="70%">
 						<td valign="top">
 							<div id="treeboxbox_tree"
-								style="width: 150; height: 218;;;; overflow: auto;"></div></td>
+								style="width: 150; height: 218;;;; overflow: auto;"></div>
+						</td>
 
 					</tr>
 					<tr>
@@ -2068,7 +2093,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 		</script>
 				<%
 					TrainingController training = new TrainingController();
-					String ret = training.retrieveXMLStreamForSubject("Physics");
+						String ret = training.retrieveXMLStreamForSubject("Physics");
 				%>
 				<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
@@ -2087,8 +2112,10 @@ dhtmlXTree.css -->.defaultTreeTable {
 			<form action="#">
 				<input type="text" maxlength="15"
 					value="type a keyword from below list to search"
-					name="searchKeyword" /> <input type="submit" value="Search" />
-				&nbsp;&nbsp;&nbsp;<input type="reset" value="Get all questions" />
+					name="searchKeyword"
+					onfocus="if(this.value == this.defaultValue) this.value=''" /> <input
+					type="submit" value="Search" /> &nbsp;&nbsp;&nbsp;<input
+					type="reset" value="Get all questions" />
 			</form>
 			<br /> <br />
 			<h4>Select from the following keywords</h4>
@@ -2107,6 +2134,9 @@ dhtmlXTree.css -->.defaultTreeTable {
 			</ul>
 		</div>
 		<div style="clear: left; margin-bottom: 1em"></div>
+		<%
+			}
+		%>
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
