@@ -128,43 +128,42 @@ function fnHide(){
 }
 </style>
 <style type="text/css">
-#leftcolumnPage {
+.pageSidebar1 {
 	float: left;
 	width: 320px;
 	height: 800px;
-	border: 3px solid black;
+	background: #D5E0FF;
+	padding-bottom: 10px;
+	height: 800px;
+	/*border: 3px solid black;*/
 	padding: 5px;
 	padding-left: 8px;
-	overflow: scroll;
+	overflow: auto;
 }
-
-#leftcolumn a {
-	padding: 3px 1px;
-	display: block;
-	width: 100%;
-	text-decoration: none;
-	font-weight: bold;
-	border-bottom: 1px solid gray;
-}
-
-#leftcolumn a:hover {
-	background-color: #FFFF80;
-}
-
-#rightcolumn {
+.pageContent {
+	padding: 0px 0;
+	width: 800px;
+	height:800px;
 	float: left;
-	width: 550px;
-	height: 400px;
-	border: 3px solid black;
-	margin-left: 10px;
+	/*border: 3px solid black;*/
+	margin-left: 0px;
 	padding: 5px;
 	padding-bottom: 8px;
-	overflow: scroll;
+	overflow: auto;
+}
+.pageSidebar2 {
+	float: left;
+	background: #D5E0FF;
+	padding: 0px 0;
+	height: 800px;
+	width: 180px;
+	/*border: 3px solid black;*/
+	margin-left: 0px;
+	padding: 5px;
+	padding-bottom: 8px;
+	overflow: auto;
 }
 
-* html #rightcolumn { /*IE only style*/
-	height: 400px;
-}
 </style>
 </head>
 <style>
@@ -197,8 +196,7 @@ xmp {
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -214,7 +212,7 @@ xmp {
 			<!-- end .header -->
 		</div>
 
-		<div id="leftcolumnPage">
+		<div class="pageSidebar1">
 			<style rel="STYLESHEET" type="text/css">
 <!--
 dhtmlXTree.css -->.defaultTreeTable {
@@ -2002,8 +2000,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 					<tr height="70%">
 						<td valign="top">
 							<div id="treeboxbox_tree"
-								style="width: 150; height: 218;;;; overflow: auto;"></div>
-						</td>
+								style="width: 150; height: 218;;;; overflow: auto;"></div></td>
 
 					</tr>
 					<tr>
@@ -2035,9 +2032,23 @@ dhtmlXTree.css -->.defaultTreeTable {
 			</form>
 
 		</div>
-
-		<iframe src="takeTest.jsp" width="800px" height="800px"
-			id="trainingFrame" class="iframepadding"></iframe>
+		<div class="pageContent">
+			<iframe src="takeTest.jsp" width="800px" height="765px"
+				id="trainingFrame" class="iframepadding"></iframe>
+		</div>
+		<div class="pageSidebar2">
+		<h3>Keyword Search</h3>
+		<form action="#">
+		<input type="text" maxlength="15" value="type a keyword from below list to search" name="searchKeyword"/>
+		<input type="submit" value="Search"/> &nbsp;&nbsp;&nbsp;<input type="reset" value="Get all questions"/>
+		</form>
+		<br/>
+		<br/> 
+		<h4>Select from the following keywords</h4>
+		<div style="font-size: medium;padding-right: 15px;
+	padding-left: 15px;">
+		Displacement<br> Speed<br> velocity<br>acceleration<br></div>
+		</div>
 		<div style="clear: left; margin-bottom: 1em"></div>
 		<div class="footer" align="center">
 

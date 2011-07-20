@@ -23,7 +23,7 @@ h1,h2,h3,h4,h5,h6,p {
 	padding-right: 15px;
 	padding-left: 15px;
 	color: navy;
-	text-align: justify;
+	/*text-align: justify;*/
 	/* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
 }
 

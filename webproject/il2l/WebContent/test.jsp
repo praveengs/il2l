@@ -13,19 +13,26 @@
 <link rel="stylesheet" type="text/css" href="final.css" />
 <title>Training</title>
 <script type="text/javascript">
+	
+</script>
+
+<script type="text/javascript">
 
 /***********************************************
 * Dynamic Ajax Content- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
 * This notice MUST stay intact for legal use
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
 ***********************************************/
-
+var finalURL;
+var finalRet;
 var loadedobjects=""
 var rootdomain="http://"+window.location.hostname
 
 function ajaxpage(url, containerid,ret){
-start="SUB_Physics"
-url=url+'?selection='+start+','+ret;
+	finalURL=url;
+	finalRet=ret;
+start="SUB_Physics";
+url=url+'?selection='+start+','+ret+'&question=0';
 alert(url);
 var page_request = false
 if (window.XMLHttpRequest) // if Mozilla, Safari etc
@@ -81,44 +88,86 @@ loadedobjects+=file+" " //Remember this object as being already added to page
 }
 }
 
+function toggleLayer(whichLayer) {
+	alert(document.getElementById(whichLayer).style.visibility);	
+}
+
+	
+ 	function clearChildren(element) {
+ 		alert("Cleaning...")
+ 		$('#rightcolumn div').children().text("")
+ 		$('#submodDesc p').empty()
+ 		$('#questionDesc p').empty()
+ 		$('#answerDesc p').empty()
+	}	
+
+function fnGetNextQn(location){
+		clearChildren(document.getElementById('container'));
+		question=location+1;
+		alert(question);
+		start="SUB_Physics"
+		url=finalURL+'?selection='+start+','+finalRet+'&question='+question;
+		var page_request = false
+		if (window.XMLHttpRequest) // if Mozilla, Safari etc
+		page_request = new XMLHttpRequest()
+		else if (window.ActiveXObject){ // if IE
+		try {
+		page_request = new ActiveXObject("Msxml2.XMLHTTP")
+		} 
+		catch (e){
+		try{
+		page_request = new ActiveXObject("Microsoft.XMLHTTP")
+		}
+		catch (e){}
+		}
+		}
+		else
+		return false
+		page_request.onreadystatechange=function(){
+		loadpage(page_request, containerid)
+		}
+		page_request.open('GET', url, true)
+		page_request.send(null)
+}
 </script>
 
 <style type="text/css">
-#leftcolumn{
-float:left;
-width:300px;
-height: 400px;
-border: 3px solid black;
-padding: 5px;
-padding-left: 8px;
-
+#leftcolumn {
+	float: left;
+	width: 300px;
+	height: 400px;
+	border: 3px solid black;
+	padding: 5px;
+	padding-left: 8px;
+	overflow: scroll;
 }
 
-#leftcolumn a{
-padding: 3px 1px;
-display: block;
-width: 100%;
-text-decoration: none;
-font-weight: bold;
-border-bottom: 1px solid gray;
+#leftcolumn a {
+	padding: 3px 1px;
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	font-weight: bold;
+	border-bottom: 1px solid gray;
 }
 
-#leftcolumn a:hover{
-background-color: #FFFF80;
+#leftcolumn a:hover {
+	background-color: #FFFF80;
 }
 
-#rightcolumn{
-float:left;
-width:550px;
-min-height: 400px;
-border: 3px solid black;
-margin-left: 10px;
-padding: 5px;
-padding-bottom: 8px;
+#rightcolumn {
+	float: left;
+	width: 550px;
+	height: 400px;
+	border: 3px solid black;
+	margin-left: 10px;
+	padding: 5px;
+	padding-bottom: 8px;
+	overflow: scroll;
 }
 
-* html #rightcolumn{ /*IE only style*/
-height: 400px;
+* html #rightcolumn { /*IE only style*/
+	height: 400px;
 }
 </style>
 </head>
@@ -126,9 +175,18 @@ height: 400px;
 body {
 	font-size: 12px
 }
+
 .{
-	font-family:arial;
-	font-size:12px
+font-family
+:arial
+;
+
+	
+font-size
+:
+12px
+
+
 }
 h1 {
 	cursor: hand;
@@ -148,8 +206,8 @@ xmp {
 </style>
 <body>
 
-<div id="leftcolumn">
-	<style rel="STYLESHEET" type="text/css">
+	<div id="leftcolumn">
+		<style rel="STYLESHEET" type="text/css">
 <!--
 dhtmlXTree.css -->.defaultTreeTable {
 	margin: 0;
@@ -194,8 +252,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 	border: thin solid 1 1 1 1;
 }
 </style>
-	<!-- dhtmlXCommon.js -->
-	<script>
+		<!-- dhtmlXCommon.js -->
+		<script>
 		function dtmlXMLLoaderObject(funcObject, dhtmlObject) {
 			this.xmlDoc = "";
 			this.onloadAction = funcObject || null;
@@ -421,8 +479,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 			dragger.waitDrag = 0;
 		}
 	</script>
-	<!-- dhtmlXTree.js -->
-	<script>
+		<!-- dhtmlXTree.js -->
+		<script>
 		function dhtmlXTreeObject(htmlObject, width, height, rootId) {
 			//alert("dhtmlXTreeObject");
 			if (typeof (htmlObject) != "object")
@@ -1930,47 +1988,47 @@ dhtmlXTree.css -->.defaultTreeTable {
 				clearTimeout(this._autoOpenTimer);
 		}
 	</script>
-	<form action="takeTest.jsp">
-		<table height="100%" align="left" width="35%" cellpadding="10">
-			<tr height="70%">
-				<td valign="top">
-					<div id="treeboxbox_tree"
-						style="width: 150; height: 218;;;; overflow: auto;"></div>
-				</td>
+		<form action="takeTest.jsp">
+			<table height="100%" align="left" width="35%" cellpadding="10">
+				<tr height="70%">
+					<td valign="top">
+						<div id="treeboxbox_tree"
+							style="width: 150; height: 218;;;; overflow: auto;"></div></td>
 
-			</tr>
-			<tr>
-				<td><input id="modID" type="button" value="Take Test"
-					name="moduleName" onclick="javascript:ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
-				</td>
-			</tr>
-			
-<tr>
-<td>
+				</tr>
+				<tr>
+					<td><input id="modID" type="button" value="Take Test"
+						name="moduleName"
+						onclick="javascript:ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
+					</td>
+				</tr>
 
-</td>
-</tr>
-		</table>
-		<script>
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+			<script>
 		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
 		tree.setImagePath("treeImgs/");
 		tree.enableCheckBoxes(1);
 		tree.enableThreeStateCheckboxes(true);
 		</script>
-		<%
+			<%
 			TrainingController training = new TrainingController();
 			String ret = training.retrieveXMLStreamForSubject("Physics");
 		%>
-		<script type="text/javascript">
+			<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
 			//	tree.loadXML("treeImgs/SampleTree.xml");
 		</script>
-		<br> <br>
-	</form>
-	
+			<br> <br>
+		</form>
+
 	</div>
-	
-	<div id="rightcolumn"><h3>Choose a page to load.</h3></div>
+
+	<div id="rightcolumn">
+		<h3>Choose a page to load.</h3>
+	</div>
 	<div style="clear: left; margin-bottom: 1em"></div>
 </body>
 </html>

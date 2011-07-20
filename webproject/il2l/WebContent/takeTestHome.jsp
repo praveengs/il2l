@@ -54,7 +54,7 @@ function fnOpen(){
 						<option value="select">SELECT</option>
 						<option value="Physics">Physics</option>
 						<option value="Chemistry">Chemistry</option>
-					</select>
+					</select> <br/> <br/>
 					<input type="button"  value="Start the Subject" onclick="javascript:fnOpen();"/>
 				</center>
 			</div>
@@ -69,6 +69,7 @@ function fnOpen(){
 
 			</center>
 			<!-- end .footer -->
+		</div>
 		</div>
 </body>
 </html>
