@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -15,7 +13,6 @@
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <title>Training</title>
 <script type="text/javascript">
-
 /***********************************************
 * Dynamic Ajax Content- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
 * This notice MUST stay intact for legal use
@@ -140,10 +137,11 @@ function fnHide(){
 	padding-left: 8px;
 	overflow: auto;
 }
+
 .pageContent {
 	padding: 0px 0;
 	width: 800px;
-	height:800px;
+	height: 800px;
 	float: left;
 	/*border: 3px solid black;*/
 	margin-left: 0px;
@@ -151,6 +149,7 @@ function fnHide(){
 	padding-bottom: 8px;
 	overflow: auto;
 }
+
 .pageSidebar2 {
 	float: left;
 	background: #D5E0FF;
@@ -163,8 +162,38 @@ function fnHide(){
 	padding-bottom: 8px;
 	overflow: auto;
 }
-
 </style>
+<!-- Keyword tag cloud animation script starts -->
+<script src="jquery-1.6.2.js" type="text/javascript"></script>
+<script type="text/javascript" src="jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="jquery.tagcloud.min.js"></script>
+<style type="text/css">
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	background-color: #0000FF;
+	color: #FFFFFF;
+}
+
+#tag-cloud {
+	position: relative;
+	top: 10px;
+	left: 10px;
+	height: 500px;
+	width: 150px;
+	border: 1px solid blue;
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		$("#tag-cloud").tagCloud({"direction":"vertical", "easein":"easeOutBack", "speed":5000});
+	});
+</script>
+<!-- Keyword cloud animation script ends -->
 </head>
 <style>
 body {
@@ -172,8 +201,25 @@ body {
 }
 
 .{
-font-family:arial;
-font-size:12px
+font-family
+
+
+:arial
+
+
+;
+font-size
+
+
+:
+
+
+12
+px
+
+
+
+
 }
 h1 {
 	cursor: hand;
@@ -2037,17 +2083,28 @@ dhtmlXTree.css -->.defaultTreeTable {
 				id="trainingFrame" class="iframepadding"></iframe>
 		</div>
 		<div class="pageSidebar2">
-		<h3>Keyword Search</h3>
-		<form action="#">
-		<input type="text" maxlength="15" value="type a keyword from below list to search" name="searchKeyword"/>
-		<input type="submit" value="Search"/> &nbsp;&nbsp;&nbsp;<input type="reset" value="Get all questions"/>
-		</form>
-		<br/>
-		<br/> 
-		<h4>Select from the following keywords</h4>
-		<div style="font-size: medium;padding-right: 15px;
-	padding-left: 15px;">
-		Displacement<br> Speed<br> velocity<br>acceleration<br></div>
+			<h3>Keyword Search</h3>
+			<form action="#">
+				<input type="text" maxlength="15"
+					value="type a keyword from below list to search"
+					name="searchKeyword" /> <input type="submit" value="Search" />
+				&nbsp;&nbsp;&nbsp;<input type="reset" value="Get all questions" />
+			</form>
+			<br /> <br />
+			<h4>Select from the following keywords</h4>
+			<ul id="tag-cloud">
+				<li>Displacement</li>
+				<li>Speed</li>
+				<li>velocity</li>
+				<li>acceleration</li>
+				<li>magnitude</li>
+				<li>unit</li>
+				<li>Avogadro</li>
+				<li>molar/mol/mole</li>
+				<li>scalar</li>
+				<li>vector</li>
+				<li>component</li>
+			</ul>
 		</div>
 		<div style="clear: left; margin-bottom: 1em"></div>
 		<div class="footer" align="center">
