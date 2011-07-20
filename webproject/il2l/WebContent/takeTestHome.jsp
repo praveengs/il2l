@@ -1,3 +1,5 @@
+<%@page import="java.util.Collection"%>
+<%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,13 +10,20 @@
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <script>
-function fnOpen(){
+function fnOpen(subjectName){
 	//alert("Test");
-	window.open(href='training.jsp', 'Start_Training', 'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
+	//alert(subjectName);
+	//if (subjectName != "SELECT") {
+	window.open(href='training.jsp?subject='+subjectName, 'Start_Training', 'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
+	//}
 }
 </script>
 </head>
 <body>
+<%
+TrainingController trainingController = new TrainingController();
+Collection<String> subjects = trainingController.retrieveAllSubjects();
+%>
 	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
@@ -45,17 +54,21 @@ function fnOpen(){
 		<%
 			/*JAVA SCRIPTLET TO BE WRITTEN HERE  */
 		%>
-		<form action="training.jsp" method="GET">
+		<form name='subjectform' action="training.jsp" method="GET">
 
 			<div id="rightcolumn">
 				<center>
 					<h1>SELECT SUBJECT</h1>
 					<select name="subjectName" id="subject">
 						<option value="select">SELECT</option>
-						<option value="Physics">Physics</option>
-						<option value="Chemistry">Chemistry</option>
+						<%for (String subject: subjects) {%>
+						<option value=<%=subject%>>Physics</option>
+						<% }%>
+						<!-- <option value="Physics">Physics</option>
+						<option value="Chemistry">Chemistry</option> -->
 					</select> <br/> <br/>
-					<input type="button"  value="Start the Subject" onclick="javascript:fnOpen();"/>
+					<input type="button"  value="Start the Subject" 
+					onclick="javascript:fnOpen(document.subjectform.subjectName.options[document.subjectform.subjectName.selectedIndex].value);"/>
 				</center>
 			</div>
 
