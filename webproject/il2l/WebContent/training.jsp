@@ -2093,7 +2093,7 @@ dhtmlXTree.css -->.defaultTreeTable {
 		</script>
 				<%
 					TrainingController training = new TrainingController();
-						String ret = training.retrieveXMLStreamForSubject("Physics");
+						String ret = training.retrieveXMLStreamForSubject(sub);
 				%>
 				<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
