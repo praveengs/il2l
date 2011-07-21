@@ -62,7 +62,7 @@ Collection<String> subjects = trainingController.retrieveAllSubjects();
 					<select name="subjectName" id="subject">
 						<option value="">SELECT</option>
 						<%for (String subject: subjects) {%>
-						<option value=<%=subject%>>Physics</option>
+						<option value=<%=subject%>><%=subject %></option>
 						<% }%>
 						<!-- <option value="Physics">Physics</option>
 						<option value="Chemistry">Chemistry</option> -->
