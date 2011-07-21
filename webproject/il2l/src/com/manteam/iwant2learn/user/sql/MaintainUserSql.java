@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import com.manteam.framework.sql.AbstractSql;
-import com.manteam.iwant2learn.questions.sql.MaintainQuestionsQueryConstants;
 import com.manteam.iwant2learn.user.vo.LoginVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 import com.manteam.iwant2learn.user.vo.UserSaveVO;
@@ -92,12 +91,16 @@ public class MaintainUserSql extends AbstractSql {
 					connection, logonAttributesVO, userSaveVO, modifiedDate);
 			int rowsInserted = preparedStatement.executeUpdate();
 			if (rowsInserted > 0) {
-				preparedStatement = MaintainUserQueryConstructor.getLastInsertedId(connection);
+				preparedStatement = MaintainUserQueryConstructor
+						.getLastInsertedId(connection);
 				resultSet = preparedStatement.executeQuery();
-				userId = (int)resultSet.getLong(MaintainQuestionsQueryConstants.LAST_INSERTED_ID);
+				if (resultSet.next()) {
+					userId = (int) resultSet
+							.getLong(MaintainUserQueryConstants.LAST_INSERTED_ID);
+				}
 			}
 		} finally {
-			close(connection, resultSet, preparedStatement);
+			close(resultSet, preparedStatement);
 		}
 		return userId;
 	}

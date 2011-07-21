@@ -12,5 +12,6 @@ public interface MaintainUserQueryConstants {
 	public static final String USER_NAME = "USER_NAME";
 	public static final String USER_ROLE = "USER_ROLE";
 	public static final String USER_ID = "USER_ID";
+	public static final String LAST_INSERTED_ID = "last_insert_id()";;
 
 }
