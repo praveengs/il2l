@@ -201,35 +201,8 @@ body {
 }
 
 .{
-font-family
-
-
-
-
-:arial
-
-
-
-
-;
-font-size
-
-
-
-
-:
-
-
-
-
-12
-px
-
-
-
-
-
-
+font-family:arial;
+font-size:12px
 }
 h1 {
 	cursor: hand;
