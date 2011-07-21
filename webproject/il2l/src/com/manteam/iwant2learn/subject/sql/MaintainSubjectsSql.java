@@ -211,4 +211,34 @@ public class MaintainSubjectsSql extends AbstractSql {
 		return subjectnSubmodulenKeywordMap;
 	}
 
+	/**
+	 * This method returns all the keywords attached with a subject
+	 * 
+	 * @param conn
+	 * @param subjectName
+	 * @return
+	 * @throws SQLException
+	 */
+	public Collection<String> retrieveAllKeyWordsForSubject(Connection conn,
+			String subjectName) throws SQLException {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		Collection<String> keyWords = null;
+		try {
+			preparedStatement = MaintainSubjectsQueryConstructor
+					.getKeyWordsForSubject(conn, subjectName);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				keyWords = new ArrayList<String>(4);
+				do {
+					keyWords.add(resultSet
+						.getString(MaintainSubjectsQueryConstants.KEYWORD));
+				} while(resultSet.next());
+			}
+		} finally {
+			close(conn, resultSet, preparedStatement);
+		}
+		return keyWords;
+	}
+
 }

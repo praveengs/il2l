@@ -174,4 +174,30 @@ public class MaintainSubjectsManager extends AbstractManager {
 		}
 		return subjectnSubmodulenKeyWordMap;
 	}
+
+	/**
+	 * This method returns all the keywords attached with a particular 
+	 * subject
+	 * 
+	 * @param subjectName
+	 * @return
+	 * @throws SystemException
+	 */
+	public Collection<String> retrieveKeyWordsForSubject(String subjectName) throws SystemException {
+		Collection<String> keyWords = null;
+		Connection conn;
+		try {
+			conn = getConnection();
+
+			keyWords = getMaintainSubjectsSql()
+					.retrieveAllKeyWordsForSubject(conn, subjectName);
+		} catch (DatabaseException databaseException) {
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return keyWords;
+	}
 }

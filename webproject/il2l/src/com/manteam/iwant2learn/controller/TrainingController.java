@@ -215,6 +215,21 @@ public class TrainingController {
 			UserSaveVO userSaveVO) throws MaintainUserException, SystemException {
 		return getMaintainUserManager().addUser(logonAttributesVO, userSaveVO);
 	}
+	
+	
+	/**
+	 * This method returns all the keywords attached with a subject
+	 * 
+	 * @param subjectName
+	 * @return
+	 * @throws SystemException
+	 */
+	public Collection<String> retrieveKeyWordsForSubject(String subjectName)
+			throws SystemException {
+
+		return getMaintainSubjectsManager().retrieveKeyWordsForSubject(subjectName);
+	}
+
 
 	/**
 	 * To get the question manager

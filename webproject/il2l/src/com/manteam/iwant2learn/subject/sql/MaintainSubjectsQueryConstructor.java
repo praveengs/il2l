@@ -99,4 +99,20 @@ public class MaintainSubjectsQueryConstructor {
 
 		return preparedStatement;
 	}
+
+	/**
+	 * This method retrieves all the keywords for a particular subject
+	 * 
+	 * @param conn
+	 * @param subjectName
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement getKeyWordsForSubject(Connection conn,
+			String subjectName) throws SQLException {
+		PreparedStatement preparedStatement = conn
+				.prepareStatement(MaintainSubjectsQueries.RETRIEVE_ALL_KEYWORDS_FOR_SUBJECT);
+		preparedStatement.setString(1, subjectName);
+		return preparedStatement;
+	}
 }
