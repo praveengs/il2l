@@ -7,6 +7,8 @@
 <%@page import="java.io.FileWriter"%>
 <%@page import="java.io.BufferedWriter"%>
 <%@page import="java.io.File"%>
+<%@page import="java.util.Collection"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <link rel="stylesheet" type="text/css" href="final.css" />
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
@@ -201,8 +203,16 @@ body {
 }
 
 .{
-font-family:arial;
-font-size:12px
+font-family
+:arial
+;
+
+
+font-size
+:
+12px
+
+
 }
 h1 {
 	cursor: hand;
@@ -241,15 +251,19 @@ xmp {
 			</table>
 			<!-- end .header -->
 		</div>
+		<%!String sub;%>
 		<%
-			String sub = request.getParameter("subject");
+			sub = request.getParameter("subject");
 			if (sub == null || sub.equalsIgnoreCase("")) {
 		%>
 		<div class="pageSidebar1"></div>
 		<div class="pageContent" style="width: 800px; height: 765px">
 			<h2 style="color: red;">Please select a subject before
 				attempting to take test</h2>
-				<h3><a  href="takeTestHome.jsp">Click here to return to selection page</a></h3>
+			<h3>
+				<a href="takeTestHome.jsp">Click here to return to selection
+					page</a>
+			</h3>
 		</div>
 		<div class="pageSidebar2"></div>
 		<%
@@ -2091,34 +2105,45 @@ dhtmlXTree.css -->.defaultTreeTable {
 					type="reset" value="Get all questions" />
 			</form>
 			<br /> <br />
-			<h4>Select from the following keywords</h4>
-			<ul id="tag-cloud">
-				<li>Displacement</li>
-				<li>Speed</li>
-				<li>velocity</li>
-				<li>acceleration</li>
-				<li>magnitude</li>
-				<li>unit</li>
-				<li>Avogadro</li>
-				<li>molar/mol/mole</li>
-				<li>scalar</li>
-				<li>vector</li>
-				<li>component</li>
-			</ul>
+
+			<%
+				System.out.println(sub);
+					TrainingController controller = new TrainingController();
+					Collection<String> keys = controller
+							.retrieveKeyWordsForSubject(sub);
+					if (keys == null || keys.isEmpty()) {
+			%>
 		</div>
-		<div style="clear: left; margin-bottom: 1em"></div>
+		<%
+			} else {
+		%>
+		<h4>Select from the following keywords</h4>
+		<ul id="tag-cloud">
+			<%
+				Iterator<String> it = keys.iterator();
+						while (it.hasNext()) {
+			%>
+			<li><%=it.next()%></li>
+			<%
+				}
+			%>
+		</ul>
 		<%
 			}
 		%>
-		<div class="footer" align="center">
+	</div>
+	<div style="clear: left; margin-bottom: 1em"></div>
+	<%
+		}
+	%>
+	<div class="footer" align="center">
 
-			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
-			<b style="color: #999; font-size: 15px">The University of
-				Manchester</b>
+		<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br /> <b
+			style="color: #999; font-size: 15px">The University of Manchester</b>
 
-			<!-- end .footer -->
-		</div>
-		<!-- end .container -->
+		<!-- end .footer -->
+	</div>
+	<!-- end .container -->
 	</div>
 </body>
 </html>
