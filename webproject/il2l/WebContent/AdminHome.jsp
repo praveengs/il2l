@@ -1,4 +1,5 @@
-
+<%@ page language="java" session="true" %>
+<%@ page errorPage="errorPage.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,7 +21,8 @@
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -35,15 +37,51 @@
 			</table>
 			<!-- end .header -->
 		</div>
+		<%
+			if (request.getSession(false) != null) {
+
+				if (session.getAttribute("userRoleSession").equals("A")) {
+					System.out.println("In admin of addQuestion!!");
+		%>
 		<div id="leftcolumn">
 
-			<a href="#">Admin Home</a> 
-			<a href="addQuestionForm.jsp">Add Question</a> 
-				<a href="addUserForm.jsp">Add User</a> 
-				<a href="takeTestHome.jsp">Take Test</a>
+			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
+				Question</a> <a href="addUserForm.jsp">Add User</a> <a
+				href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("F")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addQuestionForm.jsp">Add Question</a> <a
+				href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			}
+
+			} else {
+				System.out.println("In the last else - session not set - AdminHome.jsp");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			}
+		%>
 		<div id="rightcolumn">
 			<h1>Welcome Admin</h1>
 			<p>The admin would get the following previleges.The admin would

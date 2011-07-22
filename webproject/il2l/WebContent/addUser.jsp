@@ -1,3 +1,5 @@
+<%@ page language="java" session="true"%>
+<%@ page isErrorPage="true"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@page import="com.manteam.iwant2learn.user.vo.LogonAttributesVO"%>
 <%@page import="com.manteam.iwant2learn.user.sql.MaintainUserSql"%>
@@ -34,6 +36,11 @@
 			</table>
 			<!-- end .header -->
 		</div>
+		<%
+			if (request.getSession(false) != null) {
+
+				if (session.getAttribute("userRoleSession").equals("A")) {
+		%>
 		<div id="leftcolumn">
 
 			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
@@ -42,6 +49,36 @@
 
 			<!-- end .sidebar1 -->
 		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("F")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addQuestionForm.jsp">Add Question</a> <a
+				href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			}
+			} else {
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			}
+		%>
+
 		<%
 			String userName = request.getParameter("userName");
 			String userRole = request.getParameter("userRole");
@@ -71,11 +108,11 @@
 		%>
 		<div id="rightcolumn">
 			<h1>
-				The user addition failed. Click here to try again !!  : <a
+				The user addition failed. Click here to try again !! : <a
 					href="addUserForm.jsp">Add User</a>
 			</h1>
 		</div>
-		
+
 		<%
 			} else {
 		%>

@@ -1,3 +1,5 @@
+<%@ page language="java" session="true" %>
+<%@ page isErrorPage="true" %>
 <%--
     Document   : addQuestion
     Created on : Jul 3, 2011, 8:07:16 PM
@@ -34,7 +36,7 @@
 
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
@@ -53,15 +55,52 @@
 			</table>
 			<!-- end .header -->
 		</div>
+	<%
+			if (request.getSession(false) != null) {		
+				%>
+	
+		<%
+				if (session.getAttribute("userRoleSession").equals("A")
+						) {
+		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> 
-			<a href="addQuestionForm.jsp">Add Question</a> 
-			<a href="addUserForm.jsp">Add User</a> 
+			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
+				Question</a> <a href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
+				Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			}else if (session.getAttribute("userRoleSession").equals("F")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addQuestionFoem.jsp">Add Question</a> <a
+				href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
+		%>
+		<div id="leftcolumn">
+
 			<a href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
+		<%
+			}
+			} else {
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			}
+		%>
+
 		<%! Collection<String> getSubmodules(String[] split) {
   Collection<String> submodules = new ArrayList<String>(split.length);
   for (String submodule : split) {

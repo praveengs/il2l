@@ -5,30 +5,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">
+.mandatory {
+	color: red;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Take Test Home</title>
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <script>
-function fnOpen(subjectName){
-	//alert("Test");
-	//alert(subjectName);
-	//if (subjectName != "SELECT") {
-	window.open(href='training.jsp?subject='+subjectName, 'Start_Training', 'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
-	//}
-}
+	function fnOpen(subjectName) {
+		//alert("Test");
+		//alert(subjectName);
+		//if (subjectName != "SELECT") {
+		window
+				.open(
+						href = 'training.jsp?subject=' + subjectName,
+						'Start_Training',
+						'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
+		//}
+	}
 </script>
 </head>
 <body>
-<%
-TrainingController trainingController = new TrainingController();
-Collection<String> subjects = trainingController.retrieveAllSubjects();
-%>
+	<%
+		TrainingController trainingController = new TrainingController();
+		Collection<String> subjects = trainingController
+				.retrieveAllSubjects();
+	%>
+
+	<%
+			if (request.getSession(false)!=null) {
+				
+				%>
 	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -43,6 +59,9 @@ Collection<String> subjects = trainingController.retrieveAllSubjects();
 			</table>
 			<!-- end .header -->
 		</div>
+		<%
+				if (session.getAttribute("userRoleSession").equals("A")) {
+		%>
 		<div id="leftcolumn">
 
 			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
@@ -52,8 +71,36 @@ Collection<String> subjects = trainingController.retrieveAllSubjects();
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			/*JAVA SCRIPTLET TO BE WRITTEN HERE  */
+				} else if (session.getAttribute("userRoleSession").equals("F")) {
+					%>
+		<div id="leftcolumn">
+
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addQuestionForm.jsp">Add Question</a> <a href="#">Take
+				Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
 		%>
+		<div id="leftcolumn">
+
+			<a href="#">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			}
+			} else {
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			}
+		%>
+
+
 		<form name='subjectform' action="training.jsp" method="GET">
 
 			<div id="rightcolumn">
@@ -61,14 +108,17 @@ Collection<String> subjects = trainingController.retrieveAllSubjects();
 					<h1>SELECT SUBJECT</h1>
 					<select name="subjectName" id="subject">
 						<option value="">SELECT</option>
-						<%for (String subject: subjects) {%>
-						<option value=<%=subject%>><%=subject %></option>
-						<% }%>
+						<%
+							for (String subject : subjects) {
+						%>
+						<option value=<%=subject%>><%=subject%></option>
+						<%
+							}
+						%>
 						<!-- <option value="Physics">Physics</option>
 						<option value="Chemistry">Chemistry</option> -->
-					</select> <br/> <br/>
-					<input type="button"  value="Start the Subject" 
-					onclick="javascript:fnOpen(document.subjectform.subjectName.options[document.subjectform.subjectName.selectedIndex].value);"/>
+					</select> <br /> <br /> <input type="button" value="Start the Subject"
+						onclick="javascript:fnOpen(document.subjectform.subjectName.options[document.subjectform.subjectName.selectedIndex].value);" />
 				</center>
 			</div>
 
@@ -83,6 +133,6 @@ Collection<String> subjects = trainingController.retrieveAllSubjects();
 			</center>
 			<!-- end .footer -->
 		</div>
-		</div>
+	</div>
 </body>
 </html>

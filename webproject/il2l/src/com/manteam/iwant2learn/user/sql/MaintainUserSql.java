@@ -37,6 +37,7 @@ public class MaintainUserSql extends AbstractSql {
 		try {
 			preparedStatement = MaintainUserQueryConstructor
 					.retrieveUserDetails(connection, loginVO);
+			
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				logonAttributesVO = new LogonAttributesVO();

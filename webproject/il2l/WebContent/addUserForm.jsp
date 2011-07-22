@@ -1,3 +1,5 @@
+<%@ page language="java" session="true" %>
+<%@ page errorPage="errorPage.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,6 +23,7 @@
 <title>Add User Form</title>
 </head>
 <body>
+	
 	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
@@ -40,15 +43,51 @@
 			</table>
 			<!-- end .header -->
 		</div>
+		<%
+		if (request.getSession(false) != null) {
+				if (session.getAttribute("userRoleSession").equals("A")) {
+					System.out.println("Add user Admin");
+		%>
 		<div id="leftcolumn">
 
 			<a href="AdminHome.jsp">Admin Home</a> 
-			<a href="addQuestionForm.jsp">Add Question</a> <a
-				href="#">Add User</a> 
-				<a href="takeTestHome.jsp">Take Test</a>
+			<a href="addQuestionForm.jsp">Add Question</a> 
+			<a href="addUserForm.jsp">Add User</a> 
+			<a href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
+		<%
+			}else if (session.getAttribute("userRoleSession").equals("F")) {
+				System.out.println("Add user Faculty");
+		%>
+		<div id="leftcolumn">
+
+			<a href="facultyHome.jsp">Faculty Home</a> 
+			<a href="addQuestionForm.jsp">Add Question</a> 
+			<a href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
+		%>
+		<div id="leftcolumn">
+
+			<a href="takeTestHome.jsp">Take Test</a>
+
+			<!-- end .sidebar1 -->
+		</div>
+		<%
+			}
+			} else {
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			}
+		%>
+
 
 		<div id="rightcolumn">
 

@@ -9,7 +9,7 @@ package com.manteam.iwant2learn.user.sql;
  */
 public class MaintainUserQueries {
 
-	public static final String RETRIEVE_USER_DETAILS = "SELECT USER_NAME, USER_PASSWORD FROM"
+	public static final String RETRIEVE_USER_DETAILS = "SELECT USER_NAME, USER_ROLE FROM"
 			+ " user_details " + " WHERE USER_NAME = ? and USER_PASSWORD = ?";
 	public static final String RETRIEVE_USER_ID = "SELECT USER_ID FROM"
 			+ " user_details WHERE USER_NAME = ? ";
