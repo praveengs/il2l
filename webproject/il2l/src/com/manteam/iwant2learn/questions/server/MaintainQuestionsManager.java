@@ -5,6 +5,8 @@ package com.manteam.iwant2learn.questions.server;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -64,19 +66,49 @@ public class MaintainQuestionsManager extends AbstractManager {
 			conn = getConnection();
 
 			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
+			Collection<String> submodules = new ArrayList<String>(1);
+			submodules.add(questionSaveVO.getSubmodule());
 
 			HashMap<Integer, String> submoduleIdMap = maintainQuestionSql
 					.getSubmoduleIds(conn, questionSaveVO.getSubjectName(),
-							questionSaveVO.getSubmodules());
+							submodules);
 
-			if (submoduleIdMap.containsKey(null)) {
+			/*
+			 * int submoduleId = maintainQuestionSql .getSubmoduleId(conn,
+			 * questionSaveVO.getSubjectName(), questionSaveVO.getSubmodule());
+			 */
+
+			if (submoduleIdMap == null
+					|| submoduleIdMap.keySet().size() != submodules.size()) {
 				throw new MaintainQuestionsException(
 						MaintainQuestionsException.INVALID_SUBJ_SUBMOD_COMB);
 			}
+			/*
+			 * if (submoduleId == 0) { throw new MaintainQuestionsException(
+			 * MaintainQuestionsException.INVALID_SUBJ_SUBMOD_COMB); }
+			 */
+			HashMap<Integer, String> keyWordIdMap = null;
+			if (questionSaveVO.getKeywords() != null
+					&& questionSaveVO.getKeywords().size() > 0) {
+				keyWordIdMap = maintainQuestionSql.getKeyWordIds(conn,
+						submoduleIdMap.keySet(), questionSaveVO.getKeywords());
+
+				if (keyWordIdMap == null
+						|| keyWordIdMap.keySet().size() != questionSaveVO
+								.getKeywords().size()) {
+					throw new MaintainQuestionsException(
+							MaintainQuestionsException.INVALID_KEYWORD_EXISTS);
+				}
+			}
 			conn.setAutoCommit(false);
 			int recordsUpdated = maintainQuestionSql.saveQuestion(conn,
-					questionSaveVO, submoduleIdMap.keySet(), logonAttributesVO,
-					new Date());
+					questionSaveVO, submoduleIdMap.keySet(),
+					((keyWordIdMap == null) ? null : keyWordIdMap.keySet()),
+					logonAttributesVO, new Date());
+			/*
+			 * int recordsUpdated = maintainQuestionSql.saveQuestion(conn,
+			 * questionSaveVO, submoduleId, logonAttributesVO, new Date());
+			 */
 			if (recordsUpdated > 0) {
 				isInserted = true;
 			}

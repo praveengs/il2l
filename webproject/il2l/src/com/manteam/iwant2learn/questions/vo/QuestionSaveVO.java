@@ -6,8 +6,8 @@ import java.util.Collection;
 public class QuestionSaveVO extends QuestionVO implements Serializable {
 	
 	private String subjectName;
-	private Collection<String> submodules;
-	
+	private String submodule;
+	private Collection<String> keywords;
 	/**
 	 * @return the subjectName
 	 */
@@ -21,29 +21,42 @@ public class QuestionSaveVO extends QuestionVO implements Serializable {
 		this.subjectName = subjectName;
 	}
 	/**
-	 * @return the submodules
+	 * @return the submodule
 	 */
-	public Collection<String> getSubmodules() {
-		return submodules;
+	public String getSubmodule() {
+		return submodule;
 	}
 	/**
-	 * @param submodules the submodules to set
+	 * @param submodule the submodule to set
 	 */
-	public void setSubmodules(Collection<String> submodules) {
-		this.submodules = submodules;
+	public void setSubmodule(String submodule) {
+		this.submodule = submodule;
 	}
-	
+	/**
+	 * @return the keywords
+	 */
+	public Collection<String> getKeywords() {
+		return keywords;
+	}
+	/**
+	 * @param keywords the keywords to set
+	 */
+	public void setKeywords(Collection<String> keywords) {
+		this.keywords = keywords;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;		
+		int result = super.hashCode();
+		result = prime * result
+				+ ((keywords == null) ? 0 : keywords.hashCode());
 		result = prime * result
 				+ ((subjectName == null) ? 0 : subjectName.hashCode());
 		result = prime * result
-				+ ((submodules == null) ? 0 : submodules.hashCode());
+				+ ((submodule == null) ? 0 : submodule.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -54,13 +67,20 @@ public class QuestionSaveVO extends QuestionVO implements Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+		if (!super.equals(obj)) {
 			return false;
 		}
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		QuestionSaveVO other = (QuestionSaveVO) obj;		
+		QuestionSaveVO other = (QuestionSaveVO) obj;
+		if (keywords == null) {
+			if (other.keywords != null) {
+				return false;
+			}
+		} else if (!keywords.equals(other.keywords)) {
+			return false;
+		}
 		if (subjectName == null) {
 			if (other.subjectName != null) {
 				return false;
@@ -68,11 +88,11 @@ public class QuestionSaveVO extends QuestionVO implements Serializable {
 		} else if (!subjectName.equals(other.subjectName)) {
 			return false;
 		}
-		if (submodules == null) {
-			if (other.submodules != null) {
+		if (submodule == null) {
+			if (other.submodule != null) {
 				return false;
 			}
-		} else if (!submodules.equals(other.submodules)) {
+		} else if (!submodule.equals(other.submodule)) {
 			return false;
 		}
 		return true;
@@ -85,12 +105,13 @@ public class QuestionSaveVO extends QuestionVO implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("QuestionSaveVO [subjectName=");
 		builder.append(subjectName);
-		builder.append(", submodules=");
-		builder.append(submodules);
+		builder.append(", submodule=");
+		builder.append(submodule);
+		builder.append(", keywords=");
+		builder.append(keywords);
 		builder.append("]");
 		return builder.toString();
-	}
-	
+	}	
 	
 
 }

@@ -22,7 +22,8 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(2, examQuestionsVO.getQuestion());
 		if (examQuestionsVO.getQuestionImage() != null) {
 			preparedStatement.setBinaryStream(3,
-					examQuestionsVO.getQuestionImage(), examQuestionsVO.getQuestionImageLength());
+					examQuestionsVO.getQuestionImage(),
+					examQuestionsVO.getQuestionImageLength());
 		} else {
 			preparedStatement.setBinaryStream(3, null, 0);
 		}
@@ -31,7 +32,8 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(5, examQuestionsVO.getAnswer());
 		if (examQuestionsVO.getAnswerImageStream() != null) {
 			preparedStatement.setBinaryStream(6,
-					examQuestionsVO.getAnswerImageStream(), examQuestionsVO.getAnswerImageLength());
+					examQuestionsVO.getAnswerImageStream(),
+					examQuestionsVO.getAnswerImageLength());
 		} else {
 			preparedStatement.setBinaryStream(6, null, 0);
 		}
@@ -76,20 +78,22 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(1, questionSaveVO.getQuestion());
 		if (questionSaveVO.getQuestionImage() != null) {
 			preparedStatement.setBinaryStream(2,
-					questionSaveVO.getQuestionImage(), questionSaveVO.getQuestionImageLength());
+					questionSaveVO.getQuestionImage(),
+					questionSaveVO.getQuestionImageLength());
 		} else {
-			preparedStatement.setBinaryStream(2, null, (int)0);
+			preparedStatement.setBinaryStream(2, null, (int) 0);
 		}
 		preparedStatement.setString(3,
 				questionSaveVO.getQuestionYearMarkString());
 		preparedStatement.setString(4, questionSaveVO.getAnswer());
 		if (questionSaveVO.getAnswerImageStream() != null) {
 			preparedStatement.setBinaryStream(5,
-					questionSaveVO.getAnswerImageStream(), questionSaveVO.getAnswerImageLength());
+					questionSaveVO.getAnswerImageStream(),
+					questionSaveVO.getAnswerImageLength());
 		} else {
-			preparedStatement.setBinaryStream(5, null, (int)0);
+			preparedStatement.setBinaryStream(5, null, (int) 0);
 		}
-		//LAST_MODIFIED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_ROLE
+		// LAST_MODIFIED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_ROLE
 		preparedStatement.setString(6, userName);
 		preparedStatement.setTimestamp(7, new Timestamp(date.getTime()));
 		preparedStatement.setString(8, userRole);
@@ -122,6 +126,42 @@ public class MaintainQuestionQueryConstructor {
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(MaintainQuestionQueries.RETRIEVE_QUES_IMG);
 		preparedStatement.setInt(1, questionId);
+		return preparedStatement;
+	}
+
+	public static PreparedStatement getKeyWordIds(Set<Integer> submoduleIds,
+			Collection<String> keywords, Connection connection)
+			throws SQLException {
+		StringBuilder queryBuilder = new StringBuilder(
+				MaintainQuestionQueries.GET_KEYWORD_IDS_FIRST);
+		queryBuilder.append("(");
+		for (String keyword : keywords) {
+			queryBuilder.append("'").append(keyword).append("',");
+		}
+		queryBuilder.replace(queryBuilder.length() - 1, queryBuilder.length(),
+				")");
+		queryBuilder.append(MaintainQuestionQueries.GET_KEYWORD_IDS_SECOND);
+		queryBuilder.append("(");
+		for (Integer submodule : submoduleIds) {
+			queryBuilder.append("'").append(submodule.intValue()).append("',");
+		}
+		queryBuilder.replace(queryBuilder.length() - 1, queryBuilder.length(),
+				")");
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(queryBuilder.toString());
+		return preparedStatement;
+	}
+
+	public static PreparedStatement saveQuestionKeyWordMap(int lastQuestionId,
+			Set<Integer> keyWordIds, Connection connection) throws SQLException {
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(MaintainQuestionQueries.INSERT_EXAM_KEYWORD_MAP);
+		for (Integer keyWordID : keyWordIds) {
+			preparedStatement.setInt(1, lastQuestionId);
+			preparedStatement.setInt(2, keyWordID.intValue());
+			preparedStatement.addBatch();
+		}
+
 		return preparedStatement;
 	}
 

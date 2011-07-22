@@ -101,18 +101,20 @@
 			}
 		%>
 
-		<%! Collection<String> getSubmodules(String[] split) {
-  Collection<String> submodules = new ArrayList<String>(split.length);
-  for (String submodule : split) {
-   submodules.add(submodule);
-  }
-  return submodules;
+		<%! Collection<String> getCollection(String[] split) {
+			  Collection<String> collection = new ArrayList<String>(split.length);
+			  for (String splitString : split) {
+				  collection.add(splitString);
+			  }
+			  return collection;
  } %>
 
 		<%
                     String subject = "";
                    
-                    String[] submod;
+					//String[] submod;
+			        String submod = "";
+			        String[] keyWords;
                     String checkVal = "";
                     String date = "";
                     String questionString = "";
@@ -122,8 +124,11 @@
 
                     MultipartRequest req = new MultipartRequest(request, "../");
                     subject = req.getParameter("subject");
-                    submod = req.getParameterValues("submodule");
-                    System.out.println(Arrays.toString(submod));
+                    //submod = req.getParameterValues("submodule");
+                    submod = req.getParameter("submodule");
+                    //System.out.println(Arrays.toString(submod));
+                    keyWords = req.getParameterValues("keywords");
+                    System.out.println(Arrays.toString(keyWords));
                     checkVal = null;
                     date = "";
 
@@ -160,7 +165,13 @@
                     question.setSubjectName(subject);
                     //question.setModuleName(module);
                     //question.setSubmoduleName(submod);
-                    question.setSubmodules(getSubmodules(submod));
+                    //question.setSubmodules(getSubmodules(submod));
+                    question.setSubmodule(submod);
+                    if (keyWords != null) {
+                    	question.setKeywords(getCollection(keyWords));
+                    } else {
+                    	question.setKeywords(null);
+                    }
                     question.setQuestion(questionString);
                     question.setQuestionImage(questImage);
                     question.setQuestionImageLength(questionImageLength);

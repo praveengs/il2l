@@ -34,19 +34,18 @@ public class TrainingSql extends AbstractSql {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			preparedStatement = TrainingQueryConstructor.retrieveSubjectDetails(
-					subjectName, connection);
+			preparedStatement = TrainingQueryConstructor
+					.retrieveSubjectDetails(subjectName, connection);
 			resultSet = preparedStatement.executeQuery();
 
 			subjectVOs = getSubjectVOs(resultSet);
-			//System.out.println(subjectVOs);
+			// System.out.println(subjectVOs);
 		} finally {
 			close(connection, resultSet, preparedStatement);
 		}
 
 		return subjectVOs;
-	}        
-	
+	}
 
 	private Collection<SubjectVO> getSubjectVOs(ResultSet resultSet)
 			throws SQLException {
@@ -54,7 +53,7 @@ public class TrainingSql extends AbstractSql {
 		Collection<ModuleVO> moduleVOs = null;
 		HashMap<String, ModuleVO> moduleMap = null;
 		HashMap<Integer, String> idSubmoduleMap = null;
-		//HashMap<String, ModuleVO> moduleMap = null;
+		// HashMap<String, ModuleVO> moduleMap = null;
 		Collection<String> subModules = null;
 		SubjectVO subjectVO = null;
 		ModuleVO moduleVO = null;
@@ -72,7 +71,7 @@ public class TrainingSql extends AbstractSql {
 						subjectVOs = new ArrayList<SubjectVO>(2);
 					}
 					subjectVOs.add(subjectVO);
-					subjectVO.setSubjectName(curSubject);					
+					subjectVO.setSubjectName(curSubject);
 					subjectVO.setSubjectId(resultSet
 							.getInt(TrainingQueryConstants.IDSYB_SUBJECT));
 				}
@@ -89,8 +88,8 @@ public class TrainingSql extends AbstractSql {
 					moduleVO.setSubmodules(subModules);
 					moduleVO.setIdSubModuleMap(idSubmoduleMap);
 					moduleVO.setModuleName(curModuleName);
-					moduleVO.setModuleId( resultSet
-						.getInt(TrainingQueryConstants.SYB_SUB_MODULE_ID));
+					moduleVO.setModuleId(resultSet
+							.getInt(TrainingQueryConstants.SYB_SUB_MODULE_ID));
 					if (moduleVOs == null) {
 						moduleVOs = new ArrayList<ModuleVO>(2);
 						subjectVO.setModules(moduleVOs);
@@ -98,13 +97,15 @@ public class TrainingSql extends AbstractSql {
 					moduleVOs.add(moduleVO);
 					moduleMap.put(curModuleName, moduleVO);
 				}
-				
+
 				subModuleName = resultSet
 						.getString(TrainingQueryConstants.SUBMODULE_NAME);
 				moduleVO.getSubmodules().add(subModuleName);
-				moduleVO.getIdSubModuleMap().put(resultSet
-						.getInt(TrainingQueryConstants.SYB_SUB_SUBMODULE_ID), subModuleName);	
-				
+				moduleVO.getIdSubModuleMap()
+						.put(resultSet
+								.getInt(TrainingQueryConstants.SYB_SUB_SUBMODULE_ID),
+								subModuleName);
+
 				prevSubject = curSubject;
 
 			} while (resultSet.next());
@@ -251,18 +252,22 @@ public class TrainingSql extends AbstractSql {
 		HashMap<String, KeyWordVO> keywordMap;
 
 		try {
-			preparedStatement = TrainingQueryConstructor.retrieveQuestionsForWeb(
-					questionSearchVO, connection);
+			preparedStatement = TrainingQueryConstructor
+					.retrieveQuestionsForWeb(questionSearchVO, connection);
 			resultSet = preparedStatement.executeQuery();
 			questionReturnVO = getExamQuestionsVOs(resultSet);
 
+			if (questionReturnVO != null) {
+				attachKeywordsToQuestions(connection,
+						questionReturnVO.getExamQuestionVOs());
+			}
 			if (questionReturnVO != null) {
 				submoduleKeyWordMap = new HashMap<String, String>(2);
 				keywordMap = new HashMap<String, KeyWordVO>(2);
 				questionReturnVO.setKeywordMap(keywordMap);
 				questionReturnVO.setSubmoduleKeyWordMap(submoduleKeyWordMap);
-				retrieveKeyWordsForSubmodulesofSubject(connection, questionSearchVO,
-						submoduleKeyWordMap, keywordMap);
+				retrieveKeyWordsForSubmodulesofSubject(connection,
+						questionSearchVO, submoduleKeyWordMap, keywordMap);
 			}
 
 		} finally {
@@ -270,6 +275,63 @@ public class TrainingSql extends AbstractSql {
 		}
 
 		return questionReturnVO;
+	}
+
+	private void attachKeywordsToQuestions(Connection connection,
+			Collection<ExamQuestionsVO> examQuestionVOs) throws SQLException {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+
+			preparedStatement = TrainingQueryConstructor
+					.retrieveKeyWordsForQuestions(connection, examQuestionVOs);
+			resultSet = preparedStatement.executeQuery();
+			HashMap<Integer, HashMap<String, KeyWordVO>> questionKeyWordMap = getQuestionKeyWordMap(resultSet);
+			for (ExamQuestionsVO examQuestionsVO : examQuestionVOs) {
+				examQuestionsVO.setKeyWordMap(questionKeyWordMap
+						.get(examQuestionsVO.getQuestionId()));
+			}
+		} finally {
+			close(resultSet, preparedStatement);
+		}
+
+	}
+
+	private HashMap<Integer, HashMap<String, KeyWordVO>> getQuestionKeyWordMap(
+			ResultSet resultSet) throws SQLException {
+		HashMap<Integer, HashMap<String, KeyWordVO>> questionKeyWordMap = null;
+		if (resultSet.next()) {
+			questionKeyWordMap = new HashMap<Integer, HashMap<String, KeyWordVO>>(
+					2);
+			KeyWordVO keyWordVO = null;
+			HashMap<String, KeyWordVO> keyWordMap = null;
+			String keyWord = null;
+			do {
+				int questionId = resultSet
+						.getInt(TrainingQueryConstants.EXAM_QUES_ID);
+				keyWordMap = questionKeyWordMap.get(questionId);
+				if (keyWordMap == null) {
+					keyWordMap = new HashMap<String, KeyWordVO>(2);
+					questionKeyWordMap.put(questionId, keyWordMap);
+				}
+				keyWordVO = new KeyWordVO();
+				keyWord = resultSet.getString(TrainingQueryConstants.KEYWORD);
+				keyWordVO.setKeywordName(keyWord);
+				keyWordVO.setQuantities(resultSet
+						.getString(TrainingQueryConstants.QUANTITIES));
+				keyWordVO.setSymbols(resultSet
+						.getString(TrainingQueryConstants.SYMBOLS));
+				keyWordVO.setUnits(resultSet
+						.getString(TrainingQueryConstants.UNITS));
+				keyWordVO.setFormulae(resultSet
+						.getString(TrainingQueryConstants.FORMULAE));
+				keyWordVO.setData(resultSet
+						.getString(TrainingQueryConstants.DATA));
+				keyWordMap.put(keyWord, keyWordVO);
+				// questionKeyWordMap.get(questionId).add(keyWordVO);
+			} while (resultSet.next());
+		}
+		return questionKeyWordMap;
 	}
 
 	private void retrieveKeyWordsForSubmodulesofSubject(Connection connection,
@@ -289,7 +351,7 @@ public class TrainingSql extends AbstractSql {
 		} finally {
 			close(resultSet, preparedStatement);
 		}
-		
+
 	}
 
 }

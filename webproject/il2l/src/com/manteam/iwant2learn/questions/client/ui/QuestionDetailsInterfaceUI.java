@@ -521,8 +521,8 @@ public class QuestionDetailsInterfaceUI extends JFrame {
 				.toString());
 		// examQuestionsVO.setModuleName(moduleNameTextField.getText());
 		// examQuestionsVO.setSubmoduleName(submoduleNameTextField.getText());
-		questionSaveVO.setSubmodules(getSubmodules(submoduleNameComboBox
-				.getSelectedItem().toString().trim().split(",")));
+		questionSaveVO.setSubmodule(submoduleNameComboBox
+				.getSelectedItem().toString().trim());
 		questionSaveVO.setQuestion(questionTextArea.getText());
 		if (questionImagePathTextField.getText() != null
 				&& questionImagePathTextField.getText().length() > 0) {

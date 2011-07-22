@@ -3,9 +3,11 @@ package com.manteam.iwant2learn.training.sql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import com.manteam.iwant2learn.subject.vo.ModuleVO;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
+import com.manteam.iwant2learn.vo.ExamQuestionsVO;
 import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 public class TrainingQueryConstructor {
@@ -31,11 +33,10 @@ public class TrainingQueryConstructor {
 		StringBuilder query = new StringBuilder(
 				TrainingQueries.RETRIEVE_QUESTIONS_SUBMOD);
 		query.append("(");
-		for (ModuleVO moduleVO : subjectVO.getModules()) {			
+		for (ModuleVO moduleVO : subjectVO.getModules()) {
 			for (String submodule : moduleVO.getSubmodules()) {
-				query.append("'").append(submodule)
-						.append("',");
-			}		
+				query.append("'").append(submodule).append("',");
+			}
 		}
 		query.replace(query.length() - 1, query.length(), ")");
 		query.append(TrainingQueries.RETRIEVE_QUESTIONS_REST);
@@ -53,11 +54,10 @@ public class TrainingQueryConstructor {
 				TrainingQueries.GET_KEYWORD_FOR_SUBMODULES);
 		query.append("(");
 		for (ModuleVO moduleVO : subjectVO.getModules()) {
-			
+
 			for (String submodule : moduleVO.getSubmodules()) {
 				query.append("'").append(submodule).append("',");
 			}
-			
 
 		}
 		query.replace(query.length() - 1, query.length(), ")");
@@ -70,16 +70,16 @@ public class TrainingQueryConstructor {
 	}
 
 	public static PreparedStatement retrieveQuestionsForWeb(
-			QuestionSearchVO questionSearchVO, Connection connection) throws SQLException {
+			QuestionSearchVO questionSearchVO, Connection connection)
+			throws SQLException {
 		PreparedStatement preparedStatement;
 		StringBuilder query = new StringBuilder(
 				TrainingQueries.RETRIEVE_QUESTIONS_SUBMOD);
 		query.append("(");
-		for (String submodule : questionSearchVO.getSubmodules()) {			
-			
-				query.append("'").append(submodule)
-						.append("',");
-					
+		for (String submodule : questionSearchVO.getSubmodules()) {
+
+			query.append("'").append(submodule).append("',");
+
 		}
 		query.replace(query.length() - 1, query.length(), ")");
 		query.append(TrainingQueries.RETRIEVE_QUESTIONS_REST);
@@ -91,13 +91,14 @@ public class TrainingQueryConstructor {
 	}
 
 	public static PreparedStatement retrieveKeyWordsForSubmodulesofSubject(
-			QuestionSearchVO questionSearchVO, Connection connection) throws SQLException {
+			QuestionSearchVO questionSearchVO, Connection connection)
+			throws SQLException {
 		PreparedStatement preparedStatement;
 		StringBuilder query = new StringBuilder(
 				TrainingQueries.GET_KEYWORD_FOR_SUBMODULES);
 		query.append("(");
-		for (String submodule : questionSearchVO.getSubmodules()) {			
-				query.append("'").append(submodule).append("',");
+		for (String submodule : questionSearchVO.getSubmodules()) {
+			query.append("'").append(submodule).append("',");
 		}
 		query.replace(query.length() - 1, query.length(), ")");
 		query.append(TrainingQueries.GET_KEYWORD_FOR_SUBMODULES_REST);
@@ -108,6 +109,21 @@ public class TrainingQueryConstructor {
 		return preparedStatement;
 	}
 
-	
+	public static PreparedStatement retrieveKeyWordsForQuestions(
+			Connection connection, Collection<ExamQuestionsVO> examQuestionVOs)
+			throws SQLException {
+		PreparedStatement preparedStatement;
+		StringBuilder query = new StringBuilder(
+				TrainingQueries.GET_KEYWORD_FOR_QUESTIONS);
+		query.append("(");
+		for (ExamQuestionsVO examQuestionsVO : examQuestionVOs) {
+			query.append("'").append(examQuestionsVO.getQuestionId())
+					.append("',");
+		}
+		query.replace(query.length() - 1, query.length(), ")");
+		System.out.println(query);
+		preparedStatement = connection.prepareStatement(query.toString());
+		return preparedStatement;
+	}
 
 }
