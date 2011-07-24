@@ -35,10 +35,7 @@
 				.retrieveAllSubjects();
 	%>
 
-	<%
-			if (request.getSession(false)!=null) {
-				
-				%>
+
 	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
@@ -60,8 +57,17 @@
 			<!-- end .header -->
 		</div>
 		<%
+			if (request == null || request.getSession(false) == null
+					|| session.getAttribute("userRoleSession") == null) {
+				System.out.println("Hey if");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
+
 		<div id="leftcolumn">
 
 			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
@@ -71,8 +77,8 @@
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-				} else if (session.getAttribute("userRoleSession").equals("F")) {
-					%>
+			} else if (session.getAttribute("userRoleSession").equals("F")) {
+		%>
 		<div id="leftcolumn">
 
 			<a href="facultyHome.jsp">Faculty Home</a> <a
@@ -92,11 +98,6 @@
 		</div>
 		<%
 			}
-			} else {
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
-		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
-		<%
 			}
 		%>
 

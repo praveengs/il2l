@@ -38,10 +38,15 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request.getSession(false) != null) {
-
+			if (request == null || request.getSession(false) == null
+					|| session.getAttribute("userRoleSession") == null) {
+				System.out.println("Hey if");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
-					System.out.println("In admin of addQuestion!!");
 		%>
 		<div id="leftcolumn">
 
@@ -74,13 +79,7 @@
 		<%
 			}
 
-			} else {
-				System.out.println("In the last else - session not set - AdminHome.jsp");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
-		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
-		<%
-			}
+			} 
 		%>
 		<div id="rightcolumn">
 			<h1>Welcome Admin</h1>

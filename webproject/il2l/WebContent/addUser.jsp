@@ -37,8 +37,14 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request.getSession(false) != null) {
-
+			if (request == null || request.getSession(false) == null
+					|| session.getAttribute("userRoleSession") == null) {
+				System.out.println("Hey if");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<div id="leftcolumn">
@@ -71,15 +77,7 @@
 		</div>
 		<%
 			}
-			} else {
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
-		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
-		<%
-			}
-		%>
-
-		<%
+			} 
 			String userName = request.getParameter("userName");
 			String userRole = request.getParameter("userRole");
 			String password = request.getParameter("password");

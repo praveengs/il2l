@@ -38,7 +38,8 @@
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -54,7 +55,14 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request.getSession(false) != null) {
+			if (request == null || request.getSession(false) == null
+					|| session.getAttribute("userRoleSession") == null) {
+				System.out.println("Hey if");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<jsp:forward page="AdminHome.jsp"></jsp:forward>
@@ -69,10 +77,6 @@
 
 		<%
 			}
-			} else {
-		%>
-		<jsp:forward page="HomePage.jsp"></jsp:forward>
-		<%
 			}
 		%>
 

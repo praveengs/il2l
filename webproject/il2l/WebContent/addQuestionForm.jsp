@@ -1,5 +1,5 @@
-<%@ page language="java" session="true" %>
-<%@ page errorPage="errorPage.jsp" %>
+<%@ page language="java" session="true"%>
+<%@ page errorPage="errorPage.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Arrays"%>
@@ -178,7 +178,8 @@ function populateSubmodulesCombo(key) {
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -193,23 +194,27 @@ function populateSubmodulesCombo(key) {
 			</table>
 			<!-- end .header -->
 		</div>
-	<%
-		if (request.getSession(false) != null) {
-	
-			if (session.getAttribute("userRoleSession").equals("A")) {
-				System.out.println("In admin of addQuestion!!");
+		<%
+			if (request == null || request.getSession(false) == null
+					|| session.getAttribute("userRoleSession") == null) {
+				System.out.println("Hey if");
+				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		%>
+		<jsp:forward page="HomePage.html"></jsp:forward>
+		<%
+			} else {
+				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> 
-			<a href="addQuestionForm.jsp">Add
+			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
 				Question</a> <a href="addUserForm.jsp">Add User</a> <a
 				href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			}else if (session.getAttribute("userRoleSession").equals("F")) {
+			} else if (session.getAttribute("userRoleSession").equals("F")) {
 		%>
 		<div id="leftcolumn">
 
@@ -220,8 +225,7 @@ function populateSubmodulesCombo(key) {
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			} else if (session.getAttribute("userRoleSession").equals(
-							"S")) {
+			} else if (session.getAttribute("userRoleSession").equals("S")) {
 		%>
 		<div id="leftcolumn">
 
@@ -231,12 +235,7 @@ function populateSubmodulesCombo(key) {
 		</div>
 		<%
 			}
-				
-			} else {
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
-		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
-		<%
+
 			}
 		%>
 
@@ -259,7 +258,8 @@ function populateSubmodulesCombo(key) {
 								<%
 									}
 								%>
-						</select></td>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Sub-Module Name</td>
@@ -267,14 +267,16 @@ function populateSubmodulesCombo(key) {
 							onchange="populateKeyWordsCombo(this.options[this.selectedIndex].index-1);"
 							id="submodulesList" name="submodule">
 								<option value="">-SELECT-</option>
-						</select></td>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Keywords</td>
 						<td><select id="keywordsList" name="keywords"
 							multiple="multiple">
 								<option value="">-SELECT-</option>
-						</select></td>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Appearance</td>
@@ -360,24 +362,29 @@ function populateSubmodulesCombo(key) {
 					<tr>
 						<td>Question</td>
 						<td><textarea style="width: 350px; height: 150px"
-								name="question"></textarea></td>
+								name="question"></textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>Question Image</td>
-						<td><input type="file" name="quesUpload" /></td>
+						<td><input type="file" name="quesUpload" />
+						</td>
 					</tr>
 					<tr>
 						<td>Answer</td>
 						<td><textarea style="width: 350px; height: 150px"
-								name="answer"></textarea></td>
+								name="answer"></textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>Answer Image</td>
-						<td><input type="file" name="ansUpload" /></td>
+						<td><input type="file" name="ansUpload" />
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="Upload Question" />
-							&nbsp;&nbsp;&nbsp; <input type="reset" /></td>
+							&nbsp;&nbsp;&nbsp; <input type="reset" />
+						</td>
 					</tr>
 				</table>
 			</form>

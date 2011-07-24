@@ -57,12 +57,12 @@ a:hover,a:active,a:focus {
 
 /* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
 .header {
-	background: url(images/Top_bar.jpg);
-	border-bottom: thick;
+	background: url(images/header-2.jpg);
+	/*border-bottom: thick;*/
 	border-bottom-color: #000;
 	position: static;
 	height: 125px;
-	top: -2px;
+	/*top: -2px;*/
 	z-index: -1;
 	
 }
