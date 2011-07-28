@@ -1,14 +1,17 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.Collection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
+	pageEncoding="ISO-8859-1"%>
+<%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
 </head>
 <body>
-			<style rel="STYLESHEET" type="text/css">
+	<style type="text/css">
 <!--
 dhtmlXTree.css -->.defaultTreeTable {
 	margin: 0;
@@ -53,8 +56,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 	border: thin solid 1 1 1 1;
 }
 </style>
-			<!-- dhtmlXCommon.js -->
-			<script>
+	<!-- dhtmlXCommon.js -->
+	<script>
 		function dtmlXMLLoaderObject(funcObject, dhtmlObject) {
 			this.xmlDoc = "";
 			this.onloadAction = funcObject || null;
@@ -280,8 +283,8 @@ dhtmlXTree.css -->.defaultTreeTable {
 			dragger.waitDrag = 0;
 		}
 	</script>
-			<!-- dhtmlXTree.js -->
-			<script>
+	<!-- dhtmlXTree.js -->
+	<script>
 		function dhtmlXTreeObject(htmlObject, width, height, rootId) {
 			//alert("dhtmlXTreeObject");
 			if (typeof (htmlObject) != "object")
@@ -1790,47 +1793,51 @@ dhtmlXTree.css -->.defaultTreeTable {
 		}
 	</script>
 
-			<form action="takeTest.jsp">
-				<table height="100%" align="left" width="35%" cellpadding="10">
-					<tr height="70%">
-						<td valign="top">
-							<div id="treeboxbox_tree"
-								style="width: 150; height: 218;;;; overflow: auto;"></div>
-						</td>
+	<form action="takeTest.jsp">
+		<table height="100%" align="left" width="35%" cellpadding="10">
+			<tr height="70%">
+				<td valign="top">
+					<div id="treeboxbox_tree"
+						style="width: 150; height: 218;;;; overflow: auto;"></div></td>
 
-					</tr>
-					<tr>
-						<td><input id="modID" type="button" value="Take Test"
-							name="moduleName"
-							onclick="javascript:parent.ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
-						</td>
-					</tr>
+			</tr>
+			<tr>
+				<td><input id="modID" type="button" value="Take Test"
+					name="moduleName"
+					onclick="javascript:parent.ajaxpage('takeTest.jsp', 'rightcolumn',tree.getAllChecked());">
+				</td>
+			</tr>
 
-					<tr>
-						<td></td>
-					</tr>
-				</table>
-				<script>
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+		<script>
 		 tree = new dhtmlXTreeObject("treeboxbox_tree", "100%", "100%", 0);
 		tree.setImagePath("treeImgs/");
 		tree.enableCheckBoxes(1);
 		tree.enableThreeStateCheckboxes(true);
 		</script>
-				<%
+		<%
 					String sub=(String)session.getAttribute("subject");
+					System.out.println("subject from session : "+sub);
 					String keywordList=request.getParameter("keywords");
 					System.out.println("list :"+keywordList);
-				
-				
 					TrainingController training = new TrainingController();
-					String ret = training.retrieveXMLStreamForSubject(sub);
-				
+					String ret=null;
+					if(keywordList==null || keywordList.length()==0||keywordList.equalsIgnoreCase("all")){
+						ret = training.retrieveXMLStreamForSubject(sub,null);	
+					}else {
+					String[] keyList=keywordList.split(",");
+					Collection<String> keywords=Arrays.asList(keyList);
+					 ret = training.retrieveXMLStreamForSubject(sub,keywords);	
+					}
 				%>
-				<script type="text/javascript">
+		<script type="text/javascript">
 			tree.loadXMLString('<%=ret%>');
 			//	tree.loadXML("treeImgs/SampleTree.xml");
 		</script>
-				<br> <br>
-			</form>
+		<br> <br>
+	</form>
 </body>
 </html>
