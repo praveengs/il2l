@@ -34,15 +34,18 @@ document.getElementById("trainingFrame").src=url;
 window.frames[1].document.getElementById("prevButton").disabled=true;
 }
 
-function ajaxTree(){
-	val=document.getElementsByName("searchKeyword")[0].value;
+function ajaxTree(val){
 	treeURL=document.getElementById("treeViewFrame").src;
-	alert(val);
-	treeURL=treeURL+'?keywords='+val;
-	alert(document.getElementById("treeViewFrame").src);
-	alert(treeURL);
+	temporaryURL=treeURL.substring(0,treeURL.indexOf('?'));
+	if(temporaryURL==''){
+		treeURL=treeURL+'?keywords='+val;
+	}else{
+		treeURL=temporaryURL+'?keywords='+val;
+	}
 	document.getElementById("treeViewFrame").src=treeURL;
-	//window.reload();
+	if(val=='all'){
+		document.getElementsByName('searchKeyword')[0].value=document.getElementsByName('searchKeyword')[0].defaultValue;
+	}
 }
 
 function loadpage(page_request, containerid){
@@ -288,8 +291,8 @@ xmp {
 					value="type a keyword from below list to search"
 					name="searchKeyword"
 					onfocus="if(this.value == this.defaultValue) this.value=''" /> <input
-					type="submit" value="Search" onclick="javascript:ajaxTree();"/> &nbsp;&nbsp;&nbsp;<input
-					type="reset" value="Get all questions" onclick="javascript:ajaxTree();"/>
+					type="submit" value="Search" onclick="javascript:ajaxTree(document.getElementsByName('searchKeyword')[0].value);"/> &nbsp;&nbsp;&nbsp;<input
+					type="reset" value="Get all questions" onclick="javascript:ajaxTree('all');"/>
 			
 			<br /> <br />
 
