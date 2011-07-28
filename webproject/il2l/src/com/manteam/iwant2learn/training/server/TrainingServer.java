@@ -1,6 +1,5 @@
 package com.manteam.iwant2learn.training.server;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -14,14 +13,19 @@ import com.manteam.iwant2learn.vo.QuestionSearchVO;
 
 public class TrainingServer extends AbstractManager {
 	
-	public Collection<SubjectVO> retrieveSubjects(String subjectName)
+	public Collection<SubjectVO> retrieveSubjects(String subjectName, Collection<String> keyWords)
 			throws SystemException {
 		Collection<SubjectVO> subjectVOs = null;
 
 		try {
 
+			if (keyWords != null) {
+				subjectVOs = TrainingSql.getInstance().retrieveSubjectDetails(
+						getConnection(), subjectName, keyWords);
+			} else {
 			subjectVOs = TrainingSql.getInstance().retrieveSubjectDetails(
 					getConnection(), subjectName);
+			}
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block
 			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,

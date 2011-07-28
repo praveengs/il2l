@@ -81,13 +81,14 @@ public class TrainingController {
 
 	/**
 	 * 
+	 * @param keyWords 
 	 * @return
 	 * @throws SystemException
 	 */
-	public Collection<SubjectVO> retrieveSubjectDetails(String subjectName)
+	public Collection<SubjectVO> retrieveSubjectDetails(String subjectName, Collection<String> keyWords)
 			throws SystemException {
 
-		return getTrainingServer().retrieveSubjects(subjectName);
+		return getTrainingServer().retrieveSubjects(subjectName, keyWords);
 	}
 
 	/**
@@ -95,10 +96,10 @@ public class TrainingController {
 	 * @return
 	 * @throws SystemException
 	 */
-	public String retrieveXMLStreamForSubject(String subjectName)
+	public String retrieveXMLStreamForSubject(String subjectName, Collection<String> keyWords)
 			throws SystemException {
 		String xmlString = null;
-		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName);
+		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName, keyWords);
 		for (SubjectVO subjectVO : subjectVOs) {
 			xmlString = WebXMLCreator.createXMLStreamForWebClient(subjectVO);
 		}

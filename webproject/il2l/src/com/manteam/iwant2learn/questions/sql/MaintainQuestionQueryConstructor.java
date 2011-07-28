@@ -37,6 +37,7 @@ public class MaintainQuestionQueryConstructor {
 		} else {
 			preparedStatement.setBinaryStream(6, null, 0);
 		}
+		preparedStatement.setString(7, examQuestionsVO.getQuestion());
 		return preparedStatement;
 	}
 
@@ -97,6 +98,7 @@ public class MaintainQuestionQueryConstructor {
 		preparedStatement.setString(6, userName);
 		preparedStatement.setTimestamp(7, new Timestamp(date.getTime()));
 		preparedStatement.setString(8, userRole);
+		preparedStatement.setString(9, questionSaveVO.getQuestion());
 		return preparedStatement;
 	}
 

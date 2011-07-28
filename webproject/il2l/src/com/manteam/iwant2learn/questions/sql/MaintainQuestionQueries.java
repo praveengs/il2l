@@ -3,8 +3,8 @@ package com.manteam.iwant2learn.questions.sql;
 public class MaintainQuestionQueries {
 
 	public static final String INSERT_QUESTION = "INSERT INTO exam_questions (QUESTION, QUES_IMG, "
-			+ "QNO_YEAR_MARKS, ANSWER,ANSWER_IMG, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_ROLE) "
-			+ "VALUES (?,?,?,?,?,?,?,?)";
+			+ "QNO_YEAR_MARKS, ANSWER,ANSWER_IMG, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_ROLE, QUESTION_TMP) "
+			+ "VALUES (?,?,?,?,?,?,?,?,?)";
 
 	public static final String GET_SUBMODULE_ID = "SELECT A.SYB_SUB_SUBMODULE_ID "
 			+ " FROM syb_submodule A, syb_module B, syb_subject C "

@@ -24,7 +24,7 @@ public class TrainingUIHandler {
 			throws SystemException {
 		Collection<SubjectVO> subjectVOs = null;		
 
-		subjectVOs = getTrainingServer().retrieveSubjects(subjectName);
+		subjectVOs = getTrainingServer().retrieveSubjects(subjectName, null);
 
 		return subjectVOs;
 	}

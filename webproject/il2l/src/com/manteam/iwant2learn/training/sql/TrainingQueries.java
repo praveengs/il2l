@@ -33,4 +33,12 @@ public abstract class TrainingQueries {
 			" WHERE A.SYB_KEYWORD_ID = B.KEYWORD_ID" +
 			" AND B.EXAM_QUES_ID IN ";
 
+	public static final String RETRIEVE_SUBJECT_DETAILS_WITH_KEYWORD = "SELECT A.IDSYB_SUBJECT, A.SUBJECT_NAME, B.SYB_SUB_MODULE_ID, B.MODULE_NAME, C.SYB_SUB_SUBMODULE_ID, C.SUBMODULE_NAME" +
+			" FROM syb_subject A, syb_module B, syb_submodule C, sub_keyword_submodule_map D, syb_keyword E" +
+			" WHERE A.SUBJECT_NAME = ?" +
+			" AND B.MODULE_SUBJECT_REF = A.IDSYB_SUBJECT" +
+			" AND C.MODULE_REF = B.SYB_SUB_MODULE_ID " +
+			" AND D.SUBMODULE_ID = C.SYB_SUB_SUBMODULE_ID" +
+			" AND E.SYB_KEYWORD_ID = D.KEYWORD_ID" +
+			" AND UCASE(E.KEYWORD) IN ";
 }

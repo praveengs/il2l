@@ -126,4 +126,22 @@ public class TrainingQueryConstructor {
 		return preparedStatement;
 	}
 
+	public static PreparedStatement retrieveSubjectDetailsForKeyWords(
+			String subjectName, Collection<String> keyWords,
+			Connection connection) throws SQLException {
+		PreparedStatement preparedStatement;
+		StringBuilder query = new StringBuilder(
+				TrainingQueries.RETRIEVE_SUBJECT_DETAILS_WITH_KEYWORD);
+		query.append("(");
+		for (String keyword: keyWords) {
+			query.append("'").append(keyword.toUpperCase())
+			.append("',");
+		}
+		query.replace(query.length() - 1, query.length(), ")");
+		preparedStatement = connection
+				.prepareStatement(query.toString());
+		preparedStatement.setString(1, subjectName);
+		return preparedStatement;
+	}
+
 }

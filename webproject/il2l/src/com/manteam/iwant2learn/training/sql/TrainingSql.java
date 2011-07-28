@@ -287,9 +287,11 @@ public class TrainingSql extends AbstractSql {
 					.retrieveKeyWordsForQuestions(connection, examQuestionVOs);
 			resultSet = preparedStatement.executeQuery();
 			HashMap<Integer, HashMap<String, KeyWordVO>> questionKeyWordMap = getQuestionKeyWordMap(resultSet);
-			for (ExamQuestionsVO examQuestionsVO : examQuestionVOs) {
-				examQuestionsVO.setKeyWordMap(questionKeyWordMap
-						.get(examQuestionsVO.getQuestionId()));
+			if (questionKeyWordMap != null && questionKeyWordMap.size() > 0) {
+				for (ExamQuestionsVO examQuestionsVO : examQuestionVOs) {
+					examQuestionsVO.setKeyWordMap(questionKeyWordMap
+							.get(examQuestionsVO.getQuestionId()));
+				}
 			}
 		} finally {
 			close(resultSet, preparedStatement);
@@ -352,6 +354,26 @@ public class TrainingSql extends AbstractSql {
 			close(resultSet, preparedStatement);
 		}
 
+	}
+
+	public Collection<SubjectVO> retrieveSubjectDetails(Connection connection,
+			String subjectName, Collection<String> keyWords) throws SQLException {
+		Collection<SubjectVO> subjectVOs = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = TrainingQueryConstructor
+					.retrieveSubjectDetailsForKeyWords(subjectName, keyWords, connection);
+			resultSet = preparedStatement.executeQuery();
+
+			subjectVOs = getSubjectVOs(resultSet);
+			// System.out.println(subjectVOs);
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+
+		return subjectVOs;
 	}
 
 }
