@@ -123,7 +123,7 @@
                     int keywordImageLength = 0;
                     //int answerImageLength = 0;
 
-                    MultipartRequest req = new MultipartRequest(request, "/", "UTF-8");
+                    MultipartRequest req = new MultipartRequest(request, "../");
                     subject = req.getParameter("subject");
                     //submod = req.getParameterValues("submodule");
                     submod = req.getParameter("submodule");
@@ -160,6 +160,7 @@
                     } catch (SystemException se) {
                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
                         out.println(se.getMessage());
+                        se.printStackTrace();
 
                     } catch (MaintainKeyWordsException mke) {
                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
