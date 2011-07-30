@@ -32,7 +32,9 @@
 		String userRole = loginAttributes.getUserRole();
 		//out.println(userRole);
 		session.setAttribute("userRoleSession", userRole);
+		session.setAttribute("userName",userName);
 		System.out.println(session.getAttribute("userRoleSession"));
+		System.out.println(session.getAttribute("userName"));
 	%>
 	<div class="container">
 		<div class="header">

@@ -18,6 +18,10 @@
 	display: None;
 	background-color: #C7FECA;
 }
+.mandatory {
+	
+	color: red;
+}
 /* ~~ The footer ~~ */
 .footer {
 	padding: 0;
@@ -193,6 +197,9 @@ function populateSubmodulesCombo(key) {
 				<!-- end .header -->
 			</table>
 			<!-- end .header -->
+			<div align="right">
+			<a href="logout.jsp"><h2><span class="mandatory">Logout</span></h2></a>
+			</div>
 		</div>
 		<%
 			if (request == null || request.getSession(false) == null
@@ -207,7 +214,7 @@ function populateSubmodulesCombo(key) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> <a href="addQuestionForm.jsp">Add
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add Keyword</a>  <a href="addQuestionForm.jsp">Add
 				Question</a> <a href="addUserForm.jsp">Add User</a> <a
 				href="takeTestHome.jsp">Take Test</a>
 
@@ -218,7 +225,7 @@ function populateSubmodulesCombo(key) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="facultyHome.jsp">Faculty Home</a> <a
+			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a> <a
 				href="addQuestionForm.jsp">Add Question</a> <a
 				href="takeTestHome.jsp">Take Test</a>
 

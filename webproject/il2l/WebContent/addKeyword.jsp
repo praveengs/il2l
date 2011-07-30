@@ -139,8 +139,8 @@
                     
 
                     LogonAttributesVO logonAttributesVO = new LogonAttributesVO();
-                    logonAttributesVO.setUserName("WebUser");
-                    logonAttributesVO.setUserRole("Faculty");
+                    logonAttributesVO.setUserName((String)session.getAttribute("userName"));
+                    logonAttributesVO.setUserRole((String)session.getAttribute("userRoleSession"));
                     
                     
                     KeyWordSaveVO keywordVO = new KeyWordSaveVO();
@@ -202,6 +202,7 @@
 				
 			</center>
 			<!-- end .footer -->
+		</div>
 		</div>
 </body>
 </html>

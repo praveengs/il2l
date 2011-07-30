@@ -48,7 +48,7 @@
 		
 		<div id="leftcolumn">
 
-			<a href="#">Faculty Home</a> <a href="addQuestionForm.jsp">Add
+			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a href="addQuestionForm.jsp">Add
 				Question</a> <a href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
