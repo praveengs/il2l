@@ -10,7 +10,7 @@
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=iso-8859-1" />
 <title>Add Keyword Form</title>
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
 <style type="text/css">
@@ -194,8 +194,7 @@ function populateSubmodulesCombo(key) {
 
 
 		<div id="rightcolumn">
-			<form id="keywordForm" action="addKeyword.jsp"
-				enctype="multipart/form-data" method="post">
+			<form id="keywordForm" action="addKeyword.jsp" enctype="multipart/form-data" method="post">
 				<table>
 					<tr>
 						<td>Subject Name</td>
