@@ -1,3 +1,4 @@
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO"%>
 <%@ page language="java" session="true" %>
 <%@ page isErrorPage="true" %>
@@ -122,8 +123,10 @@
                     String keywordDescription = "";
                     int keywordImageLength = 0;
                     //int answerImageLength = 0;
+                    InitialContext initialContext = new javax.naming.InitialContext();  
+                    String path = (String) initialContext.lookup("java:comp/env/tempFilePath");
 
-                    MultipartRequest req = new MultipartRequest(request, "../");
+                    MultipartRequest req = new MultipartRequest(request, path, "UTF-8");
                     subject = req.getParameter("subject");
                     //submod = req.getParameterValues("submodule");
                     submod = req.getParameter("submodule");

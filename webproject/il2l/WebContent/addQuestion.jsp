@@ -1,3 +1,4 @@
+<%@page import="javax.naming.InitialContext"%>
 <%@ page language="java" session="true" %>
 <%@ page isErrorPage="true" %>
 <%--
@@ -120,7 +121,10 @@
                     int questionImageLength = 0;
                     int answerImageLength = 0;
 
-                    MultipartRequest req = new MultipartRequest(request, "../");
+                    InitialContext initialContext = new javax.naming.InitialContext();  
+                    String path = (String) initialContext.lookup("java:comp/env/tempFilePath");
+                    //System.out.println("Path is"+path);
+                    MultipartRequest req = new MultipartRequest(request, path, "UTF-8");
                     subject = req.getParameter("subject");
                     //submod = req.getParameterValues("submodule");
                     submod = req.getParameter("submodule");

@@ -44,7 +44,7 @@ public abstract class MaintainSubjectsQueries {
 			" AND C.MODULE_REF = B.SYB_SUB_MODULE_ID ";
 
 	public static final String RETRIEVE_ALL_KEYWORDS_FOR_SUBJECT = "SELECT DISTINCT A.KEYWORD " +
-			" FROM syb_keyword A, sub_keyword_submodule_map B, syb_submodule C, syb_module d, syb_subject e" +
+			" FROM syb_keyword A, sub_keyword_submodule_map B, syb_submodule C, syb_module D, syb_subject E" +
 			" WHERE A.SYB_KEYWORD_ID = B.KEYWORD_ID" +
 			" AND B.SUBMODULE_ID = C.SYB_SUB_SUBMODULE_ID" +
 			" AND C.MODULE_REF = D.SYB_SUB_MODULE_ID" +
