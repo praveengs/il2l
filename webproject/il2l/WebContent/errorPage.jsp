@@ -6,14 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>ERROR!</title>
 </head>
 <body>
 	<h2>Your application has generated an error</h2>
-	<h3>Please check for the error given below</h3>
+	<h3>Please inform the error given below to the administrators</h3>
 	<b>Exception:</b>
-	<br>
-	<font color="red"><%=exception%></font>
+	<font color="red"><%=exception%></font><br/><br/><br>
 	<%exception.printStackTrace(); %>
+	<a href="index.jsp">Click here</a> to go to the homepage
 </body>
 </html>
