@@ -70,7 +70,7 @@
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a><a href="addKeyword.jsp">Add
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
 				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
 				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
 				Test</a>
