@@ -318,6 +318,7 @@ public class TrainingSql extends AbstractSql {
 				}
 				keyWordVO = new KeyWordVO();
 				keyWord = resultSet.getString(TrainingQueryConstants.KEYWORD);
+				keyWordVO.setKeyWordId(resultSet.getInt(TrainingQueryConstants.SYB_KEYWORD_ID));
 				keyWordVO.setKeywordName(keyWord);
 				keyWordVO.setQuantities(resultSet
 						.getString(TrainingQueryConstants.QUANTITIES));
@@ -329,6 +330,8 @@ public class TrainingSql extends AbstractSql {
 						.getString(TrainingQueryConstants.FORMULAE));
 				keyWordVO.setData(resultSet
 						.getString(TrainingQueryConstants.DATA));
+				keyWordVO.setKeyWordImageByteArray(resultSet.getBytes(TrainingQueryConstants.KEYWORD_IMAGE));
+				keyWordVO.setKeyWordDescription(resultSet.getString(TrainingQueryConstants.KEYWORD_DESC));
 				keyWordMap.put(keyWord, keyWordVO);
 				// questionKeyWordMap.get(questionId).add(keyWordVO);
 			} while (resultSet.next());

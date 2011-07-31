@@ -4,10 +4,11 @@
 package com.manteam.iwant2learn.subject.vo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author Praveen
- *
+ * 
  */
 public class KeyWordVO implements Serializable {
 
@@ -15,18 +16,39 @@ public class KeyWordVO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2117387489160913544L;
-	
+
+	private int keyWordId;
+
 	private String keywordName;
-	
+
 	private String quantities;
-	
+
 	private String symbols;
-	
+
 	private String units;
-	
+
 	private String formulae;
-	
+
 	private String data;
+
+	private byte[] keyWordImageByteArray;
+
+	private String keyWordDescription;
+
+	/**
+	 * @return the keyWordId
+	 */
+	public int getKeyWordId() {
+		return keyWordId;
+	}
+
+	/**
+	 * @param keyWordId
+	 *            the keyWordId to set
+	 */
+	public void setKeyWordId(int keyWordId) {
+		this.keyWordId = keyWordId;
+	}
 
 	/**
 	 * @return the keywordName
@@ -36,7 +58,8 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param keywordName the keywordName to set
+	 * @param keywordName
+	 *            the keywordName to set
 	 */
 	public void setKeywordName(String keywordName) {
 		this.keywordName = keywordName;
@@ -50,7 +73,8 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param quantities the quantities to set
+	 * @param quantities
+	 *            the quantities to set
 	 */
 	public void setQuantities(String quantities) {
 		this.quantities = quantities;
@@ -64,7 +88,8 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param symbols the symbols to set
+	 * @param symbols
+	 *            the symbols to set
 	 */
 	public void setSymbols(String symbols) {
 		this.symbols = symbols;
@@ -78,7 +103,8 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param units the units to set
+	 * @param units
+	 *            the units to set
 	 */
 	public void setUnits(String units) {
 		this.units = units;
@@ -92,7 +118,8 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param formulae the formulae to set
+	 * @param formulae
+	 *            the formulae to set
 	 */
 	public void setFormulae(String formulae) {
 		this.formulae = formulae;
@@ -106,13 +133,46 @@ public class KeyWordVO implements Serializable {
 	}
 
 	/**
-	 * @param data the data to set
+	 * @param data
+	 *            the data to set
 	 */
 	public void setData(String data) {
 		this.data = data;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the keyWordImageByteArray
+	 */
+	public byte[] getKeyWordImageByteArray() {
+		return keyWordImageByteArray;
+	}
+
+	/**
+	 * @param keyWordImageByteArray
+	 *            the keyWordImageByteArray to set
+	 */
+	public void setKeyWordImageByteArray(byte[] keyWordImageByteArray) {
+		this.keyWordImageByteArray = keyWordImageByteArray;
+	}
+
+	/**
+	 * @return the keyWordDescription
+	 */
+	public String getKeyWordDescription() {
+		return keyWordDescription;
+	}
+
+	/**
+	 * @param keyWordDescription
+	 *            the keyWordDescription to set
+	 */
+	public void setKeyWordDescription(String keyWordDescription) {
+		this.keyWordDescription = keyWordDescription;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -122,6 +182,12 @@ public class KeyWordVO implements Serializable {
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result
 				+ ((formulae == null) ? 0 : formulae.hashCode());
+		result = prime
+				* result
+				+ ((keyWordDescription == null) ? 0 : keyWordDescription
+						.hashCode());
+		result = prime * result + keyWordId;
+		result = prime * result + Arrays.hashCode(keyWordImageByteArray);
 		result = prime * result
 				+ ((keywordName == null) ? 0 : keywordName.hashCode());
 		result = prime * result
@@ -131,7 +197,9 @@ public class KeyWordVO implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -158,6 +226,19 @@ public class KeyWordVO implements Serializable {
 				return false;
 			}
 		} else if (!formulae.equals(other.formulae)) {
+			return false;
+		}
+		if (keyWordDescription == null) {
+			if (other.keyWordDescription != null) {
+				return false;
+			}
+		} else if (!keyWordDescription.equals(other.keyWordDescription)) {
+			return false;
+		}
+		if (keyWordId != other.keyWordId) {
+			return false;
+		}
+		if (!Arrays.equals(keyWordImageByteArray, other.keyWordImageByteArray)) {
 			return false;
 		}
 		if (keywordName == null) {
@@ -191,16 +272,34 @@ public class KeyWordVO implements Serializable {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "KeyWordVO [keywordName=" + keywordName + ", quantities="
-				+ quantities + ", symbols=" + symbols + ", units=" + units
-				+ ", formulae=" + formulae + ", data=" + data + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("KeyWordVO [keyWordId=");
+		builder.append(keyWordId);
+		builder.append(", keywordName=");
+		builder.append(keywordName);
+		builder.append(", quantities=");
+		builder.append(quantities);
+		builder.append(", symbols=");
+		builder.append(symbols);
+		builder.append(", units=");
+		builder.append(units);
+		builder.append(", formulae=");
+		builder.append(formulae);
+		builder.append(", data=");
+		builder.append(data);
+		builder.append(", keyWordImageByteArray=");
+		builder.append(Arrays.toString(keyWordImageByteArray));
+		builder.append(", keyWordDescription=");
+		builder.append(keyWordDescription);
+		builder.append("]");
+		return builder.toString();
 	}
-	
-	
 
 }

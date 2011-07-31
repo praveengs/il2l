@@ -32,6 +32,9 @@ public abstract class TrainingQueryConstants {
 	public static final String DATA = "DATA";
 	public static final String SYB_SUB_SUBMODULE_ID = "SYB_SUB_SUBMODULE_ID";
 	public static final String EXAM_QUES_ID = "EXAM_QUES_ID";
+	public static final String SYB_KEYWORD_ID = "SYB_KEYWORD_ID";
+	public static final String KEYWORD_DESC = "KEYWORD_DESC";
+	public static final String KEYWORD_IMAGE = "KEYWORD_IMAGE";
 	
 	
 

@@ -13,6 +13,7 @@ import com.manteam.iwant2learn.questions.server.MaintainQuestionsManager;
 import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.questions.vo.QuestionSaveVO;
 import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
+import com.manteam.iwant2learn.subject.vo.KeyWordVO;
 import com.manteam.iwant2learn.subject.vo.SubjectVO;
 import com.manteam.iwant2learn.training.server.TrainingServer;
 import com.manteam.iwant2learn.training.util.WebXMLCreator;
@@ -229,6 +230,21 @@ public class TrainingController {
 			throws SystemException {
 
 		return getMaintainSubjectsManager().retrieveKeyWordsForSubject(subjectName);
+	}
+	
+	/**
+	 * 
+	 * THis method retrieves the keyword Info for the keyword Id
+	 * 
+	 * 
+	 * @param keyWordId
+	 * @return
+	 * @throws MaintainKeyWordsException
+	 * @throws SystemException
+	 */
+	public KeyWordVO retrieveKeywordInfo(int keyWordId) throws MaintainKeyWordsException,
+			SystemException {
+		return getMaintainKeywordsManager().retrieveKeywordInfo(keyWordId);
 	}
 
 

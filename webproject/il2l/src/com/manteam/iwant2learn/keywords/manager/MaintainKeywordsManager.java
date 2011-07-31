@@ -14,6 +14,7 @@ import com.manteam.iwant2learn.keywords.exceptions.MaintainKeyWordsException;
 import com.manteam.iwant2learn.keywords.sql.KeyWordMaintainSql;
 import com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO;
 import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
+import com.manteam.iwant2learn.subject.vo.KeyWordVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 
 /**
@@ -25,7 +26,7 @@ public class MaintainKeywordsManager extends AbstractManager {
 	public int saveKeyword(LogonAttributesVO logonAttributesVO,
 			KeyWordSaveVO keyWordSaveVO) throws MaintainKeyWordsException,
 			SystemException {
-		//boolean isKeyWordAdded = false;
+		// boolean isKeyWordAdded = false;
 		int keywordId = 0;
 		int submoduleId = 0;
 		Connection connection = null;
@@ -76,8 +77,29 @@ public class MaintainKeywordsManager extends AbstractManager {
 		}
 		return keywordId;
 	}
-	
-	
-	
+
+	/**
+	 * Method to retrieve the keyword information
+	 * 
+	 * @param keyWordId
+	 * @return
+	 * @throws SystemException
+	 */
+	public KeyWordVO retrieveKeywordInfo(int keyWordId) throws SystemException {
+		KeyWordMaintainSql keyWordMaintainSql = new KeyWordMaintainSql();
+
+		try {
+			return keyWordMaintainSql.retrieveKeywordInfo(getConnection(),
+					keyWordId);
+		} catch (DatabaseException databaseException) {
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+
+	}
 
 }

@@ -19,4 +19,8 @@ public abstract class KeyWordMaintenanceQueries {
 	public static final String INSERT_KEYWORD_SUBMODULE_MAP = "INSERT INTO sub_keyword_submodule_map (KEYWORD_ID, SUBMODULE_ID) "
 			+ "values (?, ?)";
 
+	public static final String GET_KEYWORD_INFO = "SELECT A.SYB_KEYWORD_ID, A.KEYWORD, A.QUANTITIES, A.SYMBOLS, A.UNITS, A.FORMULAE, A.DATA, A.KEYWORD_DESC, A.KEYWORD_IMAGE" +
+			" FROM syb_keyword A" +
+			" WHERE A.SYB_KEYWORD_ID = ?";
+
 }

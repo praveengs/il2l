@@ -30,7 +30,8 @@ public class KeyWordMaintenanceQueryConstructor {
 	}
 
 	public static PreparedStatement saveKeyWordSubmoduleMap(
-			Connection connection, int keyWordId, int submoduleId) throws SQLException {
+			Connection connection, int keyWordId, int submoduleId)
+			throws SQLException {
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(KeyWordMaintenanceQueries.INSERT_KEYWORD_SUBMODULE_MAP);
 		preparedStatement.setInt(1, keyWordId);
@@ -47,7 +48,8 @@ public class KeyWordMaintenanceQueryConstructor {
 		preparedStatement.setString(2, keyWordSaveVO.getKeyWordDescription());
 		if (keyWordSaveVO.getKeywordImageStream() != null) {
 			preparedStatement.setBinaryStream(3,
-					keyWordSaveVO.getKeywordImageStream(), keyWordSaveVO.getKeyWordImageLength());
+					keyWordSaveVO.getKeywordImageStream(),
+					keyWordSaveVO.getKeyWordImageLength());
 		} else {
 			preparedStatement.setBinaryStream(3, null, 0);
 		}
@@ -55,6 +57,15 @@ public class KeyWordMaintenanceQueryConstructor {
 		preparedStatement.setString(5, logonAttributesVO.getUserRole());
 		preparedStatement
 				.setTimestamp(6, new Timestamp(modifiedDate.getTime()));
+		return preparedStatement;
+	}
+
+	public static PreparedStatement retrieveKeywordInfo(Connection connection,
+			int keyWordId) throws SQLException {
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(KeyWordMaintenanceQueries.GET_KEYWORD_INFO);
+		preparedStatement.setInt(1, keyWordId);
+
 		return preparedStatement;
 	}
 
