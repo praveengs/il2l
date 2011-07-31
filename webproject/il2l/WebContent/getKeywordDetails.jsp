@@ -1,3 +1,4 @@
+<%@page import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
 <%@page import="com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key"%>
 <%@page import="com.manteam.iwant2learn.subject.vo.KeyWordVO"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
@@ -8,8 +9,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Keyword Information</title>
+
 </head>
-<body>
+<body bgcolor="#CCFFCC">
 	<%
 		String keywordId = request.getParameter("id");
 		if (keywordId == null || keywordId.equalsIgnoreCase("")) {
@@ -22,10 +24,8 @@
 			KeyWordVO keywordInfo=controller.retrieveKeywordInfo(Integer.parseInt(keywordId));
 			%>
 
-	<b>Keyword Name :</b><%=keywordInfo.getKeywordName() %><br />
-	<b>Keyword Description</b><%=keywordInfo.getKeyWordDescription() %>
-
-
+	<b>Keyword Name : </b><%=keywordInfo.getKeywordName() %><br />
+	<b>Keyword Description  : </b><%=keywordInfo.getKeyWordDescription() %> <br/>
 	<%
 				byte[] array = keywordInfo.getKeyWordImageByteArray();
 						if (array == null || array.length == 0) {
@@ -35,12 +35,12 @@
 			%>
 	<p id="keywordImage">
 		<br /> <img alt="Keyword Image"
-			src="getImage?type=keyword&imageId=<%=keywordInfo.getKeyWordId()%>"
-			width="300" height="400">
+			src="getImage?imageId=<%=CommonInterfaceConstants.KEYWORD_IMG+CommonInterfaceConstants.SEPARATOR+keywordInfo.getKeyWordId()%>" width="300"
+			height="400">
 	</p>
 	<%
 				}
-			%>
+	%>
 	<br />
 	<%	}
 	%>
