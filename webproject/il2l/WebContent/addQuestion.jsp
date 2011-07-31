@@ -72,7 +72,7 @@
 			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
 				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
 				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
-				Test</a>
+				Test</a><a href="logOff.jsp">Log Off</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -85,7 +85,7 @@
 			<a href="facultyHome.jsp">Faculty Home</a> <a
 				href="addKeywordForm.jsp">Add Keyword</a><a
 				href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+				href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Off</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -164,16 +164,9 @@
                     question.setQuestionYearMarkString(date);
 
                     TrainingController training = new TrainingController();
-                    try {
+            
                         boolean ret = training.saveQuestionForSubmodules(logonAttributesVO, question);
-                    } catch (SystemException se) {
-                        out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
-                        out.println(se.getMessage());
-
-                    } catch (MaintainQuestionsException mqe) {
-                        out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
-                        out.println(mqe.getStackTrace().toString());
-                    }
+                   
         %>
 		<div id="rightcolumn">
 			<h1>

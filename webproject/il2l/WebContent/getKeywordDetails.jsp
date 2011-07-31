@@ -1,3 +1,5 @@
+<%@ page language="java" session="true"%>
+<%@ page errorPage="errorPage.jsp"%>
 <%@page import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
 <%@page import="com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key"%>
 <%@page import="com.manteam.iwant2learn.subject.vo.KeyWordVO"%>

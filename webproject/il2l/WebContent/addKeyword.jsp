@@ -42,8 +42,7 @@
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -73,7 +72,7 @@
 			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
 				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
 				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
-				Test</a>
+				Test</a><a href="logOff.jsp">Log Out</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -86,7 +85,7 @@
 			<a href="facultyHome.jsp">Faculty Home</a> <a
 				href="addKeywordForm.jsp">Add Keyword</a><a
 				href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+				href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Out</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -143,44 +142,9 @@
 					keywordVO.setKeyWordDescription(keywordDescription);
 					keywordVO.setKeyWordImageLength(keywordImageLength);
 					keywordVO.setKeywordImageStream(keywordImage);
-					
-                    //ExamQuestionsVO question = new ExamQuestionsVO();
-                    
-                  
-                    TrainingController training = new TrainingController();
-                    try {
+				     TrainingController training = new TrainingController();
                         int ret = training.saveKeyword(logonAttributesVO, keywordVO);
-                    } catch (SystemException se) {
-                        out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
-                        out.println(se.getMessage());
-                        se.printStackTrace();
-
-                    } catch (MaintainKeyWordsException mke) {
-                        out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
-                        out.println(mke.getStackTrace().toString());
-                    }
-//                     ExamQuestionsVO question = new ExamQuestionsVO();
-//                     question.setSubjectName(subject);
-                    
-                   // question.setSubmoduleName(submod);
-//                     question.setQuestion(questionString);
-//                     question.setQuestionImage(questImage);
-//                     question.setAnswer(answerString);
-//                     question.setAnswerImageStream(answerImage);
-//                     question.setQuestionYearMarkString(date);
-
-                    //TrainingController training = new TrainingController();
-//                     try {
-//                         boolean ret = training.saveQuestion(question);
-//                     } catch (SystemException se) {
-//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
-//                         out.println(se.getMessage());
-
-//                     } catch (MaintainQuestionsException mqe) {
-//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
-//                         out.println(mqe.getStackTrace().toString());
-//                     }
-        %>
+                         %>
 		<div id="rightcolumn">
 			<h1>
 				The keyword is uploaded. Click here to add the next keyword : <a

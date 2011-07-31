@@ -1,3 +1,5 @@
+<%@ page language="java" session="true"%>
+<%@ page errorPage="errorPage.jsp"%>
 <%@page import="java.util.Collection"%>
 <%@page import="com.manteam.iwant2learn.controller.TrainingController"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -63,7 +65,7 @@
 			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
 				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
 				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
-				Test</a>
+				Test</a><a href="logOff.jsp">Log Off</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -76,7 +78,7 @@
 			<a href="facultyHome.jsp">Faculty Home</a> <a
 				href="addKeywordForm.jsp">Add Keyword</a><a
 				href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+				href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Off</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -85,7 +87,7 @@
 		%>
 		<div id="leftcolumn">
 
-			<a href="#">Take Test</a>
+			<a href="#">Take Test</a><a href="logOff.jsp">Log Off</a>
 
 			<!-- end .sidebar1 -->
 		</div>

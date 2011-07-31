@@ -1,4 +1,5 @@
-
+<%@ page errorPage="errorPage.jsp"%>
+<%@ page language="java" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,7 +51,7 @@
 		<div id="leftcolumn">
 
 			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a href="addQuestionForm.jsp">Add
-				Question</a> <a href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Off</a>
+				Question</a> <a href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Out</a>
 
 			<!-- end .sidebar1 -->
 		</div>

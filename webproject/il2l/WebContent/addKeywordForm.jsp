@@ -131,8 +131,7 @@ function populateSubmodulesCombo(key) {
 			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
 				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
 				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
-				Test</a>
-
+				Test</a><a href="logOff.jsp">Log Off</a>
 			<!-- end .sidebar1 -->
 		</div>
 		<%
@@ -142,7 +141,7 @@ function populateSubmodulesCombo(key) {
 				<div id="leftcolumn">
 
 					<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a href="addQuestionForm.jsp">Add
-						Question</a> <a href="takeTestHome.jsp">Take Test</a>
+						Question</a> <a href="takeTestHome.jsp">Take Test</a><a href="logOff.jsp">Log Off</a>
 
 					<!-- end .sidebar1 -->
 				</div>

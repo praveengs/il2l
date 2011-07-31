@@ -1,4 +1,5 @@
-
+<%@ page language="java" session="true"%>
+<%@ page errorPage="errorPage.jsp"%>
 <%@page import="com.manteam.iwant2learn.subject.vo.KeyWordVO"%>
 <%@page import="java.util.HashMap"%>
 <%@page
