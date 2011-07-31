@@ -33,12 +33,13 @@ public class getImage extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int id = Integer.parseInt(req.getParameter("imageId"));
+		//int id = Integer.parseInt(req.getParameter("imageId"));
+		String id = req.getParameter("imageId");
 		TrainingController trainingController = new TrainingController();
 
 		try {
 			ImageStreamVO imageStreamVO;
-			imageStreamVO = trainingController.retrieveImageInfoForQuestion(id);
+			imageStreamVO = trainingController.retrieveImageInfo(id);
 			if (imageStreamVO != null) {
 				resp.getOutputStream().write(imageStreamVO.getImageByteArray(), 0,imageStreamVO.getImageString().length());
 			}

@@ -22,5 +22,9 @@ public abstract class KeyWordMaintenanceQueries {
 	public static final String GET_KEYWORD_INFO = "SELECT A.SYB_KEYWORD_ID, A.KEYWORD, A.QUANTITIES, A.SYMBOLS, A.UNITS, A.FORMULAE, A.DATA, A.KEYWORD_DESC, A.KEYWORD_IMAGE" +
 			" FROM syb_keyword A" +
 			" WHERE A.SYB_KEYWORD_ID = ?";
+	
+	public static final String GET_KEYWORD_IMG_INFO = "SELECT A.KEYWORD_IMAGE" +
+			" FROM syb_keyword A" +
+			" WHERE A.SYB_KEYWORD_ID = ?";
 
 }

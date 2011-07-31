@@ -69,4 +69,21 @@ public class KeyWordMaintenanceQueryConstructor {
 		return preparedStatement;
 	}
 
+	/**
+	 * Method to get the keyword image info
+	 * 
+	 * @param connection
+	 * @param keyWordId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement retrieveImageInfo(Connection connection,
+			int keyWordId) throws SQLException {
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(KeyWordMaintenanceQueries.GET_KEYWORD_IMG_INFO);
+		preparedStatement.setInt(1, keyWordId);
+
+		return preparedStatement;
+	}
+
 }

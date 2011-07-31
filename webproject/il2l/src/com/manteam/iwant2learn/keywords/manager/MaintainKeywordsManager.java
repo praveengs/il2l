@@ -10,9 +10,12 @@ import java.util.Date;
 import com.manteam.framework.db.exceptions.DatabaseException;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
+import com.manteam.iwant2learn.interfaces.CommonInterfaceConstants;
 import com.manteam.iwant2learn.keywords.exceptions.MaintainKeyWordsException;
 import com.manteam.iwant2learn.keywords.sql.KeyWordMaintainSql;
 import com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO;
+import com.manteam.iwant2learn.questions.sql.MaintainQuestionSql;
+import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.subject.server.MaintainSubjectsManager;
 import com.manteam.iwant2learn.subject.vo.KeyWordVO;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
@@ -100,6 +103,33 @@ public class MaintainKeywordsManager extends AbstractManager {
 					sqlException);
 		}
 
+	}
+
+	/**
+	 * Method to retrieve the keyword image
+	 * 
+	 * @param keyWordId
+	 * @return
+	 * @throws SystemException
+	 */
+	public ImageStreamVO retrieveImageInfo(int keyWordId)
+			throws SystemException {
+		ImageStreamVO imageStreamVO = null;
+		try {
+
+			KeyWordMaintainSql keyWordMaintainSql = new KeyWordMaintainSql();
+			imageStreamVO = keyWordMaintainSql.retrieveImageInfo(
+					getConnection(), keyWordId);
+
+		} catch (DatabaseException databaseException) {
+			// TODO Auto-generated catch block
+			throw new SystemException(SystemException.CONNECTION_UNAVAILABLE,
+					databaseException);
+		} catch (SQLException sqlException) {
+			throw new SystemException(SystemException.UNEXPECTED_DB_ERROR,
+					sqlException);
+		}
+		return imageStreamVO;
 	}
 
 }

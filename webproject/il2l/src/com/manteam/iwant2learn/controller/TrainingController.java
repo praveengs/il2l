@@ -5,6 +5,7 @@
 package com.manteam.iwant2learn.controller;
 
 import com.manteam.framework.exceptions.SystemException;
+import com.manteam.iwant2learn.interfaces.CommonInterfaceConstants;
 import com.manteam.iwant2learn.keywords.exceptions.MaintainKeyWordsException;
 import com.manteam.iwant2learn.keywords.manager.MaintainKeywordsManager;
 import com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO;
@@ -82,12 +83,12 @@ public class TrainingController {
 
 	/**
 	 * 
-	 * @param keyWords 
+	 * @param keyWords
 	 * @return
 	 * @throws SystemException
 	 */
-	public Collection<SubjectVO> retrieveSubjectDetails(String subjectName, Collection<String> keyWords)
-			throws SystemException {
+	public Collection<SubjectVO> retrieveSubjectDetails(String subjectName,
+			Collection<String> keyWords) throws SystemException {
 
 		return getTrainingServer().retrieveSubjects(subjectName, keyWords);
 	}
@@ -97,10 +98,11 @@ public class TrainingController {
 	 * @return
 	 * @throws SystemException
 	 */
-	public String retrieveXMLStreamForSubject(String subjectName, Collection<String> keyWords)
-			throws SystemException {
+	public String retrieveXMLStreamForSubject(String subjectName,
+			Collection<String> keyWords) throws SystemException {
 		String xmlString = null;
-		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName, keyWords);
+		Collection<SubjectVO> subjectVOs = retrieveSubjectDetails(subjectName,
+				keyWords);
 		for (SubjectVO subjectVO : subjectVOs) {
 			xmlString = WebXMLCreator.createXMLStreamForWebClient(subjectVO);
 		}
@@ -157,9 +159,20 @@ public class TrainingController {
 	 * @return
 	 * @throws SystemException
 	 */
-	public ImageStreamVO retrieveImageInfoForQuestion(int questionId)
+	public ImageStreamVO retrieveImageInfo(String searchId)
 			throws SystemException {
-		return getQuestionManager().retrieveImageInfoForQuestion(questionId);
+		String[] searchParams = searchId.split(CommonInterfaceConstants.SEPARATOR);
+		String searchConstant = searchParams[0];
+		int id = Integer.parseInt(searchParams[1]);
+		ImageStreamVO imageStreamVO = null;
+		if (CommonInterfaceConstants.QUESTION_IMG.equals(searchConstant)
+				|| CommonInterfaceConstants.ANSWER_IMG.equals(searchConstant)) {
+			imageStreamVO = getQuestionManager().retrieveImageInfoForQuestion(
+					searchConstant, id);
+		} else if (CommonInterfaceConstants.KEYWORD_IMG.equals(searchConstant)) {
+			imageStreamVO = getMaintainKeywordsManager().retrieveImageInfo(id);
+		}
+		return imageStreamVO;
 	}
 
 	/**
@@ -210,15 +223,15 @@ public class TrainingController {
 	 * @param logonAttributesVO
 	 * @param userSaveVO
 	 * @return
-	 * @throws SystemException 
-	 * @throws MaintainUserException 
+	 * @throws SystemException
+	 * @throws MaintainUserException
 	 */
 	public boolean addUser(LogonAttributesVO logonAttributesVO,
-			UserSaveVO userSaveVO) throws MaintainUserException, SystemException {
+			UserSaveVO userSaveVO) throws MaintainUserException,
+			SystemException {
 		return getMaintainUserManager().addUser(logonAttributesVO, userSaveVO);
 	}
-	
-	
+
 	/**
 	 * This method returns all the keywords attached with a subject
 	 * 
@@ -229,9 +242,10 @@ public class TrainingController {
 	public Collection<String> retrieveKeyWordsForSubject(String subjectName)
 			throws SystemException {
 
-		return getMaintainSubjectsManager().retrieveKeyWordsForSubject(subjectName);
+		return getMaintainSubjectsManager().retrieveKeyWordsForSubject(
+				subjectName);
 	}
-	
+
 	/**
 	 * 
 	 * THis method retrieves the keyword Info for the keyword Id
@@ -242,11 +256,10 @@ public class TrainingController {
 	 * @throws MaintainKeyWordsException
 	 * @throws SystemException
 	 */
-	public KeyWordVO retrieveKeywordInfo(int keyWordId) throws MaintainKeyWordsException,
-			SystemException {
+	public KeyWordVO retrieveKeywordInfo(int keyWordId)
+			throws MaintainKeyWordsException, SystemException {
 		return getMaintainKeywordsManager().retrieveKeywordInfo(keyWordId);
 	}
-
 
 	/**
 	 * To get the question manager

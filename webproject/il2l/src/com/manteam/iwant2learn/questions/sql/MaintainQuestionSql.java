@@ -220,6 +220,38 @@ public class MaintainQuestionSql extends AbstractSql {
 		return idKeyWordMap;
 	}
 
+	/**
+	 * To retrieve the image info for the answer
+	 * @param connection
+	 * @param questionId
+	 * @return
+	 * @throws SQLException
+	 */
+	public ImageStreamVO retrieveImageInfoForQuestionAnswer(
+			Connection connection, int questionId) throws SQLException {
+		ImageStreamVO imageStreamVO = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = MaintainQuestionQueryConstructor
+					.retrieveImageInfoForAnswer(connection, questionId);
+			resultSet = preparedStatement.executeQuery();
+			// preparedStatement.close();
+
+			if (resultSet.next()) {
+				imageStreamVO = new ImageStreamVO();
+				imageStreamVO.setImageByteArray(resultSet
+						.getBytes(MaintainQuestionsQueryConstants.ANSWER_IMG));
+				imageStreamVO.setImageString(resultSet
+						.getString(MaintainQuestionsQueryConstants.ANSWER_IMG));
+			}
+
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+		return imageStreamVO;
+	}
+
 	/*
 	 * public int getSubmoduleId(Connection connection, String subjectName,
 	 * String submodule) throws SQLException { PreparedStatement

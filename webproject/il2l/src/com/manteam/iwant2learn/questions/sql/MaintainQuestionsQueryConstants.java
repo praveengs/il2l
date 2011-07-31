@@ -13,6 +13,7 @@ public abstract class MaintainQuestionsQueryConstants {
 	public static final String SUBMODULE_NAME = "SUBMODULE_NAME";
 	public static final String LAST_INSERTED_ID = "last_insert_id()";
 	public static final String QUES_IMG = "QUES_IMG";
+	public static final String ANSWER_IMG = "ANSWER_IMG";
 	public static final String SYB_KEYWORD_ID = "SYB_KEYWORD_ID";
 	public static final String KEYWORD = "KEYWORD";
 

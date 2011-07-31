@@ -30,5 +30,7 @@ public class MaintainQuestionQueries {
 	public static final String GET_KEYWORD_IDS_SECOND = " AND B.SUBMODULE_ID IN ";
 
 	public static final String INSERT_EXAM_KEYWORD_MAP = "INSERT INTO exam_ques_keyword_map (EXAM_QUES_ID, KEYWORD_ID) VALUES (? , ?)";
+	
+	public static final String RETRIEVE_ANS_IMG = "SELECT ANSWER_IMG FROM exam_questions WHERE EXAM_QUESTIONS_ID = ?";
 
 }

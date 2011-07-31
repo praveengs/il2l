@@ -13,6 +13,7 @@ import java.util.HashMap;
 import com.manteam.framework.db.exceptions.DatabaseException;
 import com.manteam.framework.exceptions.SystemException;
 import com.manteam.framework.manager.AbstractManager;
+import com.manteam.iwant2learn.interfaces.CommonInterfaceConstants;
 import com.manteam.iwant2learn.questions.exceptions.MaintainQuestionsException;
 import com.manteam.iwant2learn.questions.sql.MaintainQuestionSql;
 import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
@@ -133,16 +134,32 @@ public class MaintainQuestionsManager extends AbstractManager {
 		return isInserted;
 	}
 
-	public ImageStreamVO retrieveImageInfoForQuestion(int questionId)
-			throws SystemException {
+	/**
+	 * Method to retrieve the image info for the question
+	 * 
+	 * @param searchConstant
+	 * @param questionId
+	 * @return
+	 * @throws SystemException
+	 */
+	public ImageStreamVO retrieveImageInfoForQuestion(String searchConstant,
+			int questionId) throws SystemException {
 
 		ImageStreamVO imageStreamVO = null;
 		try {
 
 			MaintainQuestionSql maintainQuestionSql = new MaintainQuestionSql();
 
-			imageStreamVO = maintainQuestionSql.retrieveImageInfoForQuestion(
-					getConnection(), questionId);
+			if (CommonInterfaceConstants.QUESTION_IMG.equals(searchConstant)) {
+				imageStreamVO = maintainQuestionSql
+						.retrieveImageInfoForQuestion(getConnection(),
+								questionId);
+			} else if (CommonInterfaceConstants.ANSWER_IMG
+					.equals(searchConstant)) {
+				imageStreamVO = maintainQuestionSql
+						.retrieveImageInfoForQuestionAnswer(getConnection(),
+								questionId);
+			}
 
 		} catch (DatabaseException databaseException) {
 			// TODO Auto-generated catch block

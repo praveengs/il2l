@@ -11,8 +11,8 @@ import java.util.Date;
 
 import com.manteam.framework.sql.AbstractSql;
 import com.manteam.iwant2learn.keywords.vo.KeyWordSaveVO;
+import com.manteam.iwant2learn.questions.vo.ImageStreamVO;
 import com.manteam.iwant2learn.subject.vo.KeyWordVO;
-import com.manteam.iwant2learn.training.sql.TrainingQueryConstants;
 import com.manteam.iwant2learn.user.vo.LogonAttributesVO;
 
 /**
@@ -101,28 +101,60 @@ public class KeyWordMaintainSql extends AbstractSql {
 			if (resultSet.next()) {
 				keyWordVO = new KeyWordVO();
 				keyWordVO.setKeyWordId(resultSet
-						.getInt(TrainingQueryConstants.SYB_KEYWORD_ID));
+						.getInt(KeyWordQueryConstants.SYB_KEYWORD_ID));
 				keyWordVO.setKeywordName(resultSet
-						.getString(TrainingQueryConstants.KEYWORD));
+						.getString(KeyWordQueryConstants.KEYWORD));
 				keyWordVO.setQuantities(resultSet
-						.getString(TrainingQueryConstants.QUANTITIES));
+						.getString(KeyWordQueryConstants.QUANTITIES));
 				keyWordVO.setSymbols(resultSet
-						.getString(TrainingQueryConstants.SYMBOLS));
+						.getString(KeyWordQueryConstants.SYMBOLS));
 				keyWordVO.setUnits(resultSet
-						.getString(TrainingQueryConstants.UNITS));
+						.getString(KeyWordQueryConstants.UNITS));
 				keyWordVO.setFormulae(resultSet
-						.getString(TrainingQueryConstants.FORMULAE));
+						.getString(KeyWordQueryConstants.FORMULAE));
 				keyWordVO.setData(resultSet
-						.getString(TrainingQueryConstants.DATA));
+						.getString(KeyWordQueryConstants.DATA));
 				keyWordVO.setKeyWordImageByteArray(resultSet
-						.getBytes(TrainingQueryConstants.KEYWORD_IMAGE));
+						.getBytes(KeyWordQueryConstants.KEYWORD_IMAGE));
 				keyWordVO.setKeyWordDescription(resultSet
-						.getString(TrainingQueryConstants.KEYWORD_DESC));
+						.getString(KeyWordQueryConstants.KEYWORD_DESC));
 			}
 		} finally {
 			close(connection, resultSet, preparedStatement);
 		}
 		return keyWordVO;
+	}
+
+	/**
+	 * Method to retrieve the image info for the keyword
+	 * 
+	 * @param connection
+	 * @param keyWordId
+	 * @return
+	 * @throws SQLException
+	 */
+	public ImageStreamVO retrieveImageInfo(Connection connection, int keyWordId)
+			throws SQLException {
+		ImageStreamVO imageStreamVO = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = KeyWordMaintenanceQueryConstructor
+					.retrieveImageInfo(connection, keyWordId);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				imageStreamVO = new ImageStreamVO();
+				imageStreamVO.setImageByteArray(resultSet
+						.getBytes(KeyWordQueryConstants.KEYWORD_IMAGE));
+				imageStreamVO.setImageString(resultSet
+						.getString(KeyWordQueryConstants.KEYWORD_IMAGE));
+			}
+
+		} finally {
+			close(connection, resultSet, preparedStatement);
+		}
+		return imageStreamVO;
 	}
 
 }
