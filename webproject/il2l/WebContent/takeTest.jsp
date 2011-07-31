@@ -1,4 +1,5 @@
 
+<%@page import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
 <%@page import="java.io.OutputStreamWriter"%>
 <%@page import="java.net.URLConnection"%>
 <%@page import="java.net.URL"%>
@@ -201,7 +202,7 @@
 			%>
 			<p id="questionImage">
 				<br /> <img alt="QuestionImage"
-					src="getImage?imageId=<%=question.getQuestionId()%>" width="300"
+					src="getImage?imageId=<%=CommonInterfaceConstants.QUESTION_IMG+CommonInterfaceConstants.SEPARATOR+question.getQuestionId()%>" width="300"
 					height="400">
 			</p>
 			<%
