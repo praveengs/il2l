@@ -48,49 +48,21 @@
 </head>
 <%
 	TrainingController controller = new TrainingController();
-	/* HashMap<String, ArrayList<String>> subjectsnSubmodules = controller
-			.retrieveAllSubjectsnSubmodules(); */
 			HashMap<String, ArrayList<String>> subjectsnSubmodulesMap = controller
 			.retrieveAllSubjectsnSubmodules();
-	/* subjectsnSubmodulesnKeywordsMap.put("Chemistry", new HashMap<String, ArrayList<String>>(2));
-	ArrayList<String> testKeyWords = new ArrayList<String>(2);
-	testKeyWords.add("Test Keyword");
-	testKeyWords.add("Test Keyword");
-	subjectsnSubmodulesnKeywordsMap.get("Chemistry").put("TestSubmodule", testKeyWords); */
-	//Set<String> subjects = subjectsnSubmodules.keySet();
 	Set<String> subjects = subjectsnSubmodulesMap.keySet();
 	Object[] subjectArray = subjects.toArray();
-	//System.out.println("Subject selected is"+subjectArray[0].toString());
-	/* Collection<String> submodules = subjectsnSubmodules
-			.get(subjectArray[0]); */
-	Collection<String> submodules = new ArrayList<String>(2);
-	
+	Collection<String> submodules = new ArrayList<String>(2);	
 	String currentSubject = "";
-
-	//System.out.println("Submodules are"+submodules);
 %>
 <body>
 	<script type="text/javascript">
-	
-	/* var currSubjectKey;
-	var submodulesArrayForKeyword; */
-	//var singleSubjctArrayForKeyword;
-	//var keyWordsArray;
 function populateSubmodulesCombo(key) {
-	
 	var submodulesArray = new Array();	
 	var singleSubjectSubmodulesArray = new Array();
-	
-	
 	var i = 0;
-	//currSubjectKey = key;
-	  //var currentSubject = (String)subjectArray[key];
-
-	 // alert(key);
 	  //Here goes the tricky part, we populate a two-dimensional javascript array with values from the map
 	<%for (int i = 0; i < subjectArray.length; i++) {
-				/* submodules = (ArrayList<String>) subjectsnSubmodules
-						.get(subjectArray[i]); */
 				String subject = (String) subjectArray[i];				
 				submodules = subjectsnSubmodulesMap
 						.get(subjectArray[i]);%>			
@@ -106,8 +78,6 @@ function populateSubmodulesCombo(key) {
 			
 	<%}%>
 		var submodulesList = document.getElementById("submodulesList");
-
-			//alert(submodulesList);
 			//Empty the second combo
 			while (submodulesList.hasChildNodes()) {
 				submodulesList.removeChild(submodulesList.childNodes[0]);
@@ -147,12 +117,11 @@ function populateSubmodulesCombo(key) {
 			<!-- end .header -->
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
@@ -168,27 +137,16 @@ function populateSubmodulesCombo(key) {
 		</div>
 		<%
 			} else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
-		<div id="leftcolumn">
+				%>
+				
+				<div id="leftcolumn">
 
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeyword.jsp">Add
-				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+					<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a href="addQuestionForm.jsp">Add
+						Question</a> <a href="takeTestHome.jsp">Take Test</a>
 
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			} else if (session.getAttribute("userRoleSession").equals("S")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			}
-
+					<!-- end .sidebar1 -->
+				</div>
+				<%
 			}
 		%>
 
@@ -239,6 +197,17 @@ function populateSubmodulesCombo(key) {
 				</table>
 			</form>
 		</div>
+		<%
+				}
+				if((!session.getAttribute("userRoleSession").equals("F"))&&(!session.getAttribute("userRoleSession").equals("A"))){
+					%>
+					<jsp:forward page="index.jsp">
+						<jsp:param value="Kindly login first as Administrator/Faculty to view this page" name="FailReason" />
+					</jsp:forward>
+					<%
+				}
+
+		%>
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
