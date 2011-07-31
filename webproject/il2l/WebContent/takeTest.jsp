@@ -1,4 +1,6 @@
 
+<%@page import="com.manteam.iwant2learn.subject.vo.KeyWordVO"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
 <%@page import="java.io.OutputStreamWriter"%>
 <%@page import="java.net.URLConnection"%>
@@ -86,6 +88,12 @@
 }
 -->
 </style>
+<script type="text/javascript">
+function fnClose(){
+	netscape.security.PrivilegeManager.enablePrivilege('UniversalBrowserWrite');
+	popup.close();
+}
+</script>
 </head>
 <body>
 	<%
@@ -142,7 +150,6 @@
 			QuestionReturnVO questionRet = controller
 					.retrieveQuestions(questionSearchVO);
 			if (questionRet != null) {
-				System.out.println("this is ret :" + questionRet);
 				Collection<ExamQuestionsVO> questions = questionRet
 						.getExamQuestionVOs();
 				int noOfQuestions = questions.size();
@@ -153,13 +160,11 @@
 				ExamQuestionsVO question = null;
 				int location;
 				String questionString = request.getParameter("question");
-				System.out.println("Location = " + questionString);
 				if (questionString == null
 						|| questionString.equalsIgnoreCase("")) {
 					questionString = "0";
 				}
 				location = Integer.parseInt(questionString);
-				System.out.println("LOCATION : " + location);
 				if (location < noOfQuestions) {
 					question = questionsArray.get(location);
 				} else if (location >= noOfQuestions) {
@@ -185,9 +190,26 @@
 			<h3>Sub Module Details</h3>
 			<hr />
 			<%=question.getSubmoduleDescription()%>
-			<br /> <br /> <b><em>Keywords</em> </b> : <a href="#">displacement</a>&nbsp;&nbsp;&nbsp;<a
-				href="#">speed</a>&nbsp;&nbsp;&nbsp;<a href="#">velocity</a>
-
+			<%
+				HashMap<String, KeyWordVO> key = question.getKeyWordMap();
+			Collection<KeyWordVO> keywords=null;
+			if (key==null||key.isEmpty()) {						
+			%>
+			<br /> <br /> No <b><em>Keywords</em> </b> associated with this
+			question
+			<%
+			 	} else {
+			 		keywords= key.values();
+			 %><br /> <br /> <b><em>Keywords</em> </b> :
+						<%
+			 	for (KeyWordVO keyword : keywords) {
+			 %>
+			<a href="getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>" onclick="window.open('getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>','popup','width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><%=keyword.getKeywordName()%></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<%
+				}
+						}
+			%>
 		</div>
 		<div id="question" class="content">
 			<h3>Question</h3>
@@ -202,17 +224,15 @@
 			%>
 			<p id="questionImage">
 				<br /> <img alt="QuestionImage"
-					src="getImage?imageId=<%=CommonInterfaceConstants.QUESTION_IMG+CommonInterfaceConstants.SEPARATOR+question.getQuestionId()%>" width="300"
+					src="getImage?imageId=<%=CommonInterfaceConstants.QUESTION_IMG
+								+ CommonInterfaceConstants.SEPARATOR
+								+ question.getQuestionId()%>" width="300"
 					height="400">
 			</p>
 			<%
 				}
 			%>
 			<br />
-			<%
-				System.out
-								.println("Before call, location is : " + location);
-			%>
 			<input type="button" id="prevButton" value="Previous Question"
 				align="left" style="float: left;"
 				onclick="parent.fnGetPrevQn(<%=location%>);" /> <input
