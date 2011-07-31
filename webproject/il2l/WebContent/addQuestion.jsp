@@ -1,6 +1,6 @@
 <%@page import="javax.naming.InitialContext"%>
-<%@ page language="java" session="true" %>
-<%@ page isErrorPage="true" %>
+<%@ page language="java" session="true"%>
+<%@ page isErrorPage="true"%>
 <%--
     Document   : addQuestion
     Created on : Jul 3, 2011, 8:07:16 PM
@@ -37,11 +37,12 @@
 
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br /></td>
+					<td><br />
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -56,50 +57,41 @@
 			</table>
 			<!-- end .header -->
 		</div>
-	<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+		<%
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a href="addQuestionForm.jsp">Add
-				Question</a> <a href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeyword.jsp">Add
+				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
+				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
 				Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			}else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
+			} else if (session.getAttribute("userRoleSession").equals("F")) {
+				%>
+
 		<div id="leftcolumn">
 
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a
-				href="addQuestionFoem.jsp">Add Question</a> <a
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addKeywordForm.jsp">Add Keyword</a><a
+				href="addQuestionForm.jsp">Add Question</a> <a
 				href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			} else if (session.getAttribute("userRoleSession").equals("S")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			}
 			}
 		%>
-
 		<%! Collection<String> getCollection(String[] split) {
 			  Collection<String> collection = new ArrayList<String>(split.length);
 			  for (String splitString : split) {
@@ -108,11 +100,8 @@
 			  return collection;
  } %>
 
-		<%
-                    String subject = "";
-                   
-					//String[] submod;
-			        String submod = "";
+		<%      String subject = "";
+                  String submod = "";
 			        String[] keyWords;
                     String checkVal = "";
                     String date = "";
@@ -123,12 +112,9 @@
 
                     InitialContext initialContext = new javax.naming.InitialContext();  
                     String path = (String) initialContext.lookup("java:comp/env/tempFilePath");
-                    //System.out.println("Path is"+path);
                     MultipartRequest req = new MultipartRequest(request, path, "UTF-8");
                     subject = req.getParameter("subject");
-                    //submod = req.getParameterValues("submodule");
                     submod = req.getParameter("submodule");
-                    //System.out.println(Arrays.toString(submod));
                     keyWords = req.getParameterValues("keywords");
                     System.out.println(Arrays.toString(keyWords));
                     checkVal = null;
@@ -162,12 +148,7 @@
                     logonAttributesVO.setUserRole((String)session.getAttribute("userRoleSession"));
                     
                     QuestionSaveVO question = new QuestionSaveVO();
-
-                    //ExamQuestionsVO question = new ExamQuestionsVO();
                     question.setSubjectName(subject);
-                    //question.setModuleName(module);
-                    //question.setSubmoduleName(submod);
-                    //question.setSubmodules(getSubmodules(submod));
                     question.setSubmodule(submod);
                     if (keyWords != null) {
                     	question.setKeywords(getCollection(keyWords));
@@ -193,27 +174,6 @@
                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
                         out.println(mqe.getStackTrace().toString());
                     }
-//                     ExamQuestionsVO question = new ExamQuestionsVO();
-//                     question.setSubjectName(subject);
-                    
-                   // question.setSubmoduleName(submod);
-//                     question.setQuestion(questionString);
-//                     question.setQuestionImage(questImage);
-//                     question.setAnswer(answerString);
-//                     question.setAnswerImageStream(answerImage);
-//                     question.setQuestionYearMarkString(date);
-
-                    //TrainingController training = new TrainingController();
-//                     try {
-//                         boolean ret = training.saveQuestion(question);
-//                     } catch (SystemException se) {
-//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : SystemException</h3>");
-//                         out.println(se.getMessage());
-
-//                     } catch (MaintainQuestionsException mqe) {
-//                         out.println("<h2 color='red'>Encountered an exception.</h2><h3>Details : MaintainQuestionsException</h3>");
-//                         out.println(mqe.getStackTrace().toString());
-//                     }
         %>
 		<div id="rightcolumn">
 			<h1>
@@ -221,13 +181,26 @@
 					href="addQuestionForm.jsp">Add Question</a>
 			</h1>
 		</div>
+		<%
+				}
+				if((!session.getAttribute("userRoleSession").equals("F"))&&(!session.getAttribute("userRoleSession").equals("A"))){
+					%>
+		<jsp:forward page="index.jsp">
+			<jsp:param
+				value="Kindly login first as Administrator/Faculty to view this page"
+				name="FailReason" />
+		</jsp:forward>
+		<%
+				}
+
+		%>
 		<div class="footer">
 			<center>
-				
-					<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
-					<b style="color: #999; font-size: 15px">The University of
-						Manchester</b>
-				
+
+				<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
+				<b style="color: #999; font-size: 15px">The University of
+					Manchester</b>
+
 			</center>
 			<!-- end .footer -->
 		</div>

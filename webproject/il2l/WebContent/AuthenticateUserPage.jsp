@@ -1,3 +1,5 @@
+<%@page
+	import="com.manteam.iwant2learn.user.exceptions.MaintainUserException"%>
 <%@ page language="java" session="true"%>
 <%@ page errorPage="errorPage.jsp"%>
 <%@page import="com.manteam.iwant2learn.user.vo.LogonAttributesVO"%>
@@ -11,30 +13,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link href="styleIndex.css" rel="stylesheet" type="text/css"></link>
-
 </head>
 <body>
-
-
-
 	<%
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-
-		//out.println(userName);
-		//out.println(password);
-		LoginVO loginDetails = new LoginVO();
-		loginDetails.setUserName(userName);
-		loginDetails.setUserPassword(password);
-		TrainingController controller = new TrainingController();
-		LogonAttributesVO loginAttributes = new LogonAttributesVO();
-		loginAttributes = controller.authenticateUser(loginDetails);
-		String userRole = loginAttributes.getUserRole();
-		//out.println(userRole);
-		session.setAttribute("userRoleSession", userRole);
-		session.setAttribute("userName",userName);
-		System.out.println(session.getAttribute("userRoleSession"));
-		System.out.println(session.getAttribute("userName"));
+		if(null!=password&&null!=userName){
+			LoginVO loginDetails = new LoginVO();
+			loginDetails.setUserName(userName);
+			loginDetails.setUserPassword(password);
+			TrainingController controller = new TrainingController();
+			LogonAttributesVO loginAttributes = new LogonAttributesVO();
+			try{
+				loginAttributes = controller.authenticateUser(loginDetails);
+				session.setAttribute("userRoleSession", loginAttributes.getUserRole());
+				session.setAttribute("userName",loginAttributes.getUserName());
 	%>
 	<div class="container">
 		<div class="header">
@@ -57,12 +50,11 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
@@ -80,9 +72,22 @@
 		<%
 			}
 			}
+			}catch(MaintainUserException invalid)
+			{
+				%>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Login failed! Kindly retry." name="FailReason" />
+		</jsp:forward>
+		<%
+			}
+		}else {
+			%>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
+		<%
+		}
 		%>
-
-
 		<div class="footer">
 			<center>
 

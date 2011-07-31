@@ -14,5 +14,6 @@
 	<b>Exception:</b>
 	<br>
 	<font color="red"><%=exception%></font>
+	<%exception.printStackTrace(); %>
 </body>
 </html>

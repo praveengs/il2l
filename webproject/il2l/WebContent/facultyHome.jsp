@@ -3,15 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>faculty Home Page</title>
-<link href="facultyPage.css" rel="stylesheet" type="text/css"></link>
-<link href="addQForm.css" rel="stylesheet" type="text/css"></link>
-<style type="text/css">
-.hide {
-	display: None;
-	background-color: #C7FECA;
-}
-</style>
 <title>Faculty Home Page</title>
 <link href="adminPage.css" rel="stylesheet" type="text/css"></link>
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
@@ -45,6 +36,16 @@
 			</table>
 			<!-- end .header -->
 		</div>
+		<%
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
+		%>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
+		<%
+			} else {
+				if (session.getAttribute("userRoleSession").equals("F")) {
+		%>
 		
 		<div id="leftcolumn">
 
@@ -55,61 +56,72 @@
 		</div>
 		<div id="rightcolumn">
 			<h1>Welcome faculty</h1>
-			<p>The faculty would get the following previleges.The faculty
-				would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.</p>
-			<p>The faculty would get the following previleges.The faculty
-				would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.</p>
-			<p>The faculty would get the following previleges.The faculty
-				would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.</p>
-			<p>The faculty would get the following previleges.The faculty
-				would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.</p>
+			<p>The faculty would get the following privileges.The faculty
+				would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.</p>
+			<p>The faculty would get the following privileges.The faculty
+				would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.</p>
+			<p>The faculty would get the following privileges.The faculty
+				would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.</p>
+			<p>The faculty would get the following privileges.The faculty
+				would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.</p>
 
-			<p>The faculty would get the following previleges.The faculty
-				would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.The
-				faculty would get the following previleges.The faculty would get the
-				following previleges.The faculty would get the following
-				previleges.The faculty would get the following previleges.</p>
+			<p>The faculty would get the following privileges.The faculty
+				would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.The
+				faculty would get the following privileges.The faculty would get the
+				following privileges.The faculty would get the following
+				privileges.The faculty would get the following privileges.</p>
 
 			<br /> <br />
 			<!-- end .content -->
 		</div>
+		<%
+				}
+				else{
+					%>
+					<jsp:forward page="index.jsp">
+						<jsp:param value="Kindly login first as Faculty to view this page" name="FailReason" />
+					</jsp:forward>
+					<%
+				}
+			} 
+		%>
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />

@@ -20,8 +20,7 @@
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -37,47 +36,25 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add Keyword</a> <a href="addQuestionForm.jsp">Add
-				Question</a> <a href="addUserForm.jsp">Add User</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add
+				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
+				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
+				Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
-		<%
-			} else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a><a
-				href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			} else if (session.getAttribute("userRoleSession").equals("S")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			}
-			} 
+		<% 
 			String userName = request.getParameter("userName");
 			String userRole = request.getParameter("userRole");
 			String password = request.getParameter("password");
@@ -125,6 +102,19 @@
 
 		<%
 			}
+		%>
+		<%
+				}
+				else{
+					%>
+		<jsp:forward page="index.jsp">
+			<jsp:param
+				value="Kindly login first as Administrator to view this page"
+				name="FailReason" />
+		</jsp:forward>
+		<%
+				}
+			} 
 		%>
 		<div class="footer">
 			<center>

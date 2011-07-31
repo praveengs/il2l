@@ -38,12 +38,11 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
@@ -56,83 +55,70 @@
 
 			<!-- end .sidebar1 -->
 		</div>
-		<%
-			} else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a> <a
-				href="addQuestionForm.jsp">Add Question</a> <a
-				href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			} else if (session.getAttribute("userRoleSession").equals("S")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			}
-
-			} 
-		%>
+		
 		<div id="rightcolumn">
 			<h1>Welcome Admin</h1>
-			<p>The admin would get the following previleges.The admin would
-				get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.</p>
-			<p>The admin would get the following previleges.The admin would
-				get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.</p>
-			<p>The admin would get the following previleges.The admin would
-				get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.</p>
-			<p>The admin would get the following previleges.The admin would
-				get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.</p>
+			<p>The admin would get the following privileges.The admin would
+				get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.</p>
+			<p>The admin would get the following privileges.The admin would
+				get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.</p>
+			<p>The admin would get the following privileges.The admin would
+				get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.</p>
+			<p>The admin would get the following privileges.The admin would
+				get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.</p>
 
-			<p>The admin would get the following previleges.The admin would
-				get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.The admin
-				would get the following previleges.The admin would get the following
-				previleges.The admin would get the following previleges.</p>
+			<p>The admin would get the following privileges.The admin would
+				get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.The admin
+				would get the following privileges.The admin would get the following
+				privileges.The admin would get the following privileges.</p>
 
 			<br /> <br />
 			<!-- end .content -->
 		</div>
+		<%
+				}
+				else{
+					%>
+					<jsp:forward page="index.jsp">
+						<jsp:param value="Kindly login first as Administrator to view this page" name="FailReason" />
+					</jsp:forward>
+					<%
+				}
+			} 
+		%>
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />

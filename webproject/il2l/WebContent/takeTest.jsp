@@ -1,7 +1,8 @@
 
 <%@page import="com.manteam.iwant2learn.subject.vo.KeyWordVO"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
+<%@page
+	import="com.manteam.iwant2learn.interfaces.CommonInterfaceConstants"%>
 <%@page import="java.io.OutputStreamWriter"%>
 <%@page import="java.net.URLConnection"%>
 <%@page import="java.net.URL"%>
@@ -97,52 +98,56 @@ function fnClose(){
 </head>
 <body>
 	<%
+
+if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
+	%>
+	<jsp:forward page="index.jsp">
+		<jsp:param value="Kindly login first!" name="FailReason" />
+	</jsp:forward>
+	<%
+		} else if((!session.getAttribute("userRoleSession").equals("F"))&&(!session.getAttribute("userRoleSession").equals("A"))&&(!session.getAttribute("userRoleSession").equals("S"))){
+					%>
+	<jsp:forward page="index.jsp">
+		<jsp:param
+			value="Kindly login first as Administrator/Faculty/Student to view this page"
+			name="FailReason" />
+	</jsp:forward>
+	<%
+				}
+
+		%>
+	<%
 		String url = request.getQueryString();
-		System.out.println(url);
 		String queryString = request.getParameter("selection");
 		if (queryString == null || queryString.equalsIgnoreCase("")) {
 			out.println("Select subjects/sub modules and start training");
 		} else {
-			System.out.println(queryString);
 			String subject = null;
 			String[] queryArray = null;
 			Collection<String> modCollection = new ArrayList<String>();
 			Collection<String> submodCollection = new ArrayList<String>();
-			//SubjectVO subjectVO = new SubjectVO();
 			QuestionSearchVO questionSearchVO = new QuestionSearchVO();
-			//ModuleVO moduleVO = null;
 			int index = 0;
 			if (queryString != null || !queryString.equalsIgnoreCase("")) {
 				queryArray = queryString.split(",");
 
 			}
-			System.out.println(Arrays.toString(queryArray));
 			for (String i : queryArray) {
 				if (i.startsWith("SUB_")) {
 					subject = i.substring((i.lastIndexOf('_') + 1),
 							i.length());
-					//subjectVO.setSubjectName(subject);
-					//subjectVO.setModules(new ArrayList<ModuleVO>(2));
 					questionSearchVO.setSubjectName(subject);
 					questionSearchVO
 							.setSubmodules(new ArrayList<String>(2));
-					//System.out.println("Subject VO"+subjectVO);
 				} else if (i.startsWith("MOD_")) {
 					String mod = i.substring((i.lastIndexOf('_') + 1),
 							i.length());
 					modCollection.add(mod);
-					//moduleVO = new ModuleVO();
-					//moduleVO.setModuleName(mod);
-					//subjectVO.getModules().add(moduleVO);
-					//moduleVO.setSubmodules(new ArrayList<String>(2));
-					//System.out.println("Subject VO"+subjectVO);
 				} else if (i.startsWith("SUBMOD_")) {
 					String submod = i.substring((i.lastIndexOf('_') + 1),
 							i.length());
 					submodCollection.add(submod);
-					//moduleVO.getSubmodules().add(submod);
 					questionSearchVO.getSubmodules().add(submod);
-					//System.out.println("Subject VO"+subjectVO);
 				}
 			}
 
@@ -201,10 +206,11 @@ function fnClose(){
 			 	} else {
 			 		keywords= key.values();
 			 %><br /> <br /> <b><em>Keywords</em> </b> :
-						<%
+			<%
 			 	for (KeyWordVO keyword : keywords) {
 			 %>
-			<a href="getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>" onclick="window.open('getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>','popup','width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><%=keyword.getKeywordName()%></a>
+			<a href="getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>"
+				onclick="window.open('getKeywordDetails.jsp?id=<%=keyword.getKeyWordId()%>','popup','width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><%=keyword.getKeywordName()%></a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<%
 				}
@@ -226,15 +232,14 @@ function fnClose(){
 				<br /> <img alt="QuestionImage"
 					src="getImage?imageId=<%=CommonInterfaceConstants.QUESTION_IMG
 								+ CommonInterfaceConstants.SEPARATOR
-								+ question.getQuestionId()%>" width="300"
-					height="400">
+								+ question.getQuestionId()%>"
+					width="300" height="400">
 			</p>
 			<%
 				}
 			%>
-			<br />
-			<input type="button" id="prevButton" value="Previous Question"
-				align="left" style="float: left;"
+			<br /> <input type="button" id="prevButton"
+				value="Previous Question" align="left" style="float: left;"
 				onclick="parent.fnGetPrevQn(<%=location%>);" /> <input
 				type="button" id="nextButton" value="Next Question" align="right"
 				style="float: right;" name="nextButton"

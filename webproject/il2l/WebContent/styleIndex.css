@@ -178,3 +178,15 @@ ul.nav a:hover,ul.nav a:active,ul.nav a:focus {
 	position: absolute;
 	z-index: +100;
 }
+
+
+.mandatory{
+	clear:both;
+	font-size: medium;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color:aqua;
+	line-height: 20px;
+	vertical-align: top;
+	padding: 0px;
+	font-weight: normal;
+}

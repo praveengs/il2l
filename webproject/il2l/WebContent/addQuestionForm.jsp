@@ -1,6 +1,6 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" session="true"%>
 <%@ page errorPage="errorPage.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.Iterator"%>
@@ -18,8 +18,8 @@
 	display: None;
 	background-color: #C7FECA;
 }
+
 .mandatory {
-	
 	color: red;
 }
 /* ~~ The footer ~~ */
@@ -52,51 +52,30 @@
 </head>
 <%
 	TrainingController controller = new TrainingController();
-	/* HashMap<String, ArrayList<String>> subjectsnSubmodules = controller
-			.retrieveAllSubjectsnSubmodules(); */
 	HashMap<String, HashMap<String, ArrayList<String>>> subjectsnSubmodulesnKeywordsMap = controller
 			.retrieveAllSubjectDetailsForAddQuestion();
-	/* subjectsnSubmodulesnKeywordsMap.put("Chemistry", new HashMap<String, ArrayList<String>>(2));
-	ArrayList<String> testKeyWords = new ArrayList<String>(2);
-	testKeyWords.add("Test Keyword");
-	testKeyWords.add("Test Keyword");
-	subjectsnSubmodulesnKeywordsMap.get("Chemistry").put("TestSubmodule", testKeyWords); */
-	//Set<String> subjects = subjectsnSubmodules.keySet();
 	Set<String> subjects = subjectsnSubmodulesnKeywordsMap.keySet();
 	Object[] subjectArray = subjects.toArray();
-	//System.out.println("Subject selected is"+subjectArray[0].toString());
-	/* Collection<String> submodules = subjectsnSubmodules
-			.get(subjectArray[0]); */
 	Collection<String> submodules = new ArrayList<String>(2);
 	Collection<String> keyWords = new ArrayList<String>(2);
 	String currentSubject = "";
-
-	//System.out.println("Submodules are"+submodules);
 %>
 <body>
 	<script type="text/javascript">
 	
 	var currSubjectKey;
 	var submodulesArrayForKeyword;
-	//var singleSubjctArrayForKeyword;
-	//var keyWordsArray;
-function populateSubmodulesCombo(key) {
+	function populateSubmodulesCombo(key) {
 	
 	var submodulesArray = new Array();	
 	var singleSubjectSubmodulesArray = new Array();
 	var singleSubjctArrayForKeyword = new Array();
-	//var submodulesArrayForKeyword = new Array();
 	var keyWordsArray = new Array();
 	submodulesArrayForKeyword = new Array();
 	var i = 0;
 	currSubjectKey = key;
-	  //var currentSubject = (String)subjectArray[key];
-
-	 // alert(key);
 	  //Here goes the tricky part, we populate a two-dimensional javascript array with values from the map
 	<%for (int i = 0; i < subjectArray.length; i++) {
-				/* submodules = (ArrayList<String>) subjectsnSubmodules
-						.get(subjectArray[i]); */
 				String subject = (String) subjectArray[i];
 				HashMap<String, ArrayList<String>> submoduleKeyWordMap = subjectsnSubmodulesnKeywordsMap
 						.get(subjectArray[i]);
@@ -108,7 +87,7 @@ function populateSubmodulesCombo(key) {
 	 singleSubjectSubmodulesArray[<%=j%>] = "<%=submodule%>";
 	 <%keyWords = submoduleKeyWordMap.get(submodule);
 					int k = 0;
-					//System.out.println("Got keywords "+keyWords+" for submodule "+submodule);%>
+	 %>
 	 keyWordsArray = new Array();
 	 <%for (String keyWord : keyWords) {%>
 		 keyWordsArray[<%=k%>] = "<%=keyWord%>";
@@ -127,8 +106,6 @@ function populateSubmodulesCombo(key) {
 		] = singleSubjctArrayForKeyword;
 	<%}%>
 		var submodulesList = document.getElementById("submodulesList");
-
-			//alert(submodulesList);
 			//Empty the second combo
 			while (submodulesList.hasChildNodes()) {
 				submodulesList.removeChild(submodulesList.childNodes[0]);
@@ -154,8 +131,6 @@ function populateSubmodulesCombo(key) {
 		}
 
 		function populateKeyWordsCombo(submoduleKey) {
-			//alert("Submodule Key"+submoduleKey);
-			//alert("Subject Key: "+currSubjectKey);
 			var keywordsList = document.getElementById("keywordsList");
 			while (keywordsList.hasChildNodes()) {
 				keywordsList.removeChild(keywordsList.childNodes[0]);
@@ -164,9 +139,6 @@ function populateSubmodulesCombo(key) {
 			if (submoduleKey == -1) {
 				keywordsList.options[0] = new Option("-SELECT-", "-SELECT-");
 			} else {
-				//alert("In here");
-				//alert("Current Subject Array"+submodulesArrayForKeyword[currSubjectKey][submoduleKey]);
-				//alert((submodulesArrayForKeyword[currSubjectKey][submoduleKey]).length);
 				if ((submodulesArrayForKeyword[currSubjectKey][submoduleKey]).length > 0
 						&& (submodulesArrayForKeyword[currSubjectKey][submoduleKey][0]) != "null") {
 					for (i = 0; i < (submodulesArrayForKeyword[currSubjectKey][submoduleKey]).length; i++) {
@@ -182,8 +154,7 @@ function populateSubmodulesCombo(key) {
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -198,55 +169,47 @@ function populateSubmodulesCombo(key) {
 			</table>
 			<!-- end .header -->
 			<div align="right">
-			<a href="logout.jsp"><h2><span class="mandatory">Logout</span></h2></a>
+				<a href="logout.jsp"><h2>
+						<span class="mandatory">Logout</span>
+					</h2>
+				</a>
 			</div>
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a><a href="addKeywordForm.jsp">Add Keyword</a>  <a href="addQuestionForm.jsp">Add
-				Question</a> <a href="addUserForm.jsp">Add User</a> <a
-				href="takeTestHome.jsp">Take Test</a>
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeyword.jsp">Add
+				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
+				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
+				Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
 			} else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
+				%>
+
 		<div id="leftcolumn">
 
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a> <a
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addKeywordForm.jsp">Add Keyword</a><a
 				href="addQuestionForm.jsp">Add Question</a> <a
 				href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
-			} else if (session.getAttribute("userRoleSession").equals("S")) {
-		%>
-		<div id="leftcolumn">
-
-			<a href="takeTestHome.jsp">Take Test</a>
-
-			<!-- end .sidebar1 -->
-		</div>
-		<%
-			}
-
 			}
 		%>
-
-
 		<div id="rightcolumn">
 			<form id="feedbackform" action="addQuestion.jsp"
 				enctype="multipart/form-data" method="post">
@@ -265,8 +228,7 @@ function populateSubmodulesCombo(key) {
 								<%
 									}
 								%>
-						</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<td>Sub-Module Name</td>
@@ -274,16 +236,15 @@ function populateSubmodulesCombo(key) {
 							onchange="populateKeyWordsCombo(this.options[this.selectedIndex].index-1);"
 							id="submodulesList" name="submodule">
 								<option value="">-SELECT-</option>
-						</select>
-						</td>
+
+						</select></td>
 					</tr>
 					<tr>
 						<td>Keywords</td>
 						<td><select id="keywordsList" name="keywords"
 							multiple="multiple">
 								<option value="">-SELECT-</option>
-						</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<td>Appearance</td>
@@ -369,33 +330,41 @@ function populateSubmodulesCombo(key) {
 					<tr>
 						<td>Question</td>
 						<td><textarea style="width: 350px; height: 150px"
-								name="question"></textarea>
-						</td>
+								name="question"></textarea></td>
 					</tr>
 					<tr>
 						<td>Question Image</td>
-						<td><input type="file" name="quesUpload" />
-						</td>
+						<td><input type="file" name="quesUpload" /></td>
 					</tr>
 					<tr>
 						<td>Answer</td>
 						<td><textarea style="width: 350px; height: 150px"
-								name="answer"></textarea>
-						</td>
+								name="answer"></textarea></td>
 					</tr>
 					<tr>
 						<td>Answer Image</td>
-						<td><input type="file" name="ansUpload" />
-						</td>
+						<td><input type="file" name="ansUpload" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="Upload Question" />
-							&nbsp;&nbsp;&nbsp; <input type="reset" />
-						</td>
+							&nbsp;&nbsp;&nbsp; <input type="reset" /></td>
 					</tr>
 				</table>
 			</form>
 		</div>
+		<%
+				}
+				if((!session.getAttribute("userRoleSession").equals("F"))&&(!session.getAttribute("userRoleSession").equals("A"))){
+					%>
+		<jsp:forward page="index.jsp">
+			<jsp:param
+				value="Kindly login first as Administrator/Faculty to view this page"
+				name="FailReason" />
+		</jsp:forward>
+		<%
+				}
+
+		%>
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />

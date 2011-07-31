@@ -16,13 +16,7 @@
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <script>
 	function fnOpen(subjectName) {
-		//alert("Test");
-		//alert(subjectName);
-		//if (subjectName != "SELECT") {
-		window
-				.open(
-						href = 'training.jsp?subject=' + subjectName,
-						'Start_Training',
+	window.open(href = 'training.jsp?subject=' + subjectName,'Start_Training',
 						'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
 		//}
 	}
@@ -31,8 +25,7 @@
 <body>
 	<%
 		TrainingController trainingController = new TrainingController();
-		Collection<String> subjects = trainingController
-				.retrieveAllSubjects();
+		Collection<String> subjects = trainingController.retrieveAllSubjects();
 	%>
 
 
@@ -40,8 +33,7 @@
 		<div class="header">
 			<table cellpadding="10px" cellspacing="10">
 				<tr>
-					<td><br />
-					</td>
+					<td><br /></td>
 				</tr>
 				<tr>
 					<td style="font-size: 25px; color: red"><i>i</i>-like</td>
@@ -57,33 +49,34 @@
 			<!-- end .header -->
 		</div>
 		<%
-			if (request == null || request.getSession(false) == null
-					|| session.getAttribute("userRoleSession") == null) {
-				System.out.println("Hey if");
-				out.println("<h2><span class='mandatory'>Please login !!</span></h2>");
+			if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("userName")) {				
 		%>
-		<jsp:forward page="HomePage.html"></jsp:forward>
+		<jsp:forward page="index.jsp">
+			<jsp:param value="Kindly login first!" name="FailReason" />
+		</jsp:forward>
 		<%
 			} else {
 				if (session.getAttribute("userRoleSession").equals("A")) {
 		%>
-
 		<div id="leftcolumn">
 
-			<a href="AdminHome.jsp">Admin Home</a> <a href="addKeywordForm.jsp">Add Keyword</a> <a href="addQuestionForm.jsp">Add
-				Question</a> <a href="addUserForm.jsp">Add User</a> <a href="#">Take
+			<a href="AdminHome.jsp">Admin Home</a><a href="addKeyword.jsp">Add
+				Keyword</a> <a href="addQuestionForm.jsp">Add Question</a> <a
+				href="addUserForm.jsp">Add User</a> <a href="takeTestHome.jsp">Take
 				Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
 		<%
 			} else if (session.getAttribute("userRoleSession").equals("F")) {
-		%>
+				%>
+
 		<div id="leftcolumn">
 
-			<a href="facultyHome.jsp">Faculty Home</a> <a href="addKeywordForm.jsp">Add Keyword</a> <a
-				href="addQuestionForm.jsp">Add Question</a> <a href="#">Take
-				Test</a>
+			<a href="facultyHome.jsp">Faculty Home</a> <a
+				href="addKeywordForm.jsp">Add Keyword</a><a
+				href="addQuestionForm.jsp">Add Question</a> <a
+				href="takeTestHome.jsp">Take Test</a>
 
 			<!-- end .sidebar1 -->
 		</div>
@@ -98,10 +91,7 @@
 		</div>
 		<%
 			}
-			}
 		%>
-
-
 		<form name='subjectform' action="training.jsp" method="GET">
 
 			<div id="rightcolumn">
@@ -124,6 +114,19 @@
 			</div>
 
 		</form>
+		<%
+				}
+				if((!session.getAttribute("userRoleSession").equals("F"))&&(!session.getAttribute("userRoleSession").equals("A"))&&(!session.getAttribute("userRoleSession").equals("S"))){
+					%>
+		<jsp:forward page="index.jsp">
+			<jsp:param
+				value="Kindly login first as Administrator/Faculty/Student to view this page"
+				name="FailReason" />
+		</jsp:forward>
+		<%
+				}
+
+		%>
 		<div class="footer">
 			<center>
 
