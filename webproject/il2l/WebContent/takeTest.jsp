@@ -27,12 +27,12 @@
 <%@page import="com.manteam.iwant2learn.subject.vo.SubjectVO"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
 <title>Insert title here</title>
 <style type="text/css">
@@ -221,7 +221,7 @@ if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("u
 		<div id="question" class="content">
 			<h3>Question</h3>
 			<hr />
-			<%=question.getQuestion()%>
+			<%=question.getQuestion().replaceAll("\\n", "<p/>")%>
 			<%
 				byte[] array = question.getQuestionImageByteArray();
 						if (array == null || array.length == 0) {
@@ -254,7 +254,7 @@ if (null==session.getAttribute("userRoleSession")||null==session.getAttribute("u
 			<br />
 			<div id="answer" class="hidden">
 				<p id="answerDesc">
-					<%=question.getAnswer()%>
+					<%=question.getAnswer().replaceAll("\\n", "<p/>")%>
 				</p>
 			</div>
 			<%
