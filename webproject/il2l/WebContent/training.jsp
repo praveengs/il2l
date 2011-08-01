@@ -144,7 +144,7 @@ function fnHide(){
 <style type="text/css">
 .pageSidebar1 {
 	float: left;
-	width: 320px;
+	width: 22.5%;
 	height: 800px;
 	background: #D5E0FF;
 	padding-bottom: 10px;
@@ -157,8 +157,7 @@ function fnHide(){
 
 .pageContent {
 	padding: 0px 0;
-	width: 800px;
-	height: 800px;
+	height: 100%;
 	float: left;
 	/*border: 3px solid black;*/
 	margin-left: 0px;
@@ -171,8 +170,8 @@ function fnHide(){
 	float: left;
 	background: #D5E0FF;
 	padding: 0px 0;
-	height: 800px;
-	width: 180px;
+	height: 100%;
+	width: 14%;
 	/*border: 3px solid black;*/
 	margin-left: 0px;
 	padding: 5px;
