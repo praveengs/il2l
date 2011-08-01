@@ -18,8 +18,8 @@
 <link href="addQForm.css" rel="stylesheet" type="text/css"></link>
 <script>
 	function fnOpen(subjectName) {
-	window.open(href = 'training.jsp?subject=' + subjectName,'Start_Training',
-						'scrollbars=yes, toolbar=no, menubar=no, addressbar=no, type=fullWindow,fullscreen');
+	window.open('training.jsp?subject='+subjectName,'Start_Training',
+						'scrollbars=yes,toolbar=no,menubar=no,addressbar=no,location=no,resizable=no,width=1800,height=700,top=0,left=0');
 		//}
 	}
 </script>
