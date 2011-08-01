@@ -170,7 +170,7 @@ function fnHide(){
 	float: left;
 	background: #D5E0FF;
 	padding: 0px 0;
-	height: 100%;
+	height: 800px;
 	width: 14%;
 	/*border: 3px solid black;*/
 	margin-left: 0px;
@@ -327,8 +327,7 @@ xmp {
 	%>
 	<div class="footer" align="center">
 
-		<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br /> <b
-			style="color: #999; font-size: 15px">The University of Manchester</b>
+		<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
 
 		<!-- end .footer -->
 	</div>
