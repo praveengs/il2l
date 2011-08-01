@@ -8,7 +8,7 @@
 </head>
 <body>
 <center>
-<i>&#169; ManTeam Development</i><br> The University of Manchester
+<i>&#169; ManTeam Development</i><br> <!-- The University of Manchester -->
 </center>
 </body>
 </html>

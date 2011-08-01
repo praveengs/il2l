@@ -191,8 +191,8 @@
 			<center>
 
 				<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
-				<b style="color: #999; font-size: 15px">The University of
-					Manchester</b>
+				<!-- <b style="color: #999; font-size: 15px">The University of
+					Manchester</b> -->
 
 			</center>
 			<!-- end .footer -->

@@ -81,24 +81,30 @@
 				Welcome to <i style="color: red">i</i>-like2Learn
 			</h1>
 			</marquee>
-			<p>The admin would get the following privileges.The admin would
-				get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.</p>
-			<p>The admin would get the following privileges.The admin would
-				get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.The admin would get the following privileges.The admin
-				would get the following privileges.The admin would get the following
-				privileges.</p>
+			<p>
+		        <i>i</i>
+		        -like2Learn is a system that facilitates and enables the training of students for A-Level subjects based on previous years question paper. This
+		        learning system is driven by keywords and categorization of pervious years questions to the underlined subject. This would help students understand the
+		        important topics and the frequency of questions on a particular topic in the previous year question papers.
+		        <p>
+		        </p>
+		    </p>
+		    <p>
+		    </p>
+		    <p>
+		        The system is designed to be used by the students and the faculties. The students can select the subject and specify their interest of study. Once in
+		        the system the students are enlightened by flurry of questions under the section of their choice. Every question specifies the important keywords
+		        associated and enables students a chance to learn more about a particular topic by the underlined links to the keywords.
+		        <p>
+		        </p>
+		    </p>
+		    <p>
+		        On the other hand with administrative privilege, the faculties can enter questions specifying the category and highlighting the important keywords.
+		        Also the faculties can enter further description relating to the keywords associated with a question. Here the faculties specify the year of occurrence
+		        of the question in previous year question papers which drives the frequency of each question and lets student understand the importance of the
+		        question.
+		    </p>
+		    <br/>
 			
 
 			<!-- end .content -->
@@ -107,8 +113,8 @@
 			<center>
 				
 					<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
-					<b style="color: #999; font-size: 15px">The University of
-						Manchester</b>
+					<!-- <b style="color: #999; font-size: 15px">The University of
+						Manchester</b> -->
 				
 			</center>
 			<!-- end .footer -->

@@ -57,57 +57,43 @@
 		</div>
 		<div id="rightcolumn">
 			<h1>Welcome faculty</h1>
-			<p>The faculty would get the following privileges.The faculty
-				would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.</p>
-			<p>The faculty would get the following privileges.The faculty
-				would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.</p>
-			<p>The faculty would get the following privileges.The faculty
-				would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.</p>
-			<p>The faculty would get the following privileges.The faculty
-				would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.</p>
-
-			<p>The faculty would get the following privileges.The faculty
-				would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.The
-				faculty would get the following privileges.The faculty would get the
-				following privileges.The faculty would get the following
-				privileges.The faculty would get the following privileges.</p>
+			<p>
+		        A Faculty user has the privileges only next to the Admin. Currently the system provides the Faculty with the following privileges.		        
+		    </p>
+			<p>
+		    </p>		    
+		    <h2>
+		        <a name="_Toc298623225"></a>
+		        <a name="_Toc298406116">Add a Question</a>
+		    </h2>
+		    <p>
+		    </p>
+		    <p>
+		        This is the interface through which the admin (or) Faculty can enter a question into the database. The question is persisted with the necessary
+		        keywords and sub-module/module information. the question has also an option to load an image associated with the question. along with the question, the
+		        answer and the associated image is also uploaded.
+		    </p>
+		    <p>
+		    </p>		    
+		    <h2>
+		        <a name="_Toc298623228">Add a Keyword</a>
+		    </h2>
+		    <p>
+		    </p>
+		    <p>
+		        This module provides the interface for the admin and the faculty to add a keyword into the database.
+		    </p>
+		    <p>
+		    </p>
+		    <h2>
+		        <a name="_Toc298623229"></a>
+		        <a name="_Toc298406119">Take Test</a>
+		    </h2>
+		    <p>
+		        This is the main module where the students can take up the test. This is also available to the admin and the faculty to try out a sample test and make
+		        sure that the questions is in order.
+		    </p>
+		    <br/>
 
 			<br /> <br />
 			<!-- end .content -->
@@ -126,8 +112,8 @@
 		<div class="footer" align="center">
 
 			<i style="color: #999; font-size: 15px"><b>@ManTeam</b> </i> <br />
-			<b style="color: #999; font-size: 15px">The University of
-				Manchester</b>
+			<!-- <b style="color: #999; font-size: 15px">The University of
+				Manchester</b> -->
 
 			<!-- end .footer -->
 		</div>
